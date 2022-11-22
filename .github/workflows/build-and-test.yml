@@ -1,0 +1,50 @@
+name: build-and-test
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+    - '**.cs'
+    - '**.csproj'
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'The reason for running a build?'
+        required: true
+        default: 'Manual build'
+
+env:
+  DOTNET_VERSION: '7.0.x' # set this to the dot net version to use
+
+jobs:
+  build:
+    name: build-${{matrix.os}}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: 'Print manual build reason'
+      if: ${{ github.event_name == 'workflow_dispatch' }}
+      run: |
+        echo 'Reason: ${{ github.event.inputs.reason }}'
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Install dependencies
+      run: |
+        dotnet restore ./src/Microsoft.GitHub.Actions/Microsoft.GitHub.Actions.csproj
+        dotnet restore ./tests/Microsoft.GitHub.ActionsTests/Microsoft.GitHub.ActionsTests.csproj
+      
+    - name: Build
+      run: |
+        dotnet build ./src/Microsoft.GitHub.Actions/Microsoft.GitHub.Actions.csproj --configuration Release --no-restore
+        dotnet build ./tests/Microsoft.GitHub.ActionsTests/Microsoft.GitHub.ActionsTests.csproj --configuration Release --no-restore
+    
+    - name: Test
+      run: dotnet test
