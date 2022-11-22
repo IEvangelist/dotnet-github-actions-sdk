@@ -3,8 +3,16 @@
 
 namespace Microsoft.GitHub.Actions.Commands;
 
+/// <inheritdoc cref="IFileCommandIssuer" />
 internal sealed class DefaultFileCommandIssuer : IFileCommandIssuer
 {
+    private readonly Func<string, string, Task> _writeLineTask;
+
+    public DefaultFileCommandIssuer(
+        Func<string, string, Task> writeLineTask) =>
+        _writeLineTask = writeLineTask.ThrowIfNull();
+
+    /// <inheritdoc />
     Task IFileCommandIssuer.IssueFileCommandAsync<TValue>(string command, TValue message)
     {
         var filePath = GetEnvironmentVariable($"GITHUB_{command}");
@@ -19,11 +27,11 @@ internal sealed class DefaultFileCommandIssuer : IFileCommandIssuer
             throw new Exception(
                 $"Missing file at path: '{filePath}' for file command '{command}'.");
         }
-
-        using var writer = new StreamWriter(filePath, append: true, Encoding.UTF8);
-        return writer.WriteLineAsync(message.ToCommandValue());
+        
+        return _writeLineTask.Invoke(filePath, message.ToCommandValue());
     }
 
+    /// <inheritdoc />
     string IFileCommandIssuer.PrepareKeyValueMessage<TValue>(string key, TValue value)
     {
         var delimiter = $"ghadelimiter_{Guid.NewGuid()}";

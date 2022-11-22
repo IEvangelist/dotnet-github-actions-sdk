@@ -3,6 +3,9 @@
 
 namespace Microsoft.GitHub.Actions.EnvironmentVariables;
 
+/// <summary>
+/// A collection of environment variable prefixes, used with corresponding <see cref="Suffixes"/>.
+/// </summary>
 public static class Prefixes
 {
     // Prefixes

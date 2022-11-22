@@ -3,12 +3,37 @@
 
 namespace Microsoft.GitHub.Actions.Commands;
 
-public interface ICommandIssuer
+/// <summary>
+/// The utility used to issue commands.
+/// </summary>
+internal interface ICommandIssuer
 {
+    /// <summary>
+    /// Issue a formal command, given its <paramref name="command"/>, <paramref name="properties"/> and <paramref name="message"/>.
+    /// The following format is adhered to:
+    /// <c>::name key=value,key=value::message</c>
+    /// Consider the following examples:
+    /// <example>
+    /// <list type="bullet">
+    /// <item><c>::warning::This is the message</c></item>
+    /// <item><c>::set-env name=MY_VAR::some value</c></item>
+    /// </list>
+    /// </example>
+    /// </summary>
+    /// <typeparam name="T">The generic-type parameter for the given message type.</typeparam>
+    /// <param name="command">Formal command name as defined in <see cref="CommandConstants" /></param>
+    /// <param name="properties">Properties to issue as part of the command, written as key-value pairs.</param>
+    /// <param name="message">An arbitrary message value</param>
     void IssueCommand<T>(
         string command,
         IDictionary<string, string>? properties = default,
         T? message = default);
 
-    void Issue<T>(string name, T? message = default);
+    /// <summary>
+    /// Issue a formal command, given its <paramref name="command"/> and <paramref name="message"/>.
+    /// </summary>
+    /// <typeparam name="T">The generic-type parameter for the given message type.</typeparam>
+    /// <param name="command">Formal command name as defined in <see cref="CommandConstants" /></param>
+    /// <param name="message">An arbitrary message value</param>
+    void Issue<T>(string command, T? message = default);
 }

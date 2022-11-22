@@ -3,6 +3,9 @@
 
 namespace Microsoft.GitHub.Actions.EnvironmentVariables;
 
+/// <summary>
+/// A collection of environment variable keys, commonly used by GitHub Actions.
+/// </summary>
 public static class Keys
 {
     // GitHub prefixed env vars.
