@@ -14,8 +14,13 @@ public sealed class DefaultCommandIssuerTests
         var testConsole = new TestConsole();
         var sut = new DefaultCommandIssuer(testConsole);
 
-        sut.IssueCommand("command", null, message: "message");
+        sut.IssueCommand(
+            command: "command",
+            properties: null,
+            message: "message");
 
-        Assert.Equal("::command::message", testConsole.Output.ToString());
+        Assert.Equal(
+            expected: $"::command::message{Environment.NewLine}",
+            actual: testConsole.Output.ToString());
     }
 }
