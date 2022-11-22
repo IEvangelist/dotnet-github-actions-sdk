@@ -31,6 +31,11 @@ internal sealed class DefaultCommandIssuer : ICommandIssuer
         var cmd = new Command<T>(
             command, message, properties);
 
+        if (cmd is { Conventional: false })
+        {
+            _console.WriteLine("Issuing unconventional command.");
+        }
+        
         _console.WriteLine(cmd.ToString());
     }
 

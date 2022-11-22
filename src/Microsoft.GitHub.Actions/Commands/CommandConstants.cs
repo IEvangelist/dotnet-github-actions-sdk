@@ -19,4 +19,23 @@ internal static class CommandConstants
     // Deprecated
     public static readonly string SaveState = "save-state";
     public static readonly string SetOutput = "set-output";
+
+    private static readonly Lazy<string[]> s_all = new(() => new[]
+    {
+        SetEnv,
+        AddMask,
+        AddPath,
+        Echo,
+        Debug,
+        Error,
+        Warning,
+        Notice,
+        Group,
+        EndGroup,
+        SaveState,
+        SetOutput
+    });
+
+    internal static bool IsConventional(string command) =>
+        s_all.Value.Contains(command);
 }

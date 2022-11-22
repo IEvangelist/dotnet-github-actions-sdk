@@ -20,6 +20,9 @@ internal readonly record struct Command<T>(
 {
     const string CMD_STRING = "::";
 
+    internal bool Conventional =>
+        CommandConstants.IsConventional(CommandName);
+
     /// <summary>
     /// The string representation of the workflow command, i.e.; <code>::name key=value,key=value::message</code>.
     /// </summary>
