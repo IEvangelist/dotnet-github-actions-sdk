@@ -47,6 +47,6 @@ internal static class CommandConstants
         SetOutput
     });
 
-    internal static bool IsConventional(string command) =>
+    internal static bool IsConventional(string? command) =>
         s_all.Value.Contains(command);
 }

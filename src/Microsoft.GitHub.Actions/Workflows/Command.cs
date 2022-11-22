@@ -14,7 +14,7 @@ namespace Microsoft.GitHub.Actions.Workflows;
 /// </list>
 /// </example>
 internal readonly record struct Command<T>(
-    string CommandName,
+    string? CommandName,
     T? Message,
     IDictionary<string, string>? CommandProperties = default)
 {
