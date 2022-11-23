@@ -17,7 +17,7 @@ public interface IWorkflowStepService
     /// The value of the variable. Non-string values will be converted
     /// to a string via <see cref="JsonSerializer.Serialize(object?, Type, JsonSerializerOptions?)"/>
     /// </param>
-    void ExportVariable(string name, string value);
+    ValueTask ExportVariableAsync(string name, string value);
 
     /// <summary>
     /// Registers a secret which will get masked from logs.
@@ -66,7 +66,7 @@ public interface IWorkflowStepService
     /// Non-string values will be converted to a string via <see cref="JsonSerializer.Serialize(object?, Type, JsonSerializerOptions?)"/>
     /// </param>
     /// <returns></returns>
-    Task SetOutputAsync(string name, string value);
+    ValueTask SetOutputAsync(string name, string value);
 
     /// <summary>
     /// Enables or disables the echoing of commands into stdout for the rest of the step.
@@ -146,7 +146,7 @@ public interface IWorkflowStepService
     /// </typeparam>
     /// <param name="name">The name of the group.</param>
     /// <param name="action">The function to wrap in the group.</param>
-    Task<T> GroupAsync<T>(string name, Func<Task<T>> action);
+    ValueTask<T> GroupAsync<T>(string name, Func<Task<T>> action);
 
     /// <summary>
     /// Saves state for current action, the state can only be retrieved by this action's post job execution
@@ -156,7 +156,7 @@ public interface IWorkflowStepService
     /// Non-string values will be converted to a string via <see cref="JsonSerializer.Serialize(object?, Type, JsonSerializerOptions?)"/>
     /// </param>
     /// <returns></returns>
-    Task SaveStateAsync(string name, string value);
+    ValueTask SaveStateAsync(string name, string value);
 
     /// <summary>
     /// Gets the vale of a state set by this actions's main execution.

@@ -22,7 +22,7 @@ public sealed class DefaultFileCommandIssuerTests
                 var expected = """{"test":"Values","number":7}""";
                 Assert.Equal(expected, actual);
 
-                return Task.CompletedTask;
+                return ValueTask.CompletedTask;
             });
 
         await sut.IssueFileCommandAsync(

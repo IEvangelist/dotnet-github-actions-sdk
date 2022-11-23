@@ -6,14 +6,14 @@ namespace Microsoft.GitHub.Actions.Commands;
 /// <inheritdoc cref="IFileCommandIssuer" />
 internal sealed class DefaultFileCommandIssuer : IFileCommandIssuer
 {
-    private readonly Func<string, string, Task> _writeLineTask;
+    private readonly Func<string, string, ValueTask> _writeLineTask;
 
     public DefaultFileCommandIssuer(
-        Func<string, string, Task> writeLineTask) =>
+        Func<string, string, ValueTask> writeLineTask) =>
         _writeLineTask = writeLineTask.ThrowIfNull();
 
     /// <inheritdoc />
-    Task IFileCommandIssuer.IssueFileCommandAsync<TValue>(string command, TValue message)
+    ValueTask IFileCommandIssuer.IssueFileCommandAsync<TValue>(string command, TValue message)
     {
         var filePath = GetEnvironmentVariable($"GITHUB_{command}");
         if (string.IsNullOrWhiteSpace(filePath))

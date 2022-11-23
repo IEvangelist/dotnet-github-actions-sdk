@@ -16,7 +16,7 @@ internal interface IFileCommandIssuer
     /// <param name="commandSuffix">The command suffix as found in <see cref="EnvironmentVariables.Suffixes"/></param>
     /// <param name="message">An arbitrary message value</param>
     /// <returns>A task that represents the asynchronous operation of writing the message to file.</returns>
-    Task IssueFileCommandAsync<TValue>(string commandSuffix, TValue message);
+    ValueTask IssueFileCommandAsync<TValue>(string commandSuffix, TValue message);
 
     /// <summary>
     /// Prepares a key-value message, given the <paramref name="key"/> and <paramref name="value"/>.

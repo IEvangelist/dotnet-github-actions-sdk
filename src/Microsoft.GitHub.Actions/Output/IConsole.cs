@@ -9,17 +9,23 @@ namespace Microsoft.GitHub.Actions.Output;
 public interface IConsole
 {
     /// <inheritdoc cref="Environment.Exit" />
-    void Exit(int exitCode = 0);
+    void Exit(int exitCode = 0) =>
+        Environment.Exit(
+            Environment.ExitCode = exitCode);
 
     /// <inheritdoc cref="Console.Write" />
-    void Write(string? message = null);
+    void Write(string? message = null) =>
+        Console.Write(message);
 
     /// <inheritdoc cref="Console.WriteLine" />
-    void WriteLine(string? message = null);
+    void WriteLine(string? message = null) =>
+        Console.WriteLine(message);
 
     /// <inheritdoc cref="TextWriter.Write" />
-    void WriteError(string message);
+    void WriteError(string message) =>
+        Console.Error.Write(message);
 
     /// <inheritdoc cref="TextWriter.WriteLine" />
-    void WriteErrorLine(string message);
+    void WriteErrorLine(string message) =>
+        Console.Error.WriteLine(message);
 }

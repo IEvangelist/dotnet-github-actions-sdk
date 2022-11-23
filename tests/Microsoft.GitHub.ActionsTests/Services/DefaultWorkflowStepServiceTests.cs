@@ -13,7 +13,7 @@ public sealed class DefaultWorkflowStepServiceTests
         var testConsole = new TestConsole();
         ICommandIssuer commandIssuer = new DefaultCommandIssuer(testConsole);
         IFileCommandIssuer fileCommandIssuer = new DefaultFileCommandIssuer(
-            (filePath, actual) => Task.CompletedTask);
+            (filePath, actual) => ValueTask.CompletedTask);
 
         IWorkflowStepService sut = new DefaultWorkflowStepService(
             testConsole, commandIssuer, fileCommandIssuer);
@@ -41,7 +41,7 @@ public sealed class DefaultWorkflowStepServiceTests
             {
                 Assert.Equal("path/to/test", actual);
 
-                return Task.CompletedTask;
+                return ValueTask.CompletedTask;
             });
 
         IWorkflowStepService sut = new DefaultWorkflowStepService(

@@ -32,6 +32,7 @@ internal readonly record struct Command<T>(
 
         if (CommandProperties?.Any() ?? false)
         {
+            builder.Append(' ');
             foreach (var (first, key, value)
                 in CommandProperties.Select((kvp, i) => (i == 0, kvp.Key, kvp.Value)))
             {
@@ -39,7 +40,7 @@ internal readonly record struct Command<T>(
                 {
                     builder.Append(',');
                 }
-                builder.Append($" {key}={EscapeProperty(value)}");
+                builder.Append($"{key}={EscapeProperty(value)}");
             }
         }
 

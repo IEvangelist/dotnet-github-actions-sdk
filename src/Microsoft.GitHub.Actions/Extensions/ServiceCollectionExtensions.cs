@@ -10,14 +10,14 @@ public static class ServiceCollectionExtensions
     /// </summary>
     public static IServiceCollection AddGitHubActions(this IServiceCollection services)
     {
-        services.AddSingleton<IConsole, DefaultConsole>();
+        //services.AddSingleton<IConsole, DefaultConsole>();
         services.AddTransient<ICommandIssuer, DefaultCommandIssuer>();
         services.AddTransient<IFileCommandIssuer>(
             _ => new DefaultFileCommandIssuer(
-                (filePath, message) =>
+                async (filePath, message) =>
                 {
                     using var writer = new StreamWriter(filePath, append: true, Encoding.UTF8);
-                    return writer.WriteLineAsync(message);
+                    await writer.WriteLineAsync(message);
                 }));
         services.AddTransient<IWorkflowStepService, DefaultWorkflowStepService>();
 

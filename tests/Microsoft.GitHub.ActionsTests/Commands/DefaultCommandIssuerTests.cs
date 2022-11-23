@@ -59,9 +59,12 @@ public sealed class DefaultCommandIssuerTests
         },
         new object[]
         {
+            new Dictionary<string, string>
+            {
+                ["name"] = "percent % percent % cr \r cr \r lf \n lf \n colon : colon : comma , comma ,"
+            },
             null!,
-            "percent % percent % cr \r cr \r lf \n lf \n",
-            $"::{CommandConstants.SetOutput}::percent %25 percent %25 cr %0D cr %0D lf %0A lf %0A"
+            $"::{CommandConstants.SetOutput} name=percent %25 percent %25 cr %0D cr %0D lf %0A lf %0A colon %3A colon %3A comma %2C comma %2C::"
         },
         new object[]
         {
@@ -77,7 +80,20 @@ public sealed class DefaultCommandIssuerTests
                 ["prop2"] = "Value 2"
             },
             "example",
-            $"::{CommandConstants.SetOutput} prop1=Value 1, prop2=Value 2::example"
+            $"::{CommandConstants.SetOutput} prop1=Value 1,prop2=Value 2::example"
+        },
+        new object[]
+        {
+            new Dictionary<string, string>
+            {
+                ["prop1"] = JsonSerializer.Serialize(new { test = "object"}),
+                ["prop2"] = "123",
+                ["prop3"] = "true"
+            },
+            JsonSerializer.Serialize(new { test = "object"}).ToCommandValue(),
+            $$"""
+            ::{{CommandConstants.SetOutput}} prop1={"test"%3A"object"},prop2=123,prop3=true::{"test":"object"}
+            """
         }
     };
 

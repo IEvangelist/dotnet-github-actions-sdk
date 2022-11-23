@@ -54,7 +54,7 @@ internal sealed class DefaultWorkflowStepService : IWorkflowStepService
             CommandConstants.Error, properties?.ToCommandProperties(), message);
 
     /// <inheritdoc />
-    public void ExportVariable(string name, string value)
+    public async ValueTask ExportVariableAsync(string name, string value)
     {
         value = value.ToCommandValue();
         SetEnvironmentVariable(name, value);
@@ -62,7 +62,7 @@ internal sealed class DefaultWorkflowStepService : IWorkflowStepService
         var filePath = GetEnvironmentVariable(GITHUB_ENV);
         if (filePath is not null)
         {
-            _fileCommandIssuer.IssueFileCommandAsync(
+            await _fileCommandIssuer.IssueFileCommandAsync(
                 ENV,
                 _fileCommandIssuer.PrepareKeyValueMessage(name, value));
         }
@@ -78,34 +78,28 @@ internal sealed class DefaultWorkflowStepService : IWorkflowStepService
     public bool GetBoolInput(string name, InputOptions? options = default)
     {
         var value = GetInput(name, options);
-        if (bool.TryParse(value, out var result))
-        {
-            return result;
-        }
 
-        throw new Exception($"""
-            Input does not meet YAML 1.2 "Core Schema" specification: {name}
-            Support boolean input list: \`true | True | TRUE | false | False | FALSE\`
-            """);
+        return bool.TryParse(value, out var result)
+            ? result
+            : throw new Exception($"""
+                Input does not meet YAML 1.2 "Core Schema" specification: {name}
+                Support boolean input list: \`true | True | TRUE | false | False | FALSE\`
+                """);
     }
 
     /// <inheritdoc />
     public string GetInput(string name, InputOptions? options = default)
     {
-        var value = GetEnvironmentVariable($"{GITHUB_INPUT_PREFIX}{name.Replace(' ', '_').ToUpperInvariant()}");
-        if (options.HasValue && options.Value is { Required: true } &&
-            string.IsNullOrWhiteSpace(value))
-        {
-            throw new Exception(
-                $"Input required and not supplied: {name}");
-        }
+        var value = GetEnvironmentVariable(
+            $"{GITHUB_INPUT_PREFIX}{name.Replace(' ', '_').ToUpperInvariant()}");
 
-        if (options.HasValue && options.Value is { TrimWhitespace: false })
-        {
-            return value ?? "";
-        }
-
-        return value?.Trim() ?? "";
+        return options.HasValue && options.Value is { Required: true } &&
+            string.IsNullOrWhiteSpace(value)
+            ? throw new Exception(
+                $"Input required and not supplied: {name}")
+            : options.HasValue && options.Value is { TrimWhitespace: false }
+                ? value ?? ""
+                : value?.Trim() ?? "";
     }
 
     /// <inheritdoc />
@@ -128,7 +122,7 @@ internal sealed class DefaultWorkflowStepService : IWorkflowStepService
             $"{GITHUB_STATE_PREFIX}{name}") ?? "";
 
     /// <inheritdoc />
-    public async Task<T> GroupAsync<T>(string name, Func<Task<T>> task)
+    public async ValueTask<T> GroupAsync<T>(string name, Func<Task<T>> task)
     {
         T result;
         try
@@ -154,7 +148,7 @@ internal sealed class DefaultWorkflowStepService : IWorkflowStepService
             CommandConstants.Notice, properties?.ToCommandProperties(), message);
 
     /// <inheritdoc />
-    public async Task SaveStateAsync(string name, string value)
+    public async ValueTask SaveStateAsync(string name, string value)
     {
         var filePath = GetEnvironmentVariable(GITHUB_STATE);
         if (filePath is not null)
@@ -185,7 +179,7 @@ internal sealed class DefaultWorkflowStepService : IWorkflowStepService
     }
 
     /// <inheritdoc />
-    public async Task SetOutputAsync(string name, string value)
+    public async ValueTask SetOutputAsync(string name, string value)
     {
         var filePath = GetEnvironmentVariable(GITHUB_OUTPUT);
         if (filePath is not null)
