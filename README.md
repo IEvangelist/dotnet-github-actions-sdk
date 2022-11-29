@@ -29,18 +29,18 @@ Action inputs can be read with `GetInput` which returns a `string` or `GetBoolIn
 Outputs can be set with `SetOutputAsync` which makes them available to be mapped into inputs of other actions to ensure they are decoupled.
 
 ```csharp
-var myInput = core.GetInput("inputName", { required: true });
-var myBoolInput = core.GetBoolInput("boolInputName", { required: true });
-var myMultilineInput = core.GetMultilineInput("multilineInputName", { required: true });
-core.SetOutput("outputKey", "outputVal");
+var myInput = core.GetInput("inputName", new InputOptions(true));
+var myBoolInput = core.GetBoolInput("boolInputName", new InputOptions(true));
+var myMultilineInput = core.GetMultilineInput("multilineInputName", new InputOptions(true));
+await core.SetOutputAsync("outputKey", "outputVal");
 ```
 
 #### Exporting variables
 
-Since each step runs in a separate process, you can use `exportVariable` to add it to this step and future steps environment blocks.
+Since each step runs in a separate process, you can use `ExportVariableAsync` to add it to this step and future steps environment blocks.
 
 ```csharp
-core.ExportVariable("envVar", "Val");
+await core.ExportVariableAsync("envVar", "Val");
 ```
 
 #### Setting a secret
@@ -56,7 +56,7 @@ core.SetSecret("myPassword");
 To make a tool's path available in the path for the remainder of the job (without altering the machine or containers state), use `AddPathAsync`.  The runner will prepend the path given to the jobs PATH.
 
 ```csharp
-core.AddPath("/path/to/mytool");
+await core.AddPathAsync("/path/to/mytool");
 ```
 
 #### Exit codes
@@ -186,10 +186,7 @@ ANSI escape codes can be combined with one another:
 ```csharp
 core.Info("\u001b[31;46mRed foreground with a cyan background and \u001b[1mbold text at the end");
 ```
-
-{{< note >}}
-Escape codes reset at the start of each line.
-{{< /note >}}
+> Note: Escape codes reset at the start of each line.
 
 ```csharp
 core.Info("\u001b[35mThis foreground will be magenta");
