@@ -186,6 +186,7 @@ ANSI escape codes can be combined with one another:
 ```csharp
 core.Info("\u001b[31;46mRed foreground with a cyan background and \u001b[1mbold text at the end");
 ```
+
 > Note: Escape codes reset at the start of each line.
 
 ```csharp
