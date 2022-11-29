@@ -26,7 +26,7 @@ internal interface IFileCommandIssuer
     /// <param name="value">The value used as the right-operand.</param>
     /// <returns>
     /// A string representation of the key-value pair, formatted
-    /// with the appopriate unique delimiter.
+    /// with the appropriate unique delimiter.
     /// </returns>
     string PrepareKeyValueMessage<TValue>(string key, TValue value);
 }

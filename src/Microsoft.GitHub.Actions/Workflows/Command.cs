@@ -14,8 +14,8 @@ namespace Microsoft.GitHub.Actions.Workflows;
 /// </list>
 /// </example>
 internal readonly record struct Command<T>(
-    string? CommandName,
-    T? Message,
+    string? CommandName = "missing.command",
+    T? Message = default,
     IDictionary<string, string>? CommandProperties = default)
 {
     const string CMD_STRING = "::";
