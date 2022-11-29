@@ -21,7 +21,7 @@ internal readonly record struct Command<T>(
     const string CMD_STRING = "::";
 
     internal bool Conventional =>
-        CommandConstants.IsConventional(CommandName);
+        CommandNames.IsConventional(CommandName);
 
     /// <summary>
     /// The string representation of the workflow command, i.e.; <code>::name key=value,key=value::message</code>.
@@ -36,7 +36,7 @@ internal readonly record struct Command<T>(
             foreach (var (first, key, value)
                 in CommandProperties.Select((kvp, i) => (i == 0, kvp.Key, kvp.Value)))
             {
-                if (!first)
+                if (first is false)
                 {
                     builder.Append(',');
                 }
@@ -49,12 +49,6 @@ internal readonly record struct Command<T>(
         return builder.ToString();
     }
 
-    static string EscapeData<TSource>(TSource? value) =>
-        value.ToCommandValue()
-            .Replace("%", "%25")
-            .Replace("\r", "%0D")
-            .Replace("\n", "%0A");
-
     static string EscapeProperty<TSource>(TSource? value) =>
         value.ToCommandValue()
             .Replace("%", "%25")
@@ -62,4 +56,10 @@ internal readonly record struct Command<T>(
             .Replace("\n", "%0A")
             .Replace(":", "%3A")
             .Replace(",", "%2C");
+
+    static string EscapeData<TSource>(TSource? value) =>
+        value.ToCommandValue()
+            .Replace("%", "%25")
+            .Replace("\r", "%0D")
+            .Replace("\n", "%0A");
 }

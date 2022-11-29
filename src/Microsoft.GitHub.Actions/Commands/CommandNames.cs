@@ -3,7 +3,7 @@
 
 namespace Microsoft.GitHub.Actions.Commands;
 
-internal static class CommandConstants
+internal static class CommandNames
 {
     /// <summary>A command constant string value <c>"set-env"</c>.</summary>
     public static readonly string SetEnv = "set-env";

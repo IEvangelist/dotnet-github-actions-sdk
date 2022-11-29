@@ -1,7 +1,7 @@
 ﻿// Copyright (c) David Pine. All rights reserved.
 // Licensed under the MIT License.
 
-namespace Microsoft.GitHub.Actions.EnvironmentVariables;
+namespace Microsoft.GitHub.EnvironmentVariables;
 
 /// <summary>
 /// A collection of environment variable prefixes, used with corresponding <see cref="Suffixes"/>.
@@ -9,6 +9,7 @@ namespace Microsoft.GitHub.Actions.EnvironmentVariables;
 public static class Prefixes
 {
     // Prefixes
-    public const string GITHUB_INPUT_PREFIX = "INPUT_";
-    public const string GITHUB_STATE_PREFIX = "STATE_";
+    public const string GITHUB_ = nameof(GITHUB_);
+    public const string INPUT_ = nameof(INPUT_);
+    public const string STATE_ = nameof(STATE_);
 }

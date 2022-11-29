@@ -7,7 +7,7 @@ namespace Microsoft.GitHub.Actions.Services;
 /// The workflow step service, used to perform various operations in the context of a GitHub Action workflow.
 /// Inspired by <a href="https://github.com/actions/toolkit/blob/main/packages/core/src/core.ts"></a>
 /// </summary>
-public interface IWorkflowStepService
+public interface ICoreService
 {
     /// <summary>
     /// Sets env variable for this action and future actions in the job.
@@ -30,10 +30,10 @@ public interface IWorkflowStepService
     /// </summary>
     /// <param name="inputPath">The input path to prepend.</param>
     ValueTask AddPathAsync(string inputPath);
-
+    
     /// <summary>
     /// Gets the value of an input.
-    /// When <see cref="InputOptions.TrimWhitespace"/> is <c>true</c>, the value is also trimmed.    /// 
+    /// When <see cref="InputOptions.TrimWhitespace"/> is <c>true</c>, the value is also trimmed.
     /// </summary>
     /// <param name="name">name of the input to get.</param>
     /// <param name="options">optional. <see cref="InputOptions"/>.</param>
@@ -49,13 +49,13 @@ public interface IWorkflowStepService
     string[] GetMultilineInput(string name, InputOptions? options = null);
 
     /// <summary>
-    ///  Gets the input value of the boolean type in the YAML 1.2 "core schema" specification.
-    ///  Support boolean input list: <c>true | True | TRUE | false | False | FALSE</c>.
+    ///  Gets the input value of the bool type in the YAML 1.2 "core schema" specification.
+    ///  Support bool input list: <c>true | True | TRUE | false | False | FALSE</c>.
     ///  <a href="https://yaml.org/spec/1.2/spec.html#id2804923"></a>
     /// </summary>
     /// <param name="name">name of the input to get.</param>
     /// <param name="options">optional. <see cref="InputOptions"/>.</param>
-    /// <returns>The return value is also in boolean type.</returns>
+    /// <returns>The return value is also in bool type.</returns>
     bool GetBoolInput(string name, InputOptions? options = null);
 
     /// <summary>
@@ -65,8 +65,7 @@ public interface IWorkflowStepService
     /// <param name="value">value to store.
     /// Non-string values will be converted to a string via <see cref="JsonSerializer.Serialize(object?, Type, JsonSerializerOptions?)"/>
     /// </param>
-    /// <returns></returns>
-    ValueTask SetOutputAsync(string name, string value);
+    ValueTask SetOutputAsync<T>(string name, T value);
 
     /// <summary>
     /// Enables or disables the echoing of commands into stdout for the rest of the step.
@@ -96,27 +95,21 @@ public interface IWorkflowStepService
     /// <summary>
     /// Adds an error issue.
     /// </summary>
-    /// <param name="message">
-    /// Error issue message.
-    /// Errors will be converted to <c>string</c> via <c>Exception.ToString()</c>.</param>
+    /// <param name="message">Error issue message.</param>
     /// <param name="properties">Optional properties to add to the annotation.</param>
     void Error(string message, AnnotationProperties? properties = null);
 
     /// <summary>
     /// Adds a warning issue.
     /// </summary>
-    /// <param name="message">
-    /// Error issue message.
-    /// Errors will be converted to <c>string</c> via <c>Exception.ToString()</c>.</param>
+    /// <param name="message">Error issue message.</param>
     /// <param name="properties">Optional properties to add to the annotation.</param>
     void Warning(string message, AnnotationProperties? properties = null);
 
     /// <summary>
     /// Adds a notice issue.
     /// </summary>
-    /// <param name="message">
-    /// Error issue message.
-    /// Errors will be converted to <c>string</c> via <c>Exception.ToString()</c>.</param>
+    /// <param name="message">Error issue message.</param>
     /// <param name="properties">Optional properties to add to the annotation.</param>
     void Notice(string message, AnnotationProperties? properties = null);
 
@@ -146,7 +139,7 @@ public interface IWorkflowStepService
     /// </typeparam>
     /// <param name="name">The name of the group.</param>
     /// <param name="action">The function to wrap in the group.</param>
-    ValueTask<T> GroupAsync<T>(string name, Func<Task<T>> action);
+    ValueTask<T> GroupAsync<T>(string name, Func<ValueTask<T>> action);
 
     /// <summary>
     /// Saves state for current action, the state can only be retrieved by this action's post job execution
@@ -155,8 +148,7 @@ public interface IWorkflowStepService
     /// <param name="value">value to store.
     /// Non-string values will be converted to a string via <see cref="JsonSerializer.Serialize(object?, Type, JsonSerializerOptions?)"/>
     /// </param>
-    /// <returns></returns>
-    ValueTask SaveStateAsync(string name, string value);
+    ValueTask SaveStateAsync<T>(string name, T value);
 
     /// <summary>
     /// Gets the vale of a state set by this actions's main execution.

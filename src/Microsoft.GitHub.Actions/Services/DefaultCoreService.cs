@@ -3,14 +3,14 @@
 
 namespace Microsoft.GitHub.Actions.Services;
 
-/// <inheritdoc cref="IWorkflowStepService" />
-internal sealed class DefaultWorkflowStepService : IWorkflowStepService
+/// <inheritdoc cref="ICoreService" />
+internal sealed class DefaultCoreService : ICoreService
 {
     private readonly IConsole _console;
     private readonly ICommandIssuer _commandIssuer;
     private readonly IFileCommandIssuer _fileCommandIssuer;
 
-    public DefaultWorkflowStepService(
+    public DefaultCoreService(
         IConsole console,
         ICommandIssuer commandIssuer,
         IFileCommandIssuer fileCommandIssuer) =>
@@ -30,7 +30,7 @@ internal sealed class DefaultWorkflowStepService : IWorkflowStepService
         }
         else
         {
-            _commandIssuer.IssueCommand(CommandConstants.AddPath, null, path);
+            _commandIssuer.IssueCommand(CommandNames.AddPath, null, path);
         }
 
         SetEnvironmentVariable(
@@ -41,17 +41,17 @@ internal sealed class DefaultWorkflowStepService : IWorkflowStepService
     /// <inheritdoc />
     public void Debug(string message) =>
         _commandIssuer.IssueCommand(
-            CommandConstants.Debug, message: message);
+            CommandNames.Debug, message: message);
 
     /// <inheritdoc />
     public void EndGroup() =>
         _commandIssuer.Issue(
-            CommandConstants.EndGroup, "");
+            CommandNames.EndGroup, "");
 
     /// <inheritdoc />
     public void Error(string message, AnnotationProperties? properties = default) =>
         _commandIssuer.IssueCommand(
-            CommandConstants.Error, properties?.ToCommandProperties(), message);
+            CommandNames.Error, properties?.ToCommandProperties(), message);
 
     /// <inheritdoc />
     public async ValueTask ExportVariableAsync(string name, string value)
@@ -69,7 +69,7 @@ internal sealed class DefaultWorkflowStepService : IWorkflowStepService
         else
         {
             _commandIssuer.IssueCommand<string>(
-                CommandConstants.SetEnv,
+                CommandNames.SetEnv,
                 name.ToCommandProperties());
         }
     }
@@ -91,7 +91,7 @@ internal sealed class DefaultWorkflowStepService : IWorkflowStepService
     public string GetInput(string name, InputOptions? options = default)
     {
         var value = GetEnvironmentVariable(
-            $"{GITHUB_INPUT_PREFIX}{name.Replace(' ', '_').ToUpperInvariant()}");
+            $"{INPUT_}{name.Replace(' ', '_').ToUpperInvariant()}");
 
         return options.HasValue && options.Value is { Required: true } &&
             string.IsNullOrWhiteSpace(value)
@@ -108,21 +108,17 @@ internal sealed class DefaultWorkflowStepService : IWorkflowStepService
         var inputs = GetInput(name, options)
             .Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
-        if (options.HasValue && options.Value is { TrimWhitespace: false })
-        {
-            return inputs;
-        }
-
-        return inputs.Select(input => input.Trim()).ToArray();
+        return options.HasValue && options.Value is { TrimWhitespace: false }
+            ? inputs
+            : inputs.Select(input => input.Trim()).ToArray();
     }
 
     /// <inheritdoc />
     public string GetState(string name) =>
-        GetEnvironmentVariable(
-            $"{GITHUB_STATE_PREFIX}{name}") ?? "";
+        GetEnvironmentVariable($"{STATE_}{name}") ?? "";
 
     /// <inheritdoc />
-    public async ValueTask<T> GroupAsync<T>(string name, Func<Task<T>> task)
+    public async ValueTask<T> GroupAsync<T>(string name, Func<ValueTask<T>> task)
     {
         T result;
         try
@@ -145,10 +141,10 @@ internal sealed class DefaultWorkflowStepService : IWorkflowStepService
     /// <inheritdoc />
     public void Notice(string message, AnnotationProperties? properties = default) =>
         _commandIssuer.IssueCommand(
-            CommandConstants.Notice, properties?.ToCommandProperties(), message);
+            CommandNames.Notice, properties?.ToCommandProperties(), message);
 
     /// <inheritdoc />
-    public async ValueTask SaveStateAsync(string name, string value)
+    public async ValueTask SaveStateAsync<T>(string name, T value)
     {
         var filePath = GetEnvironmentVariable(GITHUB_STATE);
         if (filePath is not null)
@@ -160,7 +156,7 @@ internal sealed class DefaultWorkflowStepService : IWorkflowStepService
         else
         {
             _commandIssuer.IssueCommand(
-                CommandConstants.SaveState,
+                CommandNames.SaveState,
                 name.ToCommandProperties(),
                 value.ToCommandValue());
         }
@@ -169,7 +165,7 @@ internal sealed class DefaultWorkflowStepService : IWorkflowStepService
     /// <inheritdoc />
     public void SetCommandEcho(bool enabled) =>
         _commandIssuer.Issue(
-            CommandConstants.Echo, enabled ? "on" : "off");
+            CommandNames.Echo, enabled ? "on" : "off");
 
     /// <inheritdoc />
     public void SetFailed(string message)
@@ -179,7 +175,7 @@ internal sealed class DefaultWorkflowStepService : IWorkflowStepService
     }
 
     /// <inheritdoc />
-    public async ValueTask SetOutputAsync(string name, string value)
+    public async ValueTask SetOutputAsync<T>(string name, T value)
     {
         var filePath = GetEnvironmentVariable(GITHUB_OUTPUT);
         if (filePath is not null)
@@ -193,7 +189,7 @@ internal sealed class DefaultWorkflowStepService : IWorkflowStepService
             _console.WriteLine("");
 
             _commandIssuer.IssueCommand(
-                CommandConstants.SetOutput,
+                CommandNames.SetOutput,
                 name.ToCommandProperties(),
                 value.ToCommandValue());
         }
@@ -202,15 +198,15 @@ internal sealed class DefaultWorkflowStepService : IWorkflowStepService
     /// <inheritdoc />
     public void SetSecret(string secret) =>
         _commandIssuer.IssueCommand(
-            CommandConstants.AddMask, null, secret);
+            CommandNames.AddMask, null, secret);
 
     /// <inheritdoc />
     public void StartGroup(string name) =>
         _commandIssuer.Issue(
-            CommandConstants.Group, name);
+            CommandNames.Group, name);
 
     /// <inheritdoc />
     public void Warning(string message, AnnotationProperties? properties = default) =>
         _commandIssuer.IssueCommand(
-            CommandConstants.Warning, properties?.ToCommandProperties(), message);
+            CommandNames.Warning, properties?.ToCommandProperties(), message);
 }

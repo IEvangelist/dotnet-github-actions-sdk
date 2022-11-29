@@ -7,10 +7,11 @@ public static class ServiceCollectionExtensions
 {
     /// <summary>
     /// Adds all the services required to interact with GitHub Action workflows.
+    /// Consumers should require the <see cref="ICoreService"/> to interact with the workflow.
     /// </summary>
     public static IServiceCollection AddGitHubActions(this IServiceCollection services)
     {
-        //services.AddSingleton<IConsole, DefaultConsole>();
+        services.AddSingleton<IConsole, DefaultConsole>();
         services.AddTransient<ICommandIssuer, DefaultCommandIssuer>();
         services.AddTransient<IFileCommandIssuer>(
             _ => new DefaultFileCommandIssuer(
@@ -19,7 +20,7 @@ public static class ServiceCollectionExtensions
                     using var writer = new StreamWriter(filePath, append: true, Encoding.UTF8);
                     await writer.WriteLineAsync(message);
                 }));
-        services.AddTransient<IWorkflowStepService, DefaultWorkflowStepService>();
+        services.AddTransient<ICoreService, DefaultCoreService>();
 
         return services;
     }

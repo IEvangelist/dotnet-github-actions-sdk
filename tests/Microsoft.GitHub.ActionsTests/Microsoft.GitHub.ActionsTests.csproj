@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Microsoft.GitHub.Actions\Microsoft.GitHub.Actions.csproj" />
+    <ProjectReference Include="..\..\src\Microsoft.GitHub\Microsoft.GitHub.csproj" />
   </ItemGroup>
 
 </Project>

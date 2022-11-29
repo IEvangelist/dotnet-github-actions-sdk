@@ -10,22 +10,25 @@ internal sealed class DefaultCommandIssuer : ICommandIssuer
 
     public DefaultCommandIssuer(IConsole console) => _console = console;
 
+    /// <inheritdoc />
+    public void Issue<T>(string commandName, T? message = default) =>
+        IssueCommand(commandName, null, message);
+
+    /// <inheritdoc />
     public void IssueCommand<T>(
-        string command,
+        string commandName,
         IDictionary<string, string>? properties = default,
         T? message = default)
     {
         var cmd = new Command<T>(
-            command, message, properties);
+            commandName, message, properties);
 
-        if (cmd is { Conventional: false })
+        if (cmd is not { Conventional: true })
         {
             _console.WriteLine("Issuing unconventional command.");
         }
-        
-        _console.WriteLine(cmd.ToString());
-    }
 
-    public void Issue<T>(string name, T? message = default) =>
-        IssueCommand(name, null, message);
+        var commandMessage = cmd.ToString();
+        _console.WriteLine(commandMessage);
+    }
 }

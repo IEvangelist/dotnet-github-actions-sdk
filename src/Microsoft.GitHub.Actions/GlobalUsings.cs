@@ -16,6 +16,6 @@ global using Microsoft.GitHub.Actions.Workflows;
 global using static System.Environment;
 global using static System.IO.Path;
 
-global using static Microsoft.GitHub.Actions.EnvironmentVariables.Keys;
-global using static Microsoft.GitHub.Actions.EnvironmentVariables.Prefixes;
-global using static Microsoft.GitHub.Actions.EnvironmentVariables.Suffixes;
+global using static Microsoft.GitHub.EnvironmentVariables.Keys;
+global using static Microsoft.GitHub.EnvironmentVariables.Prefixes;
+global using static Microsoft.GitHub.EnvironmentVariables.Suffixes;

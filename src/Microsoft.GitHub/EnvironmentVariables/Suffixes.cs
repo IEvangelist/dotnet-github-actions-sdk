@@ -1,7 +1,7 @@
 ﻿// Copyright (c) David Pine. All rights reserved.
 // Licensed under the MIT License.
 
-namespace Microsoft.GitHub.Actions.EnvironmentVariables;
+namespace Microsoft.GitHub.EnvironmentVariables;
 
 /// <summary>
 /// A collection of environment variable prefixes, used with corresponding <see cref="Prefixes"/>.

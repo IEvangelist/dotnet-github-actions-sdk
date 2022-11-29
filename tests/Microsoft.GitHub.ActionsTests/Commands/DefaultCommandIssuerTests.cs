@@ -12,7 +12,7 @@ public sealed class DefaultCommandIssuerTests
         ICommandIssuer sut = new DefaultCommandIssuer(testConsole);
 
         sut.Issue(
-            command: "command",
+            commandName: "command",
             message: "message");
 
         Assert.Equal(
@@ -29,7 +29,7 @@ public sealed class DefaultCommandIssuerTests
         ICommandIssuer sut = new DefaultCommandIssuer(testConsole);
 
         sut.IssueCommand(
-            command: "command",
+            commandName: "command",
             properties: null,
             message: "message");
 
@@ -49,13 +49,13 @@ public sealed class DefaultCommandIssuerTests
                 ["name"] = "summary"
             },
             "Everything worked as expected",
-            $"::{CommandConstants.SetOutput} name=summary::Everything worked as expected"
+            $"::{CommandNames.SetOutput} name=summary::Everything worked as expected"
         },
         new object[]
         {
             null!,
             "deftones",
-            $"::{CommandConstants.SetOutput}::deftones"
+            $"::{CommandNames.SetOutput}::deftones"
         },
         new object[]
         {
@@ -64,13 +64,13 @@ public sealed class DefaultCommandIssuerTests
                 ["name"] = "percent % percent % cr \r cr \r lf \n lf \n colon : colon : comma , comma ,"
             },
             null!,
-            $"::{CommandConstants.SetOutput} name=percent %25 percent %25 cr %0D cr %0D lf %0A lf %0A colon %3A colon %3A comma %2C comma %2C::"
+            $"::{CommandNames.SetOutput} name=percent %25 percent %25 cr %0D cr %0D lf %0A lf %0A colon %3A colon %3A comma %2C comma %2C::"
         },
         new object[]
         {
             null!,
             "%25 %25 %0D %0D %0A %0A %3A %3A %2C %2C",
-            $"::{CommandConstants.SetOutput}::%2525 %2525 %250D %250D %250A %250A %253A %253A %252C %252C"
+            $"::{CommandNames.SetOutput}::%2525 %2525 %250D %250D %250A %250A %253A %253A %252C %252C"
         },
         new object[]
         {
@@ -80,7 +80,7 @@ public sealed class DefaultCommandIssuerTests
                 ["prop2"] = "Value 2"
             },
             "example",
-            $"::{CommandConstants.SetOutput} prop1=Value 1,prop2=Value 2::example"
+            $"::{CommandNames.SetOutput} prop1=Value 1,prop2=Value 2::example"
         },
         new object[]
         {
@@ -92,7 +92,7 @@ public sealed class DefaultCommandIssuerTests
             },
             JsonSerializer.Serialize(new { test = "object"}).ToCommandValue(),
             $$"""
-            ::{{CommandConstants.SetOutput}} prop1={"test"%3A"object"},prop2=123,prop3=true::{"test":"object"}
+            ::{{CommandNames.SetOutput}} prop1={"test"%3A"object"},prop2=123,prop3=true::{"test":"object"}
             """
         }
     };
@@ -108,7 +108,7 @@ public sealed class DefaultCommandIssuerTests
         ICommandIssuer sut = new DefaultCommandIssuer(testConsole);
 
         sut.IssueCommand(
-            command: CommandConstants.SetOutput,
+            commandName: CommandNames.SetOutput,
             properties,
             message);
 

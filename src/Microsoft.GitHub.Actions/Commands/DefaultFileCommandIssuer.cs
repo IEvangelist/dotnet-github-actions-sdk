@@ -13,19 +13,19 @@ internal sealed class DefaultFileCommandIssuer : IFileCommandIssuer
         _writeLineTask = writeLineTask.ThrowIfNull();
 
     /// <inheritdoc />
-    ValueTask IFileCommandIssuer.IssueFileCommandAsync<TValue>(string command, TValue message)
+    ValueTask IFileCommandIssuer.IssueFileCommandAsync<TValue>(string commandSuffix, TValue message)
     {
-        var filePath = GetEnvironmentVariable($"GITHUB_{command}");
+        var filePath = GetEnvironmentVariable($"{GITHUB_}{commandSuffix}");
         if (string.IsNullOrWhiteSpace(filePath))
         {
             throw new Exception(
-                $"Unable to find environment variable for file command suffix '{command} (GITHUB_{command})'.");
+                $"Unable to find environment variable for file command suffix '{commandSuffix} ({GITHUB_}{commandSuffix})'.");
         }
 
         if (File.Exists(filePath) is false)
         {
             throw new Exception(
-                $"Missing file at path: '{filePath}' for file command '{command}'.");
+                $"Missing file at path: '{filePath}' for file command '{commandSuffix}'.");
         }
         
         return _writeLineTask.Invoke(filePath, message.ToCommandValue());

@@ -13,4 +13,8 @@
   <ItemGroup>
 	<InternalsVisibleTo Include="Microsoft.GitHub.ActionsTests" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Microsoft.GitHub\Microsoft.GitHub.csproj" />
+  </ItemGroup>
 </Project>
