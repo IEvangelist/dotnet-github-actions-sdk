@@ -3,10 +3,13 @@
 
 namespace Microsoft.GitHub.Actions.Summaries;
 
+/// <summary>
+/// A job summary, see <a href="https://docs.github.com/actions/using-workflows/workflow-commands-for-github-actions#adding-a-job-summary"></a>.
+/// </summary>
 public sealed class Summary
 {
-    public StringBuilder _buffer = new();
-    public string? _filePath;
+    private StringBuilder _buffer = new();
+    private string? _filePath;
 
     /// <summary>If the summary buffer is empty</summary>
     /// <returns><c>true</c> if the buffer is empty</returns>
@@ -252,7 +255,6 @@ public sealed class Summary
     /// <summary>Adds an HTML blockquote to the summary buffer</summary>
     /// <param name="text">quote text</param>
     /// <param name="cite">cite (optional) citation url</param>
-    /// <param name="attributes">attrs key-value list of HTML attributes to add</param>
     /// <returns>The <c>Summary</c> instance</returns>
     public Summary AddQuote(string text, string? cite = null)
     {

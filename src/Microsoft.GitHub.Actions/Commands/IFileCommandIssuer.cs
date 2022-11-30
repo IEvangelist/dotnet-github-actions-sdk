@@ -12,7 +12,7 @@ internal interface IFileCommandIssuer
     /// Asynchronous I/O that issues a command that corresponds to the
     /// given <paramref name="commandSuffix"/>, with the given <paramref name="message"/> value.
     /// </summary>
-    /// <typeparam name="T">The generic-type parameter for the given message type.</typeparam>
+    /// <typeparam name="TValue">The generic-type parameter for the given message type.</typeparam>
     /// <param name="commandSuffix">The command suffix as found in <see cref="EnvironmentVariables.Suffixes"/></param>
     /// <param name="message">An arbitrary message value</param>
     /// <returns>A task that represents the asynchronous operation of writing the message to file.</returns>
@@ -21,7 +21,7 @@ internal interface IFileCommandIssuer
     /// <summary>
     /// Prepares a key-value message, given the <paramref name="key"/> and <paramref name="value"/>.
     /// </summary>
-    /// <typeparam name="T">The generic-type parameter for the given message type.</typeparam>
+    /// <typeparam name="TValue">The generic-type parameter for the given message type.</typeparam>
     /// <param name="key">The key used as the left-operand.</param>
     /// <param name="value">The value used as the right-operand.</param>
     /// <returns>

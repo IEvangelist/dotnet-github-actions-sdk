@@ -40,6 +40,9 @@ public readonly record struct AnnotationProperties
 
     private bool IsEmpty => Equals(default);
 
+    /// <summary>
+    /// Converts the current annotations instance into a readonly dictionary.
+    /// </summary>
     public IReadOnlyDictionary<string, string> ToCommandProperties()
     {
         if (IsEmpty)

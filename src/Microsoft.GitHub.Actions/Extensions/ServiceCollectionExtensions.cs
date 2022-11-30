@@ -3,6 +3,9 @@
 
 namespace Microsoft.GitHub.Actions.Extensions;
 
+/// <summary>
+/// Extensions for registering services with the <see cref="IServiceCollection"/>.
+/// </summary>
 public static class ServiceCollectionExtensions
 {
     /// <summary>

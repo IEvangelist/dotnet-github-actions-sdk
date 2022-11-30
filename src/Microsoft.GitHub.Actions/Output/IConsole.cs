@@ -13,19 +13,19 @@ public interface IConsole
         Environment.Exit(
             Environment.ExitCode = exitCode);
 
-    /// <inheritdoc cref="Console.Write" />
+    /// <inheritdoc cref="Console.Write(string?)" />
     void Write(string? message = null) =>
         Console.Write(message);
 
-    /// <inheritdoc cref="Console.WriteLine" />
+    /// <inheritdoc cref="Console.WriteLine(string?)" />
     void WriteLine(string? message = null) =>
         Console.WriteLine(message);
 
-    /// <inheritdoc cref="TextWriter.Write" />
+    /// <inheritdoc cref="TextWriter.Write(string?)" />
     void WriteError(string message) =>
         Console.Error.Write(message);
 
-    /// <inheritdoc cref="TextWriter.WriteLine" />
+    /// <inheritdoc cref="TextWriter.WriteLine(string?)" />
     void WriteErrorLine(string message) =>
         Console.Error.WriteLine(message);
 }
