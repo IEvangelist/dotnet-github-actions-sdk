@@ -13,20 +13,20 @@ Welcome to the [Microsoft.GitHub.Actions] .NET SDK. This SDK is used to create G
 > **Warning**:
 > This package is **not** an official _Microsoft_ or _GitHub_ product. It is a community-driven project. However, I do choose to use the `Microsoft.GitHub[.*]` namespace for the package. I'm not trying to mislead anyone, but I do want to make it clear that this is not an official product.
 
-You'll need to install the [GitHub Actions Workflow .NET SDK](https://www.nuget.org/packages/Microsoft.GitHub.Actions) NuGet package to use the .NET APIs. The package is available on NuGet.org. The following is the command to install the package:
+You'll need to install the [GitHub Actions Workflow .NET SDK](https://www.nuget.org/packages/GitHub.Actions.Core) NuGet package to use the .NET APIs. The package is available on NuGet.org. The following is the command to install the package:
 
 #### Adding package references
 
 Either add the package reference to your project file:
 
 ```xml
-<PackageReference Include="Microsoft.GitHub.Actions" Version="1.0.0" />
+<PackageReference Include="GitHub.Actions.Core" Version="1.0.0" />
 ```
 
 Or use the [`dotnet add package`](https://learn.microsoft.com/dotnet/core/tools/dotnet-add-package) .NET CLI command:
 
 ```bash
-dotnet add package Microsoft.GitHub.Actions
+dotnet add package GitHub.Actions.Core
 ```
 
 ### Get the `ICoreService` instance
