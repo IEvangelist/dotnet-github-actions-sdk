@@ -15,7 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.github\workflows\build-and-test.yml = .github\workflows\build-and-test.yml
+		.github\workflows\codeql-analysis.yml = .github\workflows\codeql-analysis.yml
 		LICENSE = LICENSE
+		.github\workflows\pr-validation.yml = .github\workflows\pr-validation.yml
+		.github\workflows\publish-nuget.yml = .github\workflows\publish-nuget.yml
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -23,7 +26,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{C535
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.GitHub.SampleAction", "samples\Microsoft.GitHub.SampleAction\Microsoft.GitHub.SampleAction.csproj", "{2C5BDF3F-726C-4D1B-91D9-AB4209B9DD3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.GitHub", "src\Microsoft.GitHub\Microsoft.GitHub.csproj", "{2CC93064-96E3-40E3-A328-C87C3D2BA0C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.GitHub", "src\Microsoft.GitHub\Microsoft.GitHub.csproj", "{2CC93064-96E3-40E3-A328-C87C3D2BA0C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
