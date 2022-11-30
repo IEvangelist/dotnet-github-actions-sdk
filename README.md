@@ -1,6 +1,7 @@
 # GitHub Actions Workflow .NET SDK
 
 [![build-and-test](https://github.com/IEvangelist/dotnet-github-actions-sdk/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/IEvangelist/dotnet-github-actions-sdk/actions/workflows/build-and-test.yml)
+[![code analysis](https://github.com/IEvangelist/dotnet-github-actions-sdk/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/IEvangelist/dotnet-github-actions-sdk/actions/workflows/codeql-analysis.yml)
 
 The .NET equivalent of the official GitHub [actions/toolkit](https://github.com/actions/toolkit) `@actions/core` project.
 
