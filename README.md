@@ -6,15 +6,51 @@ The .NET equivalent of the official GitHub [actions/toolkit](https://github.com/
 
 ## Usage
 
-To use the `ICoreService` in your .NET project, you can install the `GitHub.Actions` N.Get package. From an `IServiceCollection` instance, call `AddGitHubActions` and then your consuming code can require the `ICoreService` via constructor dependency injection.
+### Installing the NuGet package 📦
 
-This was modified, but borrowed from the [_core/README.md_](https://github.com/actions/toolkit/blob/main/packages/core/README.md).
+Welcome to the [Microsoft.GitHub.Actions] .NET SDK. This SDK is used to create GitHub Actions in .NET. The SDK is a thin wrapper around the .NET implementation of the GitHub Actions a select few packages from the [`@actions/toolkit`](https://github.com/actions/toolkit).
+
+{{< note title="⚠️ DISCLAIMER" color="darkred" >}}
+This package is **not** an official _Microsoft_ or _GitHub_ product. It is a community-driven project. However, I do choose to use the `Microsoft.GitHub[.*]` namespace for the package. I'm not trying to mislead anyone, but I do want to make it clear that this is not an official product.
+{{< /note >}}
+
+You'll need to install the [GitHub Actions Workflow .NET SDK](https://www.nuget.org/packages/Microsoft.GitHub.Actions) NuGet package to use the .NET APIs. The package is available on NuGet.org. The following is the command to install the package:
+
+#### Adding package references
+
+Either add the package reference to your project file:
+
+```xml
+<PackageReference Include="Microsoft.GitHub.Actions" Version="1.0.0" />
+```
+
+Or use the [`dotnet add package`](https://learn.microsoft.com/dotnet/core/tools/dotnet-add-package) .NET CLI command:
+
+```bash
+dotnet add package Microsoft.GitHub.Actions
+```
+
+### Get the `ICoreService` instance
+
+To use the `ICoreService` in your .NET project, register the services with an `IServiceCollection` instance by calling `AddGitHubActions` and then your consuming code can require the `ICoreService` via constructor dependency injection.
+
+```csharp
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.GitHub.Actions;
+using Microsoft.GitHub.Actions.Extensions;
+
+using var provider = new ServiceCollection()
+    .AddGitHubActions()
+    .BuildServiceProvider();
+
+var core = provider.GetRequiredService<ICoreService>();
+```
 
 ## `Microsoft.GitHub.Actions`
 
-> Core functions for setting results, logging, registering secrets and exporting variables across actions
+This was modified, but borrowed from the [_core/README.md_](https://github.com/actions/toolkit/blob/main/packages/core/README.md).
 
-## Usage
+> Core functions for setting results, logging, registering secrets and exporting variables across actions
 
 ### Using declarations
 
@@ -64,11 +100,11 @@ await core.AddPathAsync("/path/to/mytool");
 You should use this library to set the failing exit code for your action.  If status is not set and the script runs to completion, that will lead to a success.
 
 ```csharp
-using var services = new ServiceCollection()
+using var provider = new ServiceCollection()
     .AddGitHubActions()
     .BuildServiceProvider();
 
-var core = services.GetRequiredService<ICoreService>();
+var core = provider.GetRequiredService<ICoreService>();
 
 try 
 {
@@ -86,11 +122,11 @@ catch (Exception ex)
 Finally, this library provides some utilities for logging. Note that debug logging is hidden from the logs by default. This behavior can be toggled by enabling the [Step Debug Logs](../../docs/action-debugging.md#step-debug-logs).
 
 ```csharp
-using var services = new ServiceCollection()
+using var provider = new ServiceCollection()
     .AddGitHubActions()
     .BuildServiceProvider();
 
-var core = services.GetRequiredService<ICoreService>();
+var core = provider.GetRequiredService<ICoreService>();
 
 var myInput = core.GetInput("input");
 try
@@ -125,21 +161,22 @@ catch (Exception ex)
 This library can also wrap chunks of output in foldable groups.
 
 ```csharp
-using var services = new ServiceCollection()
+using var provider = new ServiceCollection()
     .AddGitHubActions()
     .BuildServiceProvider();
 
-var core = services.GetRequiredService<ICoreService>();
+var core = provider.GetRequiredService<ICoreService>();
 
 // Manually wrap output
 core.StartGroup("Do some function");
-doSomeFunction();
+SomeFunction();
 core.EndGroup();
 
 // Wrap an asynchronous function call
-var result = await core.GroupAsync("Do something async", async () => {
-  var response = await DoSomeHttpRequestAsync();
-  return response
+var result = await core.GroupAsync("Do something async", async () =>
+{
+    var response = await MakeHttpRequestAsync();
+    return response
 });
 ```
 
