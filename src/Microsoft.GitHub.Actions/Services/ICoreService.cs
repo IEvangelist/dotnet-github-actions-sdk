@@ -4,8 +4,9 @@
 namespace Microsoft.GitHub.Actions.Services;
 
 /// <summary>
-/// The workflow step service, used to perform various operations in the context of a GitHub Action workflow.
-/// Inspired by <a href="https://github.com/actions/toolkit/blob/main/packages/core/src/core.ts"></a>
+/// The workflow core service, used to perform various operations in the context of a GitHub Action workflow.
+/// Inspired by <a href="https://github.com/actions/toolkit/blob/main/packages/core/src/core.ts"></a>.
+/// Specified in <a href="https://docs.github.com/actions/using-workflows/workflow-commands-for-github-actions"></a>
 /// </summary>
 public interface ICoreService
 {

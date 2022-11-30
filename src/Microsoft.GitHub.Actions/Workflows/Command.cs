@@ -24,7 +24,8 @@ internal readonly record struct Command<T>(
         CommandNames.IsConventional(CommandName);
 
     /// <summary>
-    /// The string representation of the workflow command, i.e.; <code>::name key=value,key=value::message</code>.
+    /// The string representation of the workflow command, i.e.;
+    /// <code>::name key=value,key=value::message</code>.
     /// </summary>
     public override string ToString()
     {
@@ -33,10 +34,11 @@ internal readonly record struct Command<T>(
         if (CommandProperties?.Any() ?? false)
         {
             builder.Append(' ');
-            foreach (var (first, key, value)
-                in CommandProperties.Select((kvp, i) => (i == 0, kvp.Key, kvp.Value)))
+            foreach (var (isNotFirst, key, value)
+                in CommandProperties.Select(
+                    (kvp, index) => (index is > 0, kvp.Key, kvp.Value)))
             {
-                if (first is false)
+                if (isNotFirst)
                 {
                     builder.Append(',');
                 }
