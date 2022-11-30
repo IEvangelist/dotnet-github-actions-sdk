@@ -62,7 +62,7 @@ public sealed class Summary
     private static string Wrap(
         string tag,
         string? content,
-        Dictionary<string, string>? attributes = null)
+        IReadOnlyDictionary<string, string>? attributes = null)
     {
         var htmlAttrs = attributes?.Select(
             kvp => $"{kvp.Key}={kvp.Value}");
@@ -272,7 +272,7 @@ public sealed class Summary
     /// <returns>The <c>Summary</c> instance</returns>
     public Summary AddLink(string text, string href)
     {
-        var element = Wrap("a", text, new() { [nameof(href)] = href });
+        var element = Wrap("a", text, new Dictionary<string, string>() { [nameof(href)] = href });
         return AddRaw(element).AddNewLine();
     }
 }

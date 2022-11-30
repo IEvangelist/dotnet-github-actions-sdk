@@ -26,7 +26,7 @@ internal interface ICommandIssuer
     /// <param name="message">An arbitrary message value</param>
     void IssueCommand<T>(
         string commandName,
-        IDictionary<string, string>? properties = default,
+        IReadOnlyDictionary<string, string>? properties = default,
         T? message = default);
 
     /// <summary>

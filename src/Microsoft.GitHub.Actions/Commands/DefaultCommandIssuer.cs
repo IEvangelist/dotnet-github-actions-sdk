@@ -17,7 +17,7 @@ internal sealed class DefaultCommandIssuer : ICommandIssuer
     /// <inheritdoc />
     public void IssueCommand<T>(
         string commandName,
-        IDictionary<string, string>? properties = default,
+        IReadOnlyDictionary<string, string>? properties = default,
         T? message = default)
     {
         var cmd = new Command<T>(

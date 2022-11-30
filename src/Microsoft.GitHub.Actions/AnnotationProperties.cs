@@ -40,7 +40,7 @@ public readonly record struct AnnotationProperties
 
     private bool IsEmpty => Equals(default);
 
-    public IDictionary<string, string> ToCommandProperties()
+    public IReadOnlyDictionary<string, string> ToCommandProperties()
     {
         if (IsEmpty)
         {
