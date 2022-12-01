@@ -7,6 +7,10 @@
 
 The .NET equivalent of the official GitHub [actions/toolkit](https://github.com/actions/toolkit) `@actions/core` project.
 
+## Blog
+
+[🔗 Hello from the GitHub Actions: Core .NET SDK](https://davidpine.net/blog/github-actions-sdk)
+
 ## Usage
 
 ### Installing the NuGet package 📦
