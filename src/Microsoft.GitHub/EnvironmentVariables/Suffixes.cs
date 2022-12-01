@@ -4,12 +4,20 @@
 namespace Microsoft.GitHub.EnvironmentVariables;
 
 /// <summary>
-/// A collection of environment variable prefixes, used with corresponding <see cref="Prefixes"/>.
+/// A collection of environment variable suffixes, used with corresponding <see cref="Prefixes"/>.
 /// </summary>
 public static class Suffixes
 {
-    // Suffixes
+    /// <summary>
+    /// The environment variable key suffix: <c>ENV</c>.
+    /// </summary>
     public const string ENV = nameof(ENV);
+    /// <summary>
+    /// The environment variable key suffix: <c>STATE</c>.
+    /// </summary>
     public const string STATE = nameof(STATE);
+    /// <summary>
+    /// The environment variable key suffix: <c>OUTPUT</c>.
+    /// </summary>
     public const string OUTPUT = nameof(OUTPUT);
 }

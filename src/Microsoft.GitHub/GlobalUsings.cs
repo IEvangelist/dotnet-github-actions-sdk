@@ -5,7 +5,6 @@ global using System.Text;
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
 
-global using Microsoft.GitHub;
 global using Microsoft.GitHub.Common;
 global using Microsoft.GitHub.Interfaces;
 

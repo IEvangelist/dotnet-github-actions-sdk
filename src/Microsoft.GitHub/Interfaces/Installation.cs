@@ -3,8 +3,14 @@
 
 namespace Microsoft.GitHub.Interfaces;
 
+/// <summary>
+/// Represents the installation.
+/// </summary>
 public sealed class Installation : Dictionary<string, object>
 {
+    /// <summary>
+    /// The unique identifier of the installation.
+    /// </summary>
     [JsonPropertyName("id")]
     public long Id { get; set; }
 }

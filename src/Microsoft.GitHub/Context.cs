@@ -3,27 +3,77 @@
 
 namespace Microsoft.GitHub;
 
+/// <summary>
+/// Provides access to the GitHub Actions context.
+/// </summary>
 public sealed class Context
 {
     private static readonly Lazy<Context> s_context = new(() => new());
 
+    /// <summary>
+    /// Gets the current GitHub Actions context.
+    /// </summary>
     public static Context Current => s_context.Value;
 
+    /// <summary>
+    /// Gets webhook payload in context.
+    /// </summary>
     public WebhookPayload? Payload { get; }
+    /// <summary>
+    /// Gets event name in context.
+    /// </summary>
     public string? EventName { get; }
+    /// <summary>
+    /// Gets the SHA in context.
+    /// </summary>
     public string? Sha { get; }
+    /// <summary>
+    /// Gets the REF in context.
+    /// </summary>
     public string? Ref { get; }
+    /// <summary>
+    /// Gets the workflow in context.
+    /// </summary>
     public string? Workflow { get; }
+    /// <summary>
+    /// Gets the action in context.
+    /// </summary>
     public string? Action { get; }
+    /// <summary>
+    /// Gets the actor in context.
+    /// </summary>
     public string? Actor { get; }
+    /// <summary>
+    /// Gets the job in context.
+    /// </summary>
     public string? Job { get; }
+    /// <summary>
+    /// Gets the run number in context.
+    /// </summary>
     public long RunNumber { get; }
+    /// <summary>
+    /// Gets the run id in context.
+    /// </summary>
     public long RunId { get; }
+    /// <summary>
+    /// Gets the API URL in context.
+    /// </summary>
     public string ApiUrl { get; }
+    /// <summary>
+    /// Gets the server URL in context.
+    /// </summary>
     public string ServerUrl { get; }
+    /// <summary>
+    /// Gets the GraphQL URL in context.
+    /// </summary>
     public string GraphQlUrl { get; }
-
+    /// <summary>
+    /// Gets the repo in context.
+    /// </summary>
     public Repository Repo { get; }
+    /// <summary>
+    /// Gets the issue in context.
+    /// </summary>
     public Common.Issue Issue { get; }
 
     private Context()

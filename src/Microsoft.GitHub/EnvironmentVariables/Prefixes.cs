@@ -8,8 +8,16 @@ namespace Microsoft.GitHub.EnvironmentVariables;
 /// </summary>
 public static class Prefixes
 {
-    // Prefixes
+    /// <summary>
+    /// The environment variable key prefix: <c>GITHUB_</c>.
+    /// </summary>
     public const string GITHUB_ = nameof(GITHUB_);
+    /// <summary>
+    /// The environment variable key prefix: <c>INPUT_</c>.
+    /// </summary>
     public const string INPUT_ = nameof(INPUT_);
+    /// <summary>
+    /// The environment variable key prefix: <c>STATE_</c>.
+    /// </summary>
     public const string STATE_ = nameof(STATE_);
 }

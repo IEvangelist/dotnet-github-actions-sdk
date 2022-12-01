@@ -4,7 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Description>This is an unofficial .NET SDK for GitHub Actions workflows (based on actions/toolkit).</Description>
+    <Description>This is an unofficial .NET SDK for GitHub Actions workflows (based on @actions/core).</Description>
     <Copyright>Copyright © David Pine. All rights reserved. Licensed under the MIT License.</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
     <CurrentDate>$([System.DateTime]::Now.ToString(yyyyMMdd))</CurrentDate>
@@ -18,7 +18,7 @@
     <Authors>David Pine</Authors>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AssemblyName>GitHub.Actions.Core</AssemblyName>
-    <Title>GitHub Actions: .NET SDK (actions/toolkit)</Title>
+    <Title>GitHub Actions: Core .NET SDK (@actions/core)</Title>
     <PackageId>GitHub.Actions.Core</PackageId>
     <PackageTags>dotnet;dotnetcore;csharp;github;actions;devops;</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
@@ -46,7 +46,7 @@
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <IsPackable>true</IsPackable>
-    <PackageIcon>logo.png</PackageIcon>
+    <!--<PackageIcon>logo.png</PackageIcon>-->
   </PropertyGroup>
 
   <ItemGroup>
@@ -65,6 +65,11 @@
 	<InternalsVisibleTo Include="Microsoft.GitHub.ActionsTests" />
   </ItemGroup>
 
+  <ItemGroup Label="Files">
+    <None Include="..\..\LICENSE" Pack="true" PackagePath="\" />
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+    
   <ItemGroup>
     <ProjectReference Include="..\Microsoft.GitHub\Microsoft.GitHub.csproj" />
   </ItemGroup>
