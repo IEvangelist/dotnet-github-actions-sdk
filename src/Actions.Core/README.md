@@ -1,44 +1,39 @@
-# GitHub Actions Workflow .NET SDK
-
-[![build-and-test](https://github.com/IEvangelist/dotnet-github-actions-sdk/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/IEvangelist/dotnet-github-actions-sdk/actions/workflows/build-and-test.yml)
-[![code analysis](https://github.com/IEvangelist/dotnet-github-actions-sdk/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/IEvangelist/dotnet-github-actions-sdk/actions/workflows/codeql-analysis.yml)
-[![publish nuget](https://github.com/IEvangelist/dotnet-github-actions-sdk/actions/workflows/publish-nuget.yml/badge.svg)](https://github.com/IEvangelist/dotnet-github-actions-sdk/actions/workflows/publish-nuget.yml)
-[![NuGet](https://img.shields.io/nuget/v/GitHub.Actions.Core.svg?style=flat)](https://www.nuget.org/packages/GitHub.Actions.Core)
+# GitHub `Actions.Core` .NET SDK
 
 The .NET equivalent of the official GitHub [actions/toolkit](https://github.com/actions/toolkit) `@actions/core` project.
 
 ## Blog
 
-[🔗 Hello from the GitHub Actions: Core .NET SDK](https://davidpine.net/blog/github-actions-sdk)
+[🔗 Hello from the GitHub `Actions.Core` .NET SDK](https://davidpine.net/blog/github-actions-sdk)
 
 ## Usage
 
 ### Installing the NuGet package 📦
 
-Welcome to the [Actions.Core] .NET SDK. This SDK is used to create GitHub Actions in .NET. The SDK is a thin wrapper around the .NET implementation of the GitHub Actions a select few packages from the [`@actions/toolkit`](https://github.com/actions/toolkit).
+Welcome to the `Actions.Core` .NET SDK. This SDK is used to create GitHub Actions in .NET. The SDK is a thin wrapper around the .NET implementation of the GitHub Actions a select few packages from the [`@actions/toolkit`](https://github.com/actions/toolkit).
 
 > **Warning**:
-> This package is **not** an official _Microsoft_ or _GitHub_ product. It is a community-driven project. However, I do choose to use the `Actions.GitHub[.*]` namespace for the package. I'm not trying to mislead anyone, but I do want to make it clear that this is not an official product.
+> This package is **not** an official _Microsoft_ or _GitHub_ product. It is a community-driven project.
 
-You'll need to install the [GitHub Actions Workflow .NET SDK](https://www.nuget.org/packages/GitHub.Actions.Core) NuGet package to use the .NET APIs. The package is available on NuGet.org. The following is the command to install the package:
+You'll need to install the [GitHub `Actions.Core` .NET SDK](https://www.nuget.org/packages/Actions.Core) NuGet package to use the .NET APIs. The package is available on NuGet.org. The following is the command to install the package:
 
 #### Adding package references
 
 Either add the package reference to your project file:
 
 ```xml
-<PackageReference Include="GitHub.Actions.Core" Version="1.0.0" />
+<PackageReference Include="Actions.Core" Version="0.0.1" />
 ```
 
 Or use the [`dotnet add package`](https://learn.microsoft.com/dotnet/core/tools/dotnet-add-package) .NET CLI command:
 
 ```bash
-dotnet add package GitHub.Actions.Core
+dotnet add package Actions.Core
 ```
 
 ### Get the `ICoreService` instance
 
-To use the `ICoreService` in your .NET project, register the services with an `IServiceCollection` instance by calling `AddGitHubActions` and then your consuming code can require the `ICoreService` via constructor dependency injection.
+To use the `ICoreService` in your .NET project, register the services with an `IServiceCollection` instance by calling `AddGitHubActionsCore` and then your consuming code can require the `ICoreService` via constructor dependency injection.
 
 ```csharp
 using Microsoft.Extensions.DependencyInjection;
@@ -46,7 +41,7 @@ using Actions.Core;
 using Actions.Core.Extensions;
 
 using var provider = new ServiceCollection()
-    .AddGitHubActions()
+    .AddGitHubActionsCore()
     .BuildServiceProvider();
 
 var core = provider.GetRequiredService<ICoreService>();
@@ -93,7 +88,7 @@ Setting a secret registers the secret with the runner to ensure it is masked in 
 core.SetSecret("myPassword");
 ```
 
-#### PATH Manipulation
+#### PATH manipulation
 
 To make a tool's path available in the path for the remainder of the job (without altering the machine or containers state), use `AddPathAsync`.  The runner will prepend the path given to the jobs PATH.
 
@@ -230,7 +225,8 @@ ANSI escape codes can be combined with one another:
 core.Info("\u001b[31;46mRed foreground with a cyan background and \u001b[1mbold text at the end");
 ```
 
-> Note: Escape codes reset at the start of each line.
+> **Note**:
+> Escape codes reset at the start of each line.
 
 ```csharp
 core.Info("\u001b[35mThis foreground will be magenta");

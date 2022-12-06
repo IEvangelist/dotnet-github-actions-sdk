@@ -1,0 +1,46 @@
+﻿// Copyright (c) David Pine. All rights reserved.
+// Licensed under the MIT License.
+
+namespace Actions.Glob;
+
+/// <summary>
+/// A globber instance, used to get glob results or iteract glob files.
+/// </summary>
+public class Globber
+{
+    private readonly IGlobPatternResolver _glob;
+
+    private Globber(
+        IEnumerable<string> inclusions,
+        IEnumerable<string>? exclusions = null) =>
+        _glob = new DefaultGlobPatternResolverBuilder()
+            .With((inclusions ?? Enumerable.Empty<string>()).ToArray())
+            .Without((exclusions ?? Enumerable.Empty<string>()).ToArray())
+            .Build();
+
+    /// <summary>
+    /// Creates a new <see cref="Globber"/> instance.
+    /// </summary>
+    /// <param name="inclusions">Required inclusion patterns.</param>
+    /// <returns>A new <see cref="Globber"/> instance.</returns>
+    public static Globber Create(params string[] inclusions) =>
+        new(inclusions);
+
+    /// <summary>
+    /// Creates a new <see cref="Globber"/> instance.
+    /// </summary>
+    /// <param name="inclusions">Required inclusion patterns.</param>
+    /// <param name="exclusions">Optional exclusion patterns.</param>
+    /// <returns>A new <see cref="Globber"/> instance.</returns>
+    public static Globber Create(
+        IEnumerable<string> inclusions,
+        IEnumerable<string>? exclusions = null) => new(inclusions, exclusions);
+
+    /// <inheritdoc cref="IGlobPatternResolver.GetGlobResult(string?)" />
+    public GlobResult Glob(string? directory = null) =>
+        _glob.GetGlobResult(directory);
+
+    /// <inheritdoc cref="IGlobPatternResolver.GetGlobFiles(string?)" />
+    public IEnumerable<string> GlobFiles(string? directory = null) =>
+        _glob.GetGlobFiles(directory);
+}
