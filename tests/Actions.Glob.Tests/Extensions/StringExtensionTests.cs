@@ -88,9 +88,13 @@ public sealed class StringExtensionsTests
 
         var directory = "parent";
         var actualFiles = directory.GetGlobFiles(
-            new[] { "**/*.md", "**/*.svg" },
-            new[] { "*/more.md" });
+                new[] { "**/*.md", "**/*.svg" },
+                new[] { "*/more.md" })
+            .ToArray();
 
-        Assert.Equal(expectedFiles, actualFiles);
+        Assert.Equal(expectedFiles.Length, actualFiles.Length);
+        Assert.All(
+            expectedFiles,
+            expectedFile => Assert.Contains(expectedFile, actualFiles!));
     }
 }
