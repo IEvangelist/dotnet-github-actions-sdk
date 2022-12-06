@@ -5,16 +5,6 @@ namespace Actions.Glob.Tests;
 
 public sealed class StringExtensionsTests
 {
-    [Fact]
-    public void GetGlobResultThrowsWithInvalidArgsTest() =>
-        Assert.Throws<ArgumentNullException>(
-            () => (null as string).GetGlobResult(Enumerable.Empty<string>()));
-
-    [Fact]
-    public void GetGlobFilesThrowsWithInvalidArgsTest() =>
-    Assert.Throws<ArgumentNullException>(
-        () => (null as string).GetGlobFiles(null!, null));
-
     public readonly static IEnumerable<object[]> GetGlobResultTestInput = new[]
     {
         new object[]
