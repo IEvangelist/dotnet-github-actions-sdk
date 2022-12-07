@@ -4,6 +4,6 @@
 global using System.Text.Json;
 
 global using Microsoft.Extensions.DependencyInjection;
-global using Actions.GitHub;
+global using Actions.Octokit;
 global using Actions.Core.Extensions;
 global using Actions.Core.Services;

@@ -1,15 +1,15 @@
 ﻿// Copyright (c) David Pine. All rights reserved.
 // Licensed under the MIT License.
 
-namespace Actions.GitHub.Interfaces;
+namespace Actions.Octokit.Interfaces;
 
 /// <summary>
-/// Represents a comment on a GitHub issue or pull request.
+/// Represents the installation.
 /// </summary>
-public sealed class Comment : Dictionary<string, object>
+public sealed class Installation : Dictionary<string, object>
 {
     /// <summary>
-    /// The unique identifier of the comment.
+    /// The unique identifier of the installation.
     /// </summary>
     [JsonPropertyName("id")]
     public long Id { get; set; }

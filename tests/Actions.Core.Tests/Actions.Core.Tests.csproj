@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Actions.Core\Actions.Core.csproj" />
-    <ProjectReference Include="..\..\src\Actions.GitHub\Actions.GitHub.csproj" />
+    <ProjectReference Include="..\..\src\Actions.Octokit\Actions.Octokit.csproj" />
   </ItemGroup>
 
 </Project>

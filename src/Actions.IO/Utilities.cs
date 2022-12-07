@@ -5,7 +5,11 @@ namespace Actions.IO;
 
 public static class Utilities
 {
-    public static bool Exists(string path) => File.Exists(path);
+    public static bool Exists(string path) =>
+        File.Exists(path);
 
-    public static bool IsRooted(string path) => Path.IsPathRooted(path);
+    public static bool IsRooted(string path) =>
+        Path.IsPathRooted(path);
+
+
 }

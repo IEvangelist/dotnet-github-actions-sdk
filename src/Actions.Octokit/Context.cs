@@ -1,7 +1,7 @@
 ﻿// Copyright (c) David Pine. All rights reserved.
 // Licensed under the MIT License.
 
-namespace Actions.GitHub;
+namespace Actions.Octokit;
 
 /// <summary>
 /// Provides access to the GitHub Actions context.

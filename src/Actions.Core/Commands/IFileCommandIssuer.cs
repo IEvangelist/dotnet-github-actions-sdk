@@ -13,7 +13,7 @@ internal interface IFileCommandIssuer
     /// given <paramref name="commandSuffix"/>, with the given <paramref name="message"/> value.
     /// </summary>
     /// <typeparam name="TValue">The generic-type parameter for the given message type.</typeparam>
-    /// <param name="commandSuffix">The command suffix as found in <see cref="GitHub.EnvironmentVariables.Suffixes"/></param>
+    /// <param name="commandSuffix">The command suffix as found in <see cref="Octokit.EnvironmentVariables.Suffixes"/></param>
     /// <param name="message">An arbitrary message value</param>
     /// <returns>A task that represents the asynchronous operation of writing the message to file.</returns>
     ValueTask IssueFileCommandAsync<TValue>(string commandSuffix, TValue message);

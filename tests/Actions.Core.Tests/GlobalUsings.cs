@@ -11,7 +11,7 @@ global using Actions.Core.Services;
 global using Actions.Core.Tests.Output;
 global using Actions.Core.Workflows;
 
-global using Actions.GitHub.EnvironmentVariables;
+global using Actions.Octokit.EnvironmentVariables;
 
 global using Microsoft.Extensions.DependencyInjection;
 

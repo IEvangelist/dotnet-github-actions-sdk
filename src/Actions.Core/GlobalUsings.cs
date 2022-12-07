@@ -17,6 +17,6 @@ global using Actions.Core.Workflows;
 
 global using static System.Environment;
 global using static System.IO.Path;
-global using static Actions.GitHub.EnvironmentVariables.Keys;
-global using static Actions.GitHub.EnvironmentVariables.Prefixes;
-global using static Actions.GitHub.EnvironmentVariables.Suffixes;
+global using static Actions.Octokit.EnvironmentVariables.Keys;
+global using static Actions.Octokit.EnvironmentVariables.Prefixes;
+global using static Actions.Octokit.EnvironmentVariables.Suffixes;

@@ -1,7 +1,7 @@
 ﻿// Copyright (c) David Pine. All rights reserved.
 // Licensed under the MIT License.
 
-namespace Actions.GitHub.EnvironmentVariables;
+namespace Actions.Octokit.EnvironmentVariables;
 
 /// <summary>
 /// A collection of environment variable keys, commonly used by GitHub Actions.

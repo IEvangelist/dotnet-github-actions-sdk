@@ -71,6 +71,6 @@
   </ItemGroup>
     
   <ItemGroup>
-    <ProjectReference Include="..\Actions.GitHub\Actions.GitHub.csproj" />
+    <ProjectReference Include="..\Actions.Octokit\Actions.Octokit.csproj" />
   </ItemGroup>
 </Project>

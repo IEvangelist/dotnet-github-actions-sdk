@@ -5,9 +5,9 @@ global using System.Text;
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
 
-global using Actions.GitHub.Common;
-global using Actions.GitHub.Interfaces;
+global using Actions.Octokit.Common;
+global using Actions.Octokit.Interfaces;
 
 global using static System.Environment;
 
-global using static Actions.GitHub.EnvironmentVariables.Keys;
+global using static Actions.Octokit.EnvironmentVariables.Keys;

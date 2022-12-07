@@ -11,8 +11,9 @@ jobs:
       matrix:
         project:
         - Actions.Core
-        - Actions.GitHub
+        - Actions.Octokit
         - Actions.Glob
+        #- Actions.IO
     steps:
     
     - name: Print tag ref

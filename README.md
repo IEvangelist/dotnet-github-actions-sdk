@@ -18,7 +18,7 @@ The .NET equivalent of the official GitHub [actions/toolkit](https://github.com/
 Welcome to the [Actions.Core] .NET SDK. This SDK is used to create GitHub Actions in .NET. The SDK is a thin wrapper around the .NET implementation of the GitHub Actions a select few packages from the [`@actions/toolkit`](https://github.com/actions/toolkit).
 
 > **Warning**:
-> This package is **not** an official _Microsoft_ or _GitHub_ product. It is a community-driven project. However, I do choose to use the `Actions.GitHub[.*]` namespace for the package. I'm not trying to mislead anyone, but I do want to make it clear that this is not an official product.
+> This package is **not** an official _Microsoft_ or _GitHub_ product. It is a community-driven project. However, I do choose to use the `Actions.Octokit[.*]` namespace for the package. I'm not trying to mislead anyone, but I do want to make it clear that this is not an official product.
 
 You'll need to install the [GitHub Actions Workflow .NET SDK](https://www.nuget.org/packages/GitHub.Actions.Core) NuGet package to use the .NET APIs. The package is available on NuGet.org. The following is the command to install the package:
 

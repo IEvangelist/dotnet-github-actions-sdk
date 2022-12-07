@@ -26,7 +26,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{C535
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Actions.Core.Sample", "samples\Actions.Core.Sample\Actions.Core.Sample.csproj", "{2C5BDF3F-726C-4D1B-91D9-AB4209B9DD3C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Actions.GitHub", "src\Actions.GitHub\Actions.GitHub.csproj", "{2CC93064-96E3-40E3-A328-C87C3D2BA0C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Actions.Octokit", "src\Actions.Octokit\Actions.Octokit.csproj", "{2CC93064-96E3-40E3-A328-C87C3D2BA0C5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Actions.Glob", "src\Actions.Glob\Actions.Glob.csproj", "{D6DBA375-F734-47A5-8D9F-DA599F3EA4D7}"
 EndProject
@@ -34,7 +34,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Actions.Glob.Tests", "tests
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Actions.Glob.Sample", "samples\Actions.Glob.Sample\Actions.Glob.Sample.csproj", "{756F83A6-25E2-44B9-92D0-D74961D10EE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Actions.IO", "src\Actions.IO\Actions.IO.csproj", "{A150FB1F-0388-4FF3-B9FE-03AF72A451FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Actions.IO", "src\Actions.IO\Actions.IO.csproj", "{A150FB1F-0388-4FF3-B9FE-03AF72A451FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -7,7 +7,7 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["samples/Actions.Glob.Sample/Actions.Glob.Sample.csproj", "samples/Actions.Glob.Sample/"]
 COPY ["src/Actions.Core/Actions.Core.csproj", "src/Actions.Core/"]
-COPY ["src/Actions.GitHub/Actions.GitHub.csproj", "src/Actions.GitHub/"]
+COPY ["src/Actions.Octokit/Actions.Octokit.csproj", "src/Actions.Octokit/"]
 COPY ["src/Actions.Glob/Actions.Glob.csproj", "src/Actions.Glob/"]
 RUN dotnet restore "samples/Actions.Glob.Sample/Actions.Glob.Sample.csproj"
 COPY . .

@@ -1,7 +1,7 @@
 ﻿// Copyright (c) David Pine. All rights reserved.
 // Licensed under the MIT License.
 
-namespace Actions.GitHub.Interfaces;
+namespace Actions.Octokit.Interfaces;
 
 /// <summary>
 /// Represents a pull request.
