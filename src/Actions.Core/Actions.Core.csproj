@@ -19,7 +19,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AssemblyName>Actions.Core</AssemblyName>
     <Title>GitHub Actions: Core .NET SDK (@actions/core)</Title>
-    <PackageId>Actions.Core</PackageId>
+    <PackageId>GitHub.Actions.Core</PackageId>
     <PackageTags>dotnet;dotnetcore;csharp;github;actions;devops;</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/IEvangelist/dotnet-github-actions-sdk</PackageProjectUrl>

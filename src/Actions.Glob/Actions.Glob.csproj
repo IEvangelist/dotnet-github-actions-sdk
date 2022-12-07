@@ -19,7 +19,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AssemblyName>Actions.Glob</AssemblyName>
     <Title>GitHub Actions: Glob .NET SDK (@actions/glob)</Title>
-    <PackageId>Actions.Glob</PackageId>
+    <PackageId>GitHub.Actions.Glob</PackageId>
     <PackageTags>dotnet;dotnetcore;csharp;github;actions;devops;</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/IEvangelist/dotnet-github-actions-sdk</PackageProjectUrl>
