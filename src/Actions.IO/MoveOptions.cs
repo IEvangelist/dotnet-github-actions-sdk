@@ -11,4 +11,10 @@ namespace Actions.IO;
 /// Defaults to <c>true</c>.
 /// </param>
 public readonly record struct MoveOptions(
-    bool Force = true);
+    bool Force = true)
+{
+    /// <summary>
+    /// Creates a new instance of <see cref="MoveOptions"/>.
+    /// </summary>
+    public MoveOptions() : this(true) { }
+}

@@ -22,4 +22,10 @@ namespace Actions.IO;
 public readonly record struct CopyOptions(
     bool Recursive = false,
     bool Force = true,
-    bool CopySourceDirectory = true);
+    bool CopySourceDirectory = true)
+{
+    /// <summary>
+    /// Creates a new instance of <see cref="CopyOptions"/>.
+    /// </summary>
+    public CopyOptions() : this(false, true, true) { }
+}
