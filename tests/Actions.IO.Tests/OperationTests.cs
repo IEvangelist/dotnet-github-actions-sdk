@@ -83,7 +83,7 @@ public sealed class OperationTests : IClassFixture<TempFolderTestFixture>
         Assert.Equal("correct content", File.ReadAllText(targetFile));
     }
 
-    [Fact(Skip = "This is currently incorrectly implemented.")]
+    [Fact]
     public void CopiesDirectoryIntoExistingDestinationWithFlagR()
     {
         // Arrange

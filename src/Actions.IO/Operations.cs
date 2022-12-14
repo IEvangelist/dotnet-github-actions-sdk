@@ -13,23 +13,27 @@ internal sealed class Operations : IOperations
     static void CopyAll(string sourcePath, string destinationPath, CopyOptions? options = default)
     {
         var (force, recursive, copySourceDirectory) = (options ??= new(false));
+
         if (File.Exists(sourcePath))
         {
-            if (File.Exists(destinationPath) is false)
+            if (File.Exists(destinationPath) is false || force)
             {
-                File.Copy(sourcePath, destinationPath, force);
-            }            
+                File.Copy(sourcePath, destinationPath, true);
+            }
         }
         else if (Directory.Exists(sourcePath))
         {
             var source = new DirectoryInfo(sourcePath);
             var destination = new DirectoryInfo(destinationPath);
+            destination = copySourceDirectory
+                ? new(Path.Combine(destinationPath, Path.GetFileName(sourcePath)!))
+                : destination;
 
-            if (copySourceDirectory && destination.Exists is false)
+            if (destination.Exists is false)
             {
                 destination.Create();
-            } 
-            
+            }
+
             if (recursive)
             {
                 foreach (var dir in source.GetDirectories())
