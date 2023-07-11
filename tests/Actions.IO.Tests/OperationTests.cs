@@ -145,7 +145,7 @@ public sealed class OperationTests : IClassFixture<TempFolderTestFixture>
 
         // Act
         operations.Copy(sourceFolder, targetFolder,
-            new(Recursive: true, CopySourceDirectory: true));
+            new(Recursive: true, CopySourceDirectory: false));
 
         // Assert
         Assert.Equal("test file content", File.ReadAllText(targetFile));
