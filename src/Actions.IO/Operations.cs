@@ -12,7 +12,7 @@ internal sealed class Operations : IOperations
 
     static void CopyAll(string sourcePath, string destinationPath, CopyOptions? options = default)
     {
-        var (force, recursive, copySourceDirectory) = (options ??= new(false));
+        var (recursive, force, copySourceDirectory) = (options ??= new(false));
 
         if (File.Exists(sourcePath))
         {
@@ -23,24 +23,28 @@ internal sealed class Operations : IOperations
         }
         else if (Directory.Exists(sourcePath))
         {
+            if (recursive is false)
+            {
+                throw new InvalidOperationException(
+                    $"Failed to copy. " +
+                    $"{sourcePath} is a directory, but tried to copy without recursive flag.");
+            }
+
             var source = new DirectoryInfo(sourcePath);
             var destination = new DirectoryInfo(destinationPath);
             destination = copySourceDirectory
                 ? new(Path.Combine(destinationPath, Path.GetFileName(sourcePath)!))
                 : destination;
-
+            
             if (destination.Exists is false)
             {
                 destination.Create();
             }
 
-            if (recursive)
+            foreach (var dir in source.GetDirectories())
             {
-                foreach (var dir in source.GetDirectories())
-                {
-                    var subdir = destination.CreateSubdirectory(dir.Name);
-                    CopyAll(dir.FullName, subdir.FullName, options);
-                }
+                var subdir = destination.CreateSubdirectory(dir.Name);
+                CopyAll(dir.FullName, subdir.FullName, options);
             }
 
             foreach (var file in source.GetFiles())

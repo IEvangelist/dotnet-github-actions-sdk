@@ -58,7 +58,8 @@ public sealed class OperationTests : IClassFixture<TempFolderTestFixture>
         File.WriteAllText(sourceFile, "test file content");
 
         // Act
-        operations.Copy(sourceFile, targetFile, new(false, true));
+        operations.Copy(sourceFile, targetFile,
+            new(Recursive: false, Force: true));
 
         // Assert
         Assert.Equal("test file content", File.ReadAllText(targetFile));
@@ -77,7 +78,8 @@ public sealed class OperationTests : IClassFixture<TempFolderTestFixture>
         File.WriteAllText(targetFile, "correct content");
 
         // Act
-        operations.Copy(sourceFile, targetFile, new(false, false));
+        operations.Copy(sourceFile, targetFile,
+            new(Recursive: false, Force: false));
 
         // Assert
         Assert.Equal("correct content", File.ReadAllText(targetFile));
@@ -98,9 +100,76 @@ public sealed class OperationTests : IClassFixture<TempFolderTestFixture>
         operations.MakeDirectory(targetFolder);
 
         // Act
-        operations.Copy(sourceFolder, targetFolder, new(true));
+        operations.Copy(sourceFolder, targetFolder,
+            new(Recursive: true));
 
         // Assert
         Assert.Equal("test file content", File.ReadAllText(targetFile));
+    }
+
+    [Fact]
+    public void CopiesDirectoryIntoExistingDestinationWithRecursionAndWithoutCopyingSourceDir()
+    {
+        // Arrange
+        var root = Path.Combine(_fixture.TempFolder, "cp_with_-r_existing_dest_no_source_dir");
+        var sourceFolder = Path.Combine(root, "cp_source");
+        var sourceFile = Path.Combine(sourceFolder, "cp_source_file");
+        var targetFolder = Path.Combine(root, "cp_target");
+        var targetFile = Path.Combine(targetFolder, "cp_source_file");
+        IOperations operations = new Operations();
+        operations.MakeDirectory(sourceFolder);
+        File.WriteAllText(sourceFile, "test file content");
+        operations.MakeDirectory(targetFolder);
+
+        // Act
+        operations.Copy(sourceFolder, targetFolder,
+            new(Recursive: true, CopySourceDirectory: false));
+
+        // Assert
+        Assert.Equal("test file content", File.ReadAllText(targetFile));
+    }
+
+    [Fact]
+    public void CopiesDirectoryIntoNonExistingDestinationWithFlagR()
+    {
+        // Arrange
+        var root = Path.Combine(_fixture.TempFolder, "cp_with_-r_nonexistent_dest");
+        var sourceFolder = Path.Combine(root, "cp_source");
+        var sourceFile = Path.Combine(sourceFolder, "cp_source_file");
+
+        var targetFolder = Path.Combine(root, "cp_target");
+        var targetFile = Path.Combine(targetFolder, "cp_source_file");
+        IOperations operations = new Operations();
+        operations.MakeDirectory(sourceFolder);
+        File.WriteAllText(sourceFile, "test file content");
+
+        // Act
+        operations.Copy(sourceFolder, targetFolder,
+            new(Recursive: true, CopySourceDirectory: true));
+
+        // Assert
+        Assert.Equal("test file content", File.ReadAllText(targetFile));
+    }
+
+    [Fact]
+    public void TriesToCopyDirectoryWithoutFlagR()
+    {
+        // Arrange
+        var root = Path.Combine(_fixture.TempFolder, "cp_without_-r");
+        var sourceFolder = Path.Combine(root, "cp_source");
+        var sourceFile = Path.Combine(sourceFolder, "cp_source_file");
+
+        var targetFolder = Path.Combine(root, "cp_target");
+        var targetFile = Path.Combine(targetFolder, "cp_source", "cp_source_file");
+        IOperations operations = new Operations();
+        operations.MakeDirectory(sourceFolder);
+        File.WriteAllText(sourceFile, "test file content");
+
+        // Act / Assert
+        Assert.Throws<InvalidOperationException>(() =>
+            operations.Copy(
+                sourceFolder, targetFolder, new(Recursive: false)));
+
+        Assert.False(File.Exists(targetFile));
     }
 }

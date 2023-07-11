@@ -24,13 +24,13 @@ internal sealed class DefaultFileCommandIssuer : IFileCommandIssuer
                 $"command suffix '{commandSuffix} ({GITHUB_}{commandSuffix})'.");
         }
 
-        if (File.Exists(filePath) is false)
+        return File.Exists(filePath) switch
         {
-            throw new Exception(
-                $"Missing file at path: '{filePath}' for file command '{commandSuffix}'.");
-        }
-        
-        return _writeLineTask.Invoke(filePath, message.ToCommandValue());
+            false => throw new Exception(
+                $"Missing file at path: '{filePath}' for file command '{commandSuffix}'."),
+
+            _ => _writeLineTask.Invoke(filePath, message.ToCommandValue())
+        };
     }
 
     /// <inheritdoc />
@@ -40,7 +40,7 @@ internal sealed class DefaultFileCommandIssuer : IFileCommandIssuer
         var convertedValue = value.ToCommandValue();
 
         // These should realistically never happen, but just in case someone finds a
-        // way to exploit uuid generation let's not allow keys or values that contain
+        // way to exploit guid generation let's not allow keys or values that contain
         // the delimiter.
         if (key.Contains(delimiter, StringComparison.OrdinalIgnoreCase))
         {
