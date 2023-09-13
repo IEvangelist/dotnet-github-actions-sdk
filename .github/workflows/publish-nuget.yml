@@ -24,10 +24,10 @@ jobs:
       id: regex-match
       with:
         text: ${{ github.ref }}
-        regex: '[0-9.]+'
+        regex: ' /refs\/tags\/(.+)/'
        
     - name: Print version number
-      run: echo '${{ steps.regex-match.outputs.match }}'
+      run: echo '${{ steps.regex-match.outputs.group1 }}'
       
     - uses: actions/checkout@v3
     - name: Setup .NET
@@ -48,9 +48,9 @@ jobs:
       run: |
         dotnet pack ./src/${{ matrix.project }}/${{ matrix.project }}.csproj --output packages
     - name: Upload ${{ matrix.project }}
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
-        name: ${{ matrix.project }}.${{ steps.regex-match.outputs.match }}.nupkg
+        name: ${{ matrix.project }}.${{ steps.regex-match.outputs.group1 }}.nupkg
         path: packages/*.nupkg
       
     - name: Publish ${{ matrix.project }} package
