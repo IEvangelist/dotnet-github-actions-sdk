@@ -14,7 +14,7 @@ on:
         default: 'Manual build'
 
 env:
-  DOTNET_VERSION: '7.0.x' # set this to the dot net version to use
+  DOTNET_VERSION: '8.0.x' # set this to the dot net version to use
 
 jobs:
   build:
@@ -25,16 +25,17 @@ jobs:
         os: [ubuntu-latest, windows-latest, macOS-latest]
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: 'Print manual build reason'
       if: ${{ github.event_name == 'workflow_dispatch' }}
       run: |
         echo 'Reason: ${{ github.event.inputs.reason }}'
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
+        dotnet-quality: 'preview'
 
     - name: Install dependencies
       run: |

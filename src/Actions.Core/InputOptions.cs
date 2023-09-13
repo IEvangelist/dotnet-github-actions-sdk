@@ -8,7 +8,7 @@ namespace Actions.Core;
 /// Inspired by <a href="https://github.com/actions/toolkit/blob/main/packages/core/src/core.ts"></a>
 /// </summary>
 /// <param name="Required">
-/// ptional. Whether the input is required. If required and not present, will throw. Defaults to false.
+/// Optional. Whether the input is required. If required and not present, will throw. Defaults to false.
 /// </param>
 /// <param name="TrimWhitespace">
 /// Optional. Whether leading/trailing whitespace will be trimmed for the input. Defaults to true.

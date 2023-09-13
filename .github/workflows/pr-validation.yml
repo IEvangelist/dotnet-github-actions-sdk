@@ -8,7 +8,7 @@ on:
     - '**.csproj'
 
 env:
-  DOTNET_VERSION: '7.0.x' # set this to the dot net version to use
+  DOTNET_VERSION: '8.0.x' # set this to the dot net version to use
 
 jobs:
   validate:
@@ -19,11 +19,12 @@ jobs:
         os: [ubuntu-latest, windows-latest, macOS-latest]
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
+        dotnet-quality: 'preview'
 
     - name: Install dependencies
       run: |

@@ -28,7 +28,7 @@ on:
         default: 'Manual build'
 
 env:
-  DOTNET_VERSION: '7.0.x' # set this to the dot net version to use
+  DOTNET_VERSION: '8.0.x' # set this to the dot net version to use
 
 jobs:
   analyze:
@@ -49,7 +49,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         # We must fetch at least the immediate parents so that if this is
         # a pull request then we can checkout the head.
@@ -78,10 +78,11 @@ jobs:
     #    uses a compiled language
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
-    
+        dotnet-quality: 'preview'
+
     - name: Autobuild
       uses: github/codeql-action/autobuild@v1
 

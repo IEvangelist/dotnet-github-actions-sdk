@@ -4,12 +4,8 @@
 namespace Actions.Core.Commands;
 
 /// <inheritdoc cref="ICommandIssuer" />
-internal sealed class DefaultCommandIssuer : ICommandIssuer
+internal sealed class DefaultCommandIssuer(IConsole console) : ICommandIssuer
 {
-    private readonly IConsole _console;
-
-    public DefaultCommandIssuer(IConsole console) => _console = console;
-
     /// <inheritdoc />
     public void Issue<T>(string commandName, T? message = default) =>
         IssueCommand(commandName, null, message);
@@ -25,10 +21,10 @@ internal sealed class DefaultCommandIssuer : ICommandIssuer
 
         if (cmd is not { Conventional: true })
         {
-            _console.WriteLine("Issuing unconventional command.");
+            console.WriteLine("Issuing unconventional command.");
         }
 
         var commandMessage = cmd.ToString();
-        _console.WriteLine(commandMessage);
+        console.WriteLine(commandMessage);
     }
 }

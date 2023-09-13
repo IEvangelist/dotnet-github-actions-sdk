@@ -1,9 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFrameworks>net7.0;net8.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <LangVersion>preview</LangVersion>
     <Description>This is an unofficial .NET SDK for GitHub Actions workflows (based on @actions/glob).</Description>
     <Copyright>Copyright © David Pine. All rights reserved. Licensed under the MIT License.</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>

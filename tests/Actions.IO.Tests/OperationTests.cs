@@ -3,17 +3,13 @@
 
 namespace Actions.IO.Tests;
 
-public sealed class OperationTests : IClassFixture<TempFolderTestFixture>
+public sealed class OperationTests(TempFolderTestFixture fixture) : IClassFixture<TempFolderTestFixture>
 {
-    readonly TempFolderTestFixture _fixture;
-
-    public OperationTests(TempFolderTestFixture fixture) => _fixture = fixture;
-
     [Fact]
     public void CopiesFilesWithNoFlags()
     {
         // Arrange
-        var root = Path.Combine(_fixture.TempFolder, "copy_with_no_flags");
+        var root = Path.Combine(fixture.TempFolder, "copy_with_no_flags");
         var sourceFile = Path.Combine(root, "cp_source");
         var targetFile = Path.Combine(root, "cp_target");
         IOperations operations = new Operations();
@@ -31,7 +27,7 @@ public sealed class OperationTests : IClassFixture<TempFolderTestFixture>
     public void CopiesFilesUsingForce()
     {
         // Arrange
-        var root = Path.Combine(_fixture.TempFolder, "copy_with_-f");
+        var root = Path.Combine(fixture.TempFolder, "copy_with_-f");
         var sourceFile = Path.Combine(root, "cp_source");
         var targetFile = Path.Combine(root, "cp_target");
         IOperations operations = new Operations();
@@ -49,7 +45,7 @@ public sealed class OperationTests : IClassFixture<TempFolderTestFixture>
     public void CopiesFileIntoDirectory()
     {
         // Arrange
-        var root = Path.Combine(_fixture.TempFolder, "copy_file_to_directory");
+        var root = Path.Combine(fixture.TempFolder, "copy_file_to_directory");
         var sourceFile = Path.Combine(root, "cp_source");
         var targetDirectory = Path.Combine(root, "cp_target");
         var targetFile = Path.Combine(targetDirectory, "cp_source");
@@ -69,7 +65,7 @@ public sealed class OperationTests : IClassFixture<TempFolderTestFixture>
     public void TryCopyingToExistingFileWithFlagN()
     {
         // Arrange
-        var root = Path.Combine(_fixture.TempFolder, "copy_to_existing");
+        var root = Path.Combine(fixture.TempFolder, "copy_to_existing");
         var sourceFile = Path.Combine(root, "cp_source");
         var targetFile = Path.Combine(root, "cp_target");
         IOperations operations = new Operations();
@@ -89,7 +85,7 @@ public sealed class OperationTests : IClassFixture<TempFolderTestFixture>
     public void CopiesDirectoryIntoExistingDestinationWithFlagR()
     {
         // Arrange
-        var root = Path.Combine(_fixture.TempFolder, "cp_with_-r_existing_dest");
+        var root = Path.Combine(fixture.TempFolder, "cp_with_-r_existing_dest");
         var sourceFolder = Path.Combine(root, "cp_source");
         var sourceFile = Path.Combine(sourceFolder, "cp_source_file");
         var targetFolder = Path.Combine(root, "cp_target");
@@ -111,7 +107,7 @@ public sealed class OperationTests : IClassFixture<TempFolderTestFixture>
     public void CopiesDirectoryIntoExistingDestinationWithRecursionAndWithoutCopyingSourceDir()
     {
         // Arrange
-        var root = Path.Combine(_fixture.TempFolder, "cp_with_-r_existing_dest_no_source_dir");
+        var root = Path.Combine(fixture.TempFolder, "cp_with_-r_existing_dest_no_source_dir");
         var sourceFolder = Path.Combine(root, "cp_source");
         var sourceFile = Path.Combine(sourceFolder, "cp_source_file");
         var targetFolder = Path.Combine(root, "cp_target");
@@ -133,7 +129,7 @@ public sealed class OperationTests : IClassFixture<TempFolderTestFixture>
     public void CopiesDirectoryIntoNonExistingDestinationWithFlagR()
     {
         // Arrange
-        var root = Path.Combine(_fixture.TempFolder, "cp_with_-r_nonexistent_dest");
+        var root = Path.Combine(fixture.TempFolder, "cp_with_-r_nonexistent_dest");
         var sourceFolder = Path.Combine(root, "cp_source");
         var sourceFile = Path.Combine(sourceFolder, "cp_source_file");
 
@@ -155,7 +151,7 @@ public sealed class OperationTests : IClassFixture<TempFolderTestFixture>
     public void TriesToCopyDirectoryWithoutFlagR()
     {
         // Arrange
-        var root = Path.Combine(_fixture.TempFolder, "cp_without_-r");
+        var root = Path.Combine(fixture.TempFolder, "cp_without_-r");
         var sourceFolder = Path.Combine(root, "cp_source");
         var sourceFile = Path.Combine(sourceFolder, "cp_source_file");
 

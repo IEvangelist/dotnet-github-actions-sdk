@@ -5,12 +5,10 @@ namespace Actions.IO.Tests;
 
 public sealed class TempFolderTestFixture : IDisposable
 {
-    public TempFolderTestFixture() =>
-        TempFolder =
-            Directory.CreateDirectory(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString()))
-                .FullName;
-
-    internal string TempFolder { get; }
+    internal string TempFolder { get; } = Directory.CreateDirectory(
+            path: Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString())
+        )
+        .FullName;
 
     void IDisposable.Dispose() => Directory.Delete(TempFolder, true);
 }

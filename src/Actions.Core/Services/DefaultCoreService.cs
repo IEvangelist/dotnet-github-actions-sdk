@@ -4,19 +4,11 @@
 namespace Actions.Core.Services;
 
 /// <inheritdoc cref="ICoreService" />
-internal sealed class DefaultCoreService : ICoreService
+internal sealed class DefaultCoreService(
+    IConsole console,
+    ICommandIssuer commandIssuer,
+    IFileCommandIssuer fileCommandIssuer) : ICoreService
 {
-    private readonly IConsole _console;
-    private readonly ICommandIssuer _commandIssuer;
-    private readonly IFileCommandIssuer _fileCommandIssuer;
-
-    public DefaultCoreService(
-        IConsole console,
-        ICommandIssuer commandIssuer,
-        IFileCommandIssuer fileCommandIssuer) =>
-        (_console, _commandIssuer, _fileCommandIssuer) =
-            (console, commandIssuer, fileCommandIssuer);
-
     /// <inheritdoc />
     public bool IsDebug => GetEnvironmentVariable(RUNNER_DEBUG) is "1";
 
@@ -26,11 +18,11 @@ internal sealed class DefaultCoreService : ICoreService
         var filePath = GetEnvironmentVariable(GITHUB_PATH);
         if (filePath is not null)
         {
-            await _fileCommandIssuer.IssueFileCommandAsync(PATH, path);
+            await fileCommandIssuer.IssueFileCommandAsync(PATH, path);
         }
         else
         {
-            _commandIssuer.IssueCommand(CommandNames.AddPath, null, path);
+            commandIssuer.IssueCommand(CommandNames.AddPath, null, path);
         }
 
         SetEnvironmentVariable(
@@ -40,17 +32,17 @@ internal sealed class DefaultCoreService : ICoreService
 
     /// <inheritdoc />
     public void Debug(string message) =>
-        _commandIssuer.IssueCommand(
+        commandIssuer.IssueCommand(
             CommandNames.Debug, message: message);
 
     /// <inheritdoc />
     public void EndGroup() =>
-        _commandIssuer.Issue(
+        commandIssuer.Issue(
             CommandNames.EndGroup, "");
 
     /// <inheritdoc />
     public void Error(string message, AnnotationProperties? properties = default) =>
-        _commandIssuer.IssueCommand(
+        commandIssuer.IssueCommand(
             CommandNames.Error, properties?.ToCommandProperties(), message);
 
     /// <inheritdoc />
@@ -62,13 +54,13 @@ internal sealed class DefaultCoreService : ICoreService
         var filePath = GetEnvironmentVariable(GITHUB_ENV);
         if (filePath is not null)
         {
-            await _fileCommandIssuer.IssueFileCommandAsync(
+            await fileCommandIssuer.IssueFileCommandAsync(
                 ENV,
-                _fileCommandIssuer.PrepareKeyValueMessage(name, value));
+                fileCommandIssuer.PrepareKeyValueMessage(name, value));
         }
         else
         {
-            _commandIssuer.IssueCommand<string>(
+            commandIssuer.IssueCommand<string>(
                 CommandNames.SetEnv,
                 name.ToCommandProperties());
         }
@@ -136,11 +128,11 @@ internal sealed class DefaultCoreService : ICoreService
     }
 
     /// <inheritdoc />
-    public void Info(string message) => _console.WriteLine(message);
+    public void Info(string message) => console.WriteLine(message);
 
     /// <inheritdoc />
     public void Notice(string message, AnnotationProperties? properties = default) =>
-        _commandIssuer.IssueCommand(
+        commandIssuer.IssueCommand(
             CommandNames.Notice, properties?.ToCommandProperties(), message);
 
     /// <inheritdoc />
@@ -149,13 +141,13 @@ internal sealed class DefaultCoreService : ICoreService
         var filePath = GetEnvironmentVariable(GITHUB_STATE);
         if (filePath is not null)
         {
-            await _fileCommandIssuer.IssueFileCommandAsync(
+            await fileCommandIssuer.IssueFileCommandAsync(
                 STATE,
-                _fileCommandIssuer.PrepareKeyValueMessage(name, value));
+                fileCommandIssuer.PrepareKeyValueMessage(name, value));
         }
         else
         {
-            _commandIssuer.IssueCommand(
+            commandIssuer.IssueCommand(
                 CommandNames.SaveState,
                 name.ToCommandProperties(),
                 value.ToCommandValue());
@@ -164,7 +156,7 @@ internal sealed class DefaultCoreService : ICoreService
 
     /// <inheritdoc />
     public void SetCommandEcho(bool enabled) =>
-        _commandIssuer.Issue(
+        commandIssuer.Issue(
             CommandNames.Echo, enabled ? "on" : "off");
 
     /// <inheritdoc />
@@ -180,15 +172,15 @@ internal sealed class DefaultCoreService : ICoreService
         var filePath = GetEnvironmentVariable(GITHUB_OUTPUT);
         if (filePath is not null)
         {
-            await _fileCommandIssuer.IssueFileCommandAsync(
+            await fileCommandIssuer.IssueFileCommandAsync(
                 OUTPUT,
-                _fileCommandIssuer.PrepareKeyValueMessage(name, value));
+                fileCommandIssuer.PrepareKeyValueMessage(name, value));
         }
         else
         {
-            _console.WriteLine("");
+            console.WriteLine("");
 
-            _commandIssuer.IssueCommand(
+            commandIssuer.IssueCommand(
                 CommandNames.SetOutput,
                 name.ToCommandProperties(),
                 value.ToCommandValue());
@@ -197,16 +189,16 @@ internal sealed class DefaultCoreService : ICoreService
 
     /// <inheritdoc />
     public void SetSecret(string secret) =>
-        _commandIssuer.IssueCommand(
+        commandIssuer.IssueCommand(
             CommandNames.AddMask, null, secret);
 
     /// <inheritdoc />
     public void StartGroup(string name) =>
-        _commandIssuer.Issue(
+        commandIssuer.Issue(
             CommandNames.Group, name);
 
     /// <inheritdoc />
     public void Warning(string message, AnnotationProperties? properties = default) =>
-        _commandIssuer.IssueCommand(
+        commandIssuer.IssueCommand(
             CommandNames.Warning, properties?.ToCommandProperties(), message);
 }

@@ -4,13 +4,10 @@
 namespace Actions.Core.Commands;
 
 /// <inheritdoc cref="IFileCommandIssuer" />
-internal sealed class DefaultFileCommandIssuer : IFileCommandIssuer
+internal sealed class DefaultFileCommandIssuer(
+    Func<string, string, ValueTask> writeLineTask) : IFileCommandIssuer
 {
-    private readonly Func<string, string, ValueTask> _writeLineTask;
-
-    public DefaultFileCommandIssuer(
-        Func<string, string, ValueTask> writeLineTask) =>
-        _writeLineTask = writeLineTask.ThrowIfNull();
+    private readonly Func<string, string, ValueTask> _writeLineTask = writeLineTask.ThrowIfNull();
 
     /// <inheritdoc />
     ValueTask IFileCommandIssuer.IssueFileCommandAsync<TValue>(
