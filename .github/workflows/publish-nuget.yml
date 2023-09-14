@@ -24,7 +24,7 @@ jobs:
       id: regex-match
       with:
         text: ${{ github.ref }}
-        regex: ' /refs\/tags\/(.+)/'
+        regex: '/refs\/tags\/(.+)/'
        
     - name: Print version number
       run: echo '${{ steps.regex-match.outputs.group1 }}'
