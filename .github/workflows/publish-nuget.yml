@@ -58,4 +58,6 @@ jobs:
       
     - name: Publish ${{ matrix.project }} package
       run: |
-        nuget push **\${{ matrix.project }}.*.nupkg -Source 'https://api.nuget.org/v3/index.json' -NoSymbols -NonInteractive -ApiKey ${{secrets.NUGET_API_KEY}} -SkipDuplicate
+        nuget push **\${{ matrix.project }}.*.nupkg -Source 'https://api.nuget.org/v3/index.json' \
+            -NoSymbols -NonInteractive -ApiKey ${{secrets.NUGET_API_KEY}} \
+            -SkipDuplicate -Verbosity detailed
