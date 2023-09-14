@@ -35,7 +35,7 @@
     <IncludeSymbols>false</IncludeSymbols>
     <IncludeSource>false</IncludeSource>
     <RootNamespace>Actions.Glob</RootNamespace>
-    <NoWarn>NU5125;NU5039</NoWarn>
+    <NoWarn>NU5104;NU5125;NU5039</NoWarn>
     <Optimize Condition="'$(Configuration)'=='Release'">true</Optimize>
     <RepositoryUrl>https://github.com/IEvangelist/dotnet-github-actions-sdk</RepositoryUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
