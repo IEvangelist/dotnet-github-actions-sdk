@@ -25,6 +25,7 @@ jobs:
       with:
         text: ${{ github.ref }}
         # Extracts the version number from the tag ref: /refs\/tags\/(.+)/
+        # https://regex101.com/r/0F2FwO/1
         regex: 'refs\/tags\/(.+)'
        
     - name: Print version number
