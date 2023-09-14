@@ -6,6 +6,6 @@ namespace Actions.Octokit.Interfaces;
 /// <summary>
 /// Represents a pull request.
 /// </summary>
-public sealed class PullRequest : Issue
+public sealed class PullRequest : WebhookIssue
 {
 }

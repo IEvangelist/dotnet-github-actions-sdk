@@ -61,10 +61,13 @@
     </PackageReference>
   </ItemGroup>
 
-
   <ItemGroup Label="Files">
     <None Include="..\..\LICENSE" Pack="true" PackagePath="\" />
     <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Actions.Octokit.Tests" />
   </ItemGroup>
     
 </Project>

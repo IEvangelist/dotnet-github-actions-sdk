@@ -74,7 +74,7 @@ public sealed class Context
     /// <summary>
     /// Gets the issue in context.
     /// </summary>
-    public Common.Issue Issue { get; }
+    public Issue Issue { get; }
 
     private Context()
     {
@@ -112,9 +112,7 @@ public sealed class Context
                 Payload.Repository.Owner.Login,
                 Payload.Repository.Name,
                 Payload.Issue?.Number ??
-                    Payload.PullRequest?.Number ??
-                        (long.TryParse(Payload["number"].ToString(), out var payloadNumber)
-                            ? payloadNumber : 0));
+                    Payload.PullRequest?.Number ?? 0);
         }
 
         var repository = GetEnvironmentVariable(GITHUB_REPOSITORY);

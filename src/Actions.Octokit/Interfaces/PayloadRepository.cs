@@ -6,7 +6,7 @@ namespace Actions.Octokit.Interfaces;
 /// <summary>
 /// Represents the payload repository.
 /// </summary>
-public sealed class PayloadRepository : Dictionary<string, object>
+public sealed class PayloadRepository
 {
     /// <summary>
     /// The full name of the payload repository.

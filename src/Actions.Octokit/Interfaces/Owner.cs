@@ -6,7 +6,7 @@ namespace Actions.Octokit.Interfaces;
 /// <summary>
 /// Represents the owner of a GitHub repository.
 /// </summary>
-public sealed class Owner : Dictionary<string, object>
+public sealed class Owner
 {
     /// <summary>
     /// The login used for by the owner.

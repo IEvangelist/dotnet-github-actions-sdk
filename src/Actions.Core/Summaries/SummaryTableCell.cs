@@ -18,7 +18,7 @@ public readonly record struct SummaryTableCell(
 {
     /// <summary>
     /// Whether or not the cell is considered simple, meaning 
-    /// only the <see cref="SummaryTableCell.Data" /> is provided.
+    /// only the <see cref="Data" /> is provided.
     /// </summary>
     public bool IsSimpleCell => Header is null && Colspan is "1" && Rowspan is "1";
 }

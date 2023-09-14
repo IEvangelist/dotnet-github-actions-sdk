@@ -6,7 +6,7 @@ namespace Actions.Octokit.Interfaces;
 /// <summary>
 /// Represents the installation.
 /// </summary>
-public sealed class Installation : Dictionary<string, object>
+public sealed class Installation
 {
     /// <summary>
     /// The unique identifier of the installation.

@@ -36,7 +36,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Actions.Glob.Sample", "samp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Actions.IO", "src\Actions.IO\Actions.IO.csproj", "{A150FB1F-0388-4FF3-B9FE-03AF72A451FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Actions.IO.Tests", "tests\Actions.IO.Tests\Actions.IO.Tests.csproj", "{F0D351B4-8FB2-4729-9C93-530AB71237E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Actions.IO.Tests", "tests\Actions.IO.Tests\Actions.IO.Tests.csproj", "{F0D351B4-8FB2-4729-9C93-530AB71237E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Actions.Octokit.Tests", "tests\Actions.Octokit.Tests\Actions.Octokit.Tests.csproj", "{1987D078-C132-4BAF-8BCC-DB11168B3B1D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -80,6 +82,10 @@ Global
 		{F0D351B4-8FB2-4729-9C93-530AB71237E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0D351B4-8FB2-4729-9C93-530AB71237E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F0D351B4-8FB2-4729-9C93-530AB71237E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1987D078-C132-4BAF-8BCC-DB11168B3B1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1987D078-C132-4BAF-8BCC-DB11168B3B1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1987D078-C132-4BAF-8BCC-DB11168B3B1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1987D078-C132-4BAF-8BCC-DB11168B3B1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,6 +100,7 @@ Global
 		{756F83A6-25E2-44B9-92D0-D74961D10EE5} = {C5358CA3-CAA9-43F6-9696-4AEFA18AD581}
 		{A150FB1F-0388-4FF3-B9FE-03AF72A451FF} = {05787D83-7374-483A-A42C-E9A53EA5B224}
 		{F0D351B4-8FB2-4729-9C93-530AB71237E4} = {795A1BB4-B65E-4455-B041-DEBCC6543B36}
+		{1987D078-C132-4BAF-8BCC-DB11168B3B1D} = {795A1BB4-B65E-4455-B041-DEBCC6543B36}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {49382294-2F91-4B26-B415-0933D5DF38E1}

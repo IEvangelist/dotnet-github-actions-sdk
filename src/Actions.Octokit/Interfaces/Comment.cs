@@ -6,7 +6,7 @@ namespace Actions.Octokit.Interfaces;
 /// <summary>
 /// Represents a comment on a GitHub issue or pull request.
 /// </summary>
-public sealed class Comment : Dictionary<string, object>
+public sealed class Comment
 {
     /// <summary>
     /// The unique identifier of the comment.

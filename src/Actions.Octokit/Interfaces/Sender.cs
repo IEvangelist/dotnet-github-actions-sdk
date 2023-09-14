@@ -6,7 +6,7 @@ namespace Actions.Octokit.Interfaces;
 /// <summary>
 /// Represents the sender of the GitHub event.
 /// </summary>
-public sealed class Sender : Dictionary<string, object>
+public sealed class Sender
 {
     /// <summary>
     /// The type of event that was triggered by the sender.

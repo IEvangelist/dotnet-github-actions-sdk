@@ -6,7 +6,7 @@ namespace Actions.Octokit.Interfaces;
 /// <summary>
 /// The payload of a GitHub webhook.
 /// </summary>
-public sealed class WebhookPayload : Dictionary<string, object>
+public sealed class WebhookPayload
 {
     /// <summary>
     /// The payload repository.
@@ -18,7 +18,7 @@ public sealed class WebhookPayload : Dictionary<string, object>
     /// The issue from the webhook payload.
     /// </summary>
     [JsonPropertyName("issue")]
-    public Issue? Issue { get; set; }
+    public WebhookIssue? Issue { get; set; }
 
     /// <summary>
     /// The pull request from the webhook payload.

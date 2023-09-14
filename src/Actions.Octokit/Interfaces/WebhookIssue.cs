@@ -6,7 +6,7 @@ namespace Actions.Octokit.Interfaces;
 /// <summary>
 /// Represents a GitHub issue.
 /// </summary>
-public class Issue : Dictionary<string, object>
+public class WebhookIssue
 {
     /// <summary>
     /// The unique identifier of the issue.
