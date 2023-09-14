@@ -49,6 +49,7 @@ jobs:
     - name: Pack ${{ matrix.project }}
       run: |
         dotnet pack ./src/${{ matrix.project }}/${{ matrix.project }}.csproj --output packages
+
     - name: Upload ${{ matrix.project }}
       uses: actions/upload-artifact@v3
       with:
@@ -57,4 +58,4 @@ jobs:
       
     - name: Publish ${{ matrix.project }} package
       run: |
-        nuget push **\${{ matrix.project }}.*.nupkg -Source 'https://api.nuget.org/v3/index.json' -NoSymbols -NonInteractive -ApiKey ${{secrets.NUGET_API_KEY}}
+        nuget push **\${{ matrix.project }}.*.nupkg -Source 'https://api.nuget.org/v3/index.json' -NoSymbols -NonInteractive -ApiKey ${{secrets.NUGET_API_KEY}} -SkipDuplicate
