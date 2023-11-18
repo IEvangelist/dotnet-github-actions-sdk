@@ -5,6 +5,8 @@ global using System.Text;
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
 
+global using Octokit;
+
 global using Actions.Octokit.Common;
 global using Actions.Octokit.Interfaces;
 

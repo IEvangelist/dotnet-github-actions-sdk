@@ -1,6 +1,9 @@
 ﻿// Copyright (c) David Pine. All rights reserved.
 // Licensed under the MIT License.
 
+using Issue = Actions.Octokit.Common.Issue;
+using Repository = Actions.Octokit.Common.Repository;
+
 namespace Actions.Octokit;
 
 /// <summary>
