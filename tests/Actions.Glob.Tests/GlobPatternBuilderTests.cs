@@ -22,17 +22,24 @@ public sealed class GlobPatternBuilderTests
         Assert.True(result.HasMatches);
         Assert.Equal(5, result.Files.Count());
 
-        var expectedFiles = new[]
-        {
-            "file.md",
-            "README.md",
-            "child/file.MD",
-            "child/assets/image.svg",
-            "child/grandchild/file.md",
-        };
+        string[] expectedFiles =
+        [
+            "parent/file.md",
+            "parent/README.md",
+            "parent/child/file.MD",
+            "parent/child/assets/image.svg",
+            "parent/child/grandchild/file.md",
+        ];
+
+        string[] expected =
+        [
+            .. expectedFiles.Select(
+                static file => Path.GetFullPath(file))
+        ];
+
         Assert.All(
-            expectedFiles,
+            expected,
             expectedFile => Assert.Contains(
-                expectedFile, result.Files.Select(f => f.Path)));
+                expectedFile, result.Files.Select(f => f.FullName)));
     }
 }

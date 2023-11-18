@@ -11,14 +11,14 @@ internal sealed class DefaultGlobPatternResolver : IGlobPatternResolver
 
     private DefaultGlobPatternResolver(
         IEnumerable<string> includePatterns,
-        IEnumerable<string> exlcudePatterns) =>
-        (_includePatterns, _excludePatterns) = (includePatterns, exlcudePatterns);
+        IEnumerable<string> excludePatterns) =>
+        (_includePatterns, _excludePatterns) = (includePatterns, excludePatterns);
 
     /// <inheritdoc />
     internal static IGlobPatternResolver Factory(
         IEnumerable<string> includePatterns,
-        IEnumerable<string> exlcudePatterns) =>
-        new DefaultGlobPatternResolver(includePatterns, exlcudePatterns);
+        IEnumerable<string> excludePatterns) =>
+        new DefaultGlobPatternResolver(includePatterns, excludePatterns);
 
     /// <inheritdoc />
     IEnumerable<string> IGlobPatternResolver.GetGlobFiles(

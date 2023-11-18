@@ -14,62 +14,66 @@ public sealed class StringExtensionsTests
             Array.Empty<string>(),
             (true, new string[]
             {
-                "file.md",
-                "README.md",
-                "child/file.MD",
-                "child/index.js",
-                "child/more.md",
-                "child/sample.mtext",
-                "child/assets/image.png",
-                "child/assets/image.svg",
-                "child/grandchild/file.md",
-                "child/grandchild/style.css",
-                "child/grandchild/sub.text"
+                "parent/file.md",
+                "parent/README.md",
+                "parent/child/file.MD",
+                "parent/child/index.js",
+                "parent/child/more.md",
+                "parent/child/sample.mtext",
+                "parent/child/assets/image.png",
+                "parent/child/assets/image.svg",
+                "parent/child/grandchild/file.md",
+                "parent/child/grandchild/style.css",
+                "parent/child/grandchild/sub.text"
             })
         },
-        new object[]
-        {
+        [
             "parent",
             new[] { "**/*child/*.md" },
             Array.Empty<string>(),
             (true, new string[]
             {
-                "child/file.MD",
-                "child/more.md",
-                "child/grandchild/file.md"
+                "parent/child/file.MD",
+                "parent/child/more.md",
+                "parent/child/grandchild/file.md"
             })
-        },
-        new object[]
-        {
+        ],
+        [
             "parent",
             new[] { "**/*/file.md" },
             Array.Empty<string>(),
             (true, new string[]
             {
-                "child/file.MD",
-                "child/grandchild/file.md"
+                "parent/child/file.MD",
+                "parent/child/grandchild/file.md"
             })
-        },
+        ],
     };
 
     [Theory, MemberData(nameof(GetGlobResultTestInput))]
     public void GetGlobResultTest(
         string directory,
         string[] includes,
-        string[] exlcudes,
+        string[] excludes,
         (bool HasMatches, string[] Files) expected)
     {
         var actual = directory.GetGlobResult(
-            includes, exlcudes);
+            includes, excludes);
 
         Assert.Equal(expected.HasMatches, actual.HasMatches);
 
-        var actualFiles = actual.Files.Select(file => file.Path).ToArray();
+        var actualFiles = actual.Files.Select(file => file.FullName).ToArray();
         Assert.Equal(expected.Files?.Length, actualFiles?.Length);
         if (actual.HasMatches)
         {
+            string[] expectedFiles =
+            [
+                .. expected.Files!.Select(
+                static file => Path.GetFullPath(file))
+            ];
+
             Assert.All(
-                expected.Files!,
+                expectedFiles,
                 expectedFile => Assert.Contains(expectedFile, actualFiles!));
         }
     }
@@ -79,11 +83,11 @@ public sealed class StringExtensionsTests
     {
         var expectedFiles = new[]
         {
-            "file.md",
-            "README.md",
-            "child/file.MD",
-            "child/assets/image.svg",
-            "child/grandchild/file.md",
+            "parent/file.md",
+            "parent/README.md",
+            "parent/child/file.MD",
+            "parent/child/assets/image.svg",
+            "parent/child/grandchild/file.md",
         };
 
         var directory = "parent";
@@ -92,9 +96,15 @@ public sealed class StringExtensionsTests
                 new[] { "*/more.md" })
             .ToArray();
 
+        string[] expected =
+        [
+            .. expectedFiles.Select(
+                        static file => Path.GetFullPath(file))
+        ];
+
         Assert.Equal(expectedFiles.Length, actualFiles.Length);
         Assert.All(
-            expectedFiles,
+            expected,
             expectedFile => Assert.Contains(expectedFile, actualFiles!));
     }
 }

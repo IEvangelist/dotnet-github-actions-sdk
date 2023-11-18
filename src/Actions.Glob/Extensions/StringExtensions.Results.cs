@@ -20,16 +20,18 @@ public static partial class StringExtensions
     {
         directory ??= Directory.GetCurrentDirectory();
 
-        Matcher matcher = new();
-        matcher.AddIncludePatterns(includePatterns);
-        if (excludePatterns is not null)
+        var builder = new GlobOptionsBuilder()
+            .WithBasePath(directory)
+            .WithPatterns([.. includePatterns]);
+
+        if (excludePatterns is { } ignore)
         {
-            matcher.AddExcludePatterns(excludePatterns);
+            builder = builder.WithIgnorePatterns([.. ignore]);
         }
 
-        return matcher.Execute(
-            new DirectoryInfoWrapper(
-                new DirectoryInfo(directory)));
+        var options = builder.Build();
+
+        return options.ExecuteEvaluation();
     }
 
     /// <summary>
@@ -43,13 +45,6 @@ public static partial class StringExtensions
         this string? directory,
         params string[] includePatterns)
     {
-        directory ??= Directory.GetCurrentDirectory();
-
-        Matcher matcher = new();
-        matcher.AddIncludePatterns(includePatterns);
-
-        return matcher.Execute(
-            new DirectoryInfoWrapper(
-                new DirectoryInfo(directory)));
+        return directory.GetGlobResult(includePatterns);
     }
 }

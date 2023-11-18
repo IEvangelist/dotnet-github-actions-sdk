@@ -23,6 +23,6 @@ public static partial class StringExtensions
         IEnumerable<string>? excludePatterns = null) =>
         directory.GetGlobResult(
             includePatterns, excludePatterns) is { HasMatches: true } result
-            ? result.Files.Select(file => file.Path)
+            ? result.Files.Select(file => file.FullName)
             : Enumerable.Empty<string>();
 }

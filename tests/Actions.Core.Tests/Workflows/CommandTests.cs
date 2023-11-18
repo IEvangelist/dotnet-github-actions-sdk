@@ -11,22 +11,18 @@ public sealed class CommandTests
         {
             "some-cmd", 7, null!, "::some-cmd::7",
         },
-        new object[]
-        {
+        [
             "another-name", true, null!, "::another-name::true"
-        },
-        new object[]
-        {
+        ],
+        [
             "cmdr", false, new Dictionary<string, string> { ["k1"] = "v1" }, "::cmdr k1=v1::false"
-        },
-        new object[]
-        {
+        ],
+        [
             "~~~", "Hi friends!", null!, "::~~~::Hi friends!"
-        },
-        new object[]
-        {
+        ],
+        [
             null!, null!, null!, "::::"
-        }
+        ]
     };
 
     [Theory]

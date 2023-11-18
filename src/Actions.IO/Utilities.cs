@@ -13,13 +13,13 @@ public static class Utilities
     public static Lazy<string[]> Paths { get; } = new (() =>
     {
         var path = Environment.GetEnvironmentVariable("PATH");
-        return path?.Split(Path.PathSeparator) ?? Array.Empty<string>();
+        return path?.Split(Path.PathSeparator) ?? [];
     });
 
     public static Lazy<string[]> PathExtensions { get; } = new(() =>
     {
         var pathExts = Environment.GetEnvironmentVariable("PATHEXT");
-        return pathExts?.Split(Path.PathSeparator) ?? Array.Empty<string>();
+        return pathExts?.Split(Path.PathSeparator) ?? [];
     });
 
     ///<inheritdoc cref="File.Exists(string?)" />

@@ -63,12 +63,12 @@ internal sealed class Operations : IOperations
         if (Utilities.IsRooted(tool))
         {
             var filePath = Utilities.TryGetExecutablePath(tool, extensions);
-            return filePath is { Length: > 0 } ? new[] { filePath } : Array.Empty<string>();
+            return filePath is { Length: > 0 } ? [filePath] : [];
         }
 
         if (tool.Contains(Path.PathSeparator))
         {
-            return Array.Empty<string>();
+            return [];
         }
 
         var paths = Utilities.Paths.Value;
@@ -83,6 +83,6 @@ internal sealed class Operations : IOperations
             }
         }
 
-        return matches.ToArray();
+        return [.. matches];
     }
 }

@@ -25,7 +25,7 @@ public sealed class GenericExtensionsTests
     public void ToCommandValueCorrectlySerializesValueTest()
     {
         SimpleObject actual = new(
-            "David", 7, DateTime.Now, Guid.NewGuid(), new[] { (decimal)Math.PI });
+            "David", 7, DateTime.Now, Guid.NewGuid(), [(decimal)Math.PI]);
 
         var commandValue = actual.ToCommandValue();
         var options = new JsonSerializerOptions(JsonSerializerDefaults.Web);

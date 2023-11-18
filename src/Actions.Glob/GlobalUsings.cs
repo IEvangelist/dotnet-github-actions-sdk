@@ -2,5 +2,7 @@
 // Licensed under the MIT License.
 
 global using Microsoft.Extensions.DependencyInjection;
-global using Microsoft.Extensions.FileSystemGlobbing;
-global using Microsoft.Extensions.FileSystemGlobbing.Abstractions;
+
+global using Pathological.Globbing.Extensions;
+global using Pathological.Globbing.Options;
+global using Pathological.Globbing.Results;

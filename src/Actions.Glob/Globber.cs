@@ -4,7 +4,7 @@
 namespace Actions.Glob;
 
 /// <summary>
-/// A globber instance, used to get glob results or iteract glob files.
+/// A globber instance, used to get glob results or interact glob files.
 /// </summary>
 public class Globber
 {
