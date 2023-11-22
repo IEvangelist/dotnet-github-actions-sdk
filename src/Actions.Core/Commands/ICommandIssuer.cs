@@ -20,20 +20,18 @@ internal interface ICommandIssuer
     /// </list>
     /// </example>
     /// </summary>
-    /// <typeparam name="T">The generic-type parameter for the given message type.</typeparam>
     /// <param name="commandName">Formal command name as defined in <see cref="CommandNames" /></param>
     /// <param name="properties">Properties to issue as part of the command, written as key-value pairs.</param>
     /// <param name="message">An arbitrary message value</param>
-    void IssueCommand<T>(
+    void IssueCommand(
         string commandName,
         IReadOnlyDictionary<string, string>? properties = default,
-        T? message = default);
+        string? message = default);
 
     /// <summary>
     /// Issue a formal command, given its <paramref name="commandName"/> and <paramref name="message"/>.
     /// </summary>
-    /// <typeparam name="T">The generic-type parameter for the given message type.</typeparam>
     /// <param name="commandName">Formal command name as defined in <see cref="CommandNames" /></param>
     /// <param name="message">An arbitrary message value</param>
-    void Issue<T>(string commandName, T? message = default);
+    void Issue(string commandName, string? message = default);
 }

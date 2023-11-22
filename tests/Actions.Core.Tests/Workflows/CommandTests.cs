@@ -9,13 +9,13 @@ public sealed class CommandTests
     {
         new object[]
         {
-            "some-cmd", 7, null!, "::some-cmd::7",
+            "some-cmd", "7", null!, "::some-cmd::7",
         },
         [
-            "another-name", true, null!, "::another-name::true"
+            "another-name", "true", null!, "::another-name::true"
         ],
         [
-            "cmdr", false, new Dictionary<string, string> { ["k1"] = "v1" }, "::cmdr k1=v1::false"
+            "cmdr", "false", new Dictionary<string, string> { ["k1"] = "v1" }, "::cmdr k1=v1::false"
         ],
         [
             "~~~", "Hi friends!", null!, "::~~~::Hi friends!"
@@ -27,13 +27,13 @@ public sealed class CommandTests
 
     [Theory]
     [MemberData(nameof(CommandToStringInput))]
-    public void CommandToStringTest<T>(
+    public void CommandToStringTest(
         string? name = null,
-        T message = default!,
+        string message = default!,
         Dictionary<string, string>? properties = null,
         string? expected = null)
     {
-        Command<T> command = new(name, message, properties);
+        Command command = new(name, message, properties);
 
         var actual = command.ToString();
 

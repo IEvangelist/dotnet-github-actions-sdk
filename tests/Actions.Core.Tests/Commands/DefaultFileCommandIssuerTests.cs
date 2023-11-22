@@ -25,9 +25,12 @@ public sealed class DefaultFileCommandIssuerTests
                 return ValueTask.CompletedTask;
             });
 
+        var message = JsonSerializer.Serialize(
+            new { test = "Values", number = 7 });
+
         await sut.IssueFileCommandAsync(
             commandSuffix: "TEST",
-            message: new { Test = "Values", Number = 7 });
+            message);
     }
 
     [Fact]
@@ -47,12 +50,12 @@ public sealed class DefaultFileCommandIssuerTests
             var provider = services.BuildServiceProvider();
             var core = provider.GetRequiredService<ICoreService>();
 
-            await core.SetOutputAsync("has-remaining-work", true);
-            await core.SetOutputAsync("upgrade-projects", new[]
+            await core.SetOutputAsync("has-remaining-work", "true");
+            await core.SetOutputAsync("upgrade-projects", JsonSerializer.Serialize(new[]
             {
                 "this/is/a/test.csproj",
                 "another/test/example.csproj"
-            });
+            }));
 
             var lines = await File.ReadAllLinesAsync(path);
             Assert.NotNull(lines);

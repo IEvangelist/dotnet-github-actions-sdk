@@ -22,7 +22,7 @@ You"ll need to install the [GitHub `Actions.Glob` .NET SDK](https://www.nuget.or
 Either add the package reference to your project file:
 
 ```xml
-<PackageReference Include="GitHub.Actions.Glob" Version="0.0.1" />
+<PackageReference Include="GitHub.Actions.Glob" />
 ```
 
 Or use the [`dotnet add package`](https://learn.microsoft.com/dotnet/core/tools/dotnet-add-package) .NET CLI command:

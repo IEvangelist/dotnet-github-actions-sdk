@@ -7,16 +7,16 @@ namespace Actions.Core.Commands;
 internal sealed class DefaultCommandIssuer(IConsole console) : ICommandIssuer
 {
     /// <inheritdoc />
-    public void Issue<T>(string commandName, T? message = default) =>
+    public void Issue(string commandName, string? message = default) =>
         IssueCommand(commandName, null, message);
 
     /// <inheritdoc />
-    public void IssueCommand<T>(
+    public void IssueCommand(
         string commandName,
         IReadOnlyDictionary<string, string>? properties = default,
-        T? message = default)
+        string? message = default)
     {
-        var cmd = new Command<T>(
+        var cmd = new Command(
             commandName, message, properties);
 
         if (cmd is not { Conventional: true })

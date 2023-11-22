@@ -60,7 +60,7 @@ internal sealed class DefaultCoreService(
         }
         else
         {
-            commandIssuer.IssueCommand<string>(
+            commandIssuer.IssueCommand(
                 CommandNames.SetEnv,
                 name.ToCommandProperties());
         }
@@ -136,7 +136,7 @@ internal sealed class DefaultCoreService(
             CommandNames.Notice, properties?.ToCommandProperties(), message);
 
     /// <inheritdoc />
-    public async ValueTask SaveStateAsync<T>(string name, T value)
+    public async ValueTask SaveStateAsync(string name, string value)
     {
         var filePath = GetEnvironmentVariable(GITHUB_STATE);
         if (filePath is not null)
@@ -167,7 +167,7 @@ internal sealed class DefaultCoreService(
     }
 
     /// <inheritdoc />
-    public async ValueTask SetOutputAsync<T>(string name, T value)
+    public async ValueTask SetOutputAsync(string name, string value)
     {
         var filePath = GetEnvironmentVariable(GITHUB_OUTPUT);
         if (filePath is not null)

@@ -13,9 +13,9 @@ namespace Actions.Core.Workflows;
 /// <item><c>::set-env name=MY_VAR::some value</c></item>
 /// </list>
 /// </example>
-internal readonly record struct Command<T>(
+internal readonly record struct Command(
     string? CommandName = "missing.command",
-    T? Message = default,
+    string? Message = default,
     IReadOnlyDictionary<string, string>? CommandProperties = default)
 {
     const string CMD_STRING = "::";
@@ -51,7 +51,7 @@ internal readonly record struct Command<T>(
         return builder.ToString();
     }
 
-    static string EscapeProperty<TSource>(TSource? value) =>
+    static string EscapeProperty(string? value) =>
         value.ToCommandValue()
             .Replace("%", "%25")
             .Replace("\r", "%0D")
@@ -59,7 +59,7 @@ internal readonly record struct Command<T>(
             .Replace(":", "%3A")
             .Replace(",", "%2C");
 
-    static string EscapeData<TSource>(TSource? value) =>
+    static string EscapeData(string? value) =>
         value.ToCommandValue()
             .Replace("%", "%25")
             .Replace("\r", "%0D")

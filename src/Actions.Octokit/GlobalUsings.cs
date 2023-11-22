@@ -7,8 +7,8 @@ global using System.Text.Json.Serialization;
 
 global using Octokit;
 
-global using Actions.Octokit.Common;
 global using Actions.Octokit.Interfaces;
+global using Actions.Octokit.Serialization;
 
 global using static System.Environment;
 

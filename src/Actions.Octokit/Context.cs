@@ -87,7 +87,8 @@ public sealed class Context
             if (File.Exists(eventPath))
             {
                 var json = File.ReadAllText(eventPath, Encoding.UTF8);
-                Payload = JsonSerializer.Deserialize<WebhookPayload>(json)!;
+                Payload = JsonSerializer.Deserialize<WebhookPayload>(
+                    json, OctokitContexts.Default.WebhookPayload)!;
             }
             else
             {

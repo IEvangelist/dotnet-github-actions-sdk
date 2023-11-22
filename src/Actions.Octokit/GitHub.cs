@@ -5,17 +5,18 @@ namespace Actions.Octokit;
 
 public sealed class GitHub
 {
-    private readonly Lazy<GitHubClient> _client;
+    private static readonly Lazy<GitHubClient> s_client =
+        new(CreateClient);
 
-    public GitHub() => _client = new Lazy<GitHubClient>(CreateClient);
-
-    public GitHubClient Client => _client.Value;
+    public static GitHubClient Client => s_client.Value;
 
     private static GitHubClient CreateClient()
     {
-        var token = GetEnvironmentVariable(GITHUB_TOKEN);
         var client = new GitHubClient(
-            new ProductHeaderValue("ievangelist"));
+            new ProductHeaderValue(
+                "ievangelist-dotnet-github-action-sdk"));
+
+        var token = GetEnvironmentVariable(GITHUB_TOKEN);
 
         if (!string.IsNullOrWhiteSpace(token))
         {

@@ -1,6 +1,9 @@
 ﻿// Copyright (c) David Pine. All rights reserved.
 // Licensed under the MIT License.
 
+using System.Text.Json.Serialization;
+using Actions.Core.Extensions;
+
 namespace Actions.Core.Tests.Extensions;
 
 public sealed class GenericExtensionsTests
@@ -27,17 +30,24 @@ public sealed class GenericExtensionsTests
         SimpleObject actual = new(
             "David", 7, DateTime.Now, Guid.NewGuid(), [(decimal)Math.PI]);
 
-        var commandValue = actual.ToCommandValue();
-        var options = new JsonSerializerOptions(JsonSerializerDefaults.Web);
-        var expected = JsonSerializer.Deserialize<SimpleObject>(commandValue, options);
+        var typeInfo = SimpleContext.Default.SimpleObject;
+        var commandValue = actual.ToCommandValue<SimpleObject>(typeInfo);
+
+        var expected = JsonSerializer.Deserialize<SimpleObject>(
+            commandValue, typeInfo.Options);
 
         Assert.Equivalent(expected, actual);
     }
 }
 
-file record class SimpleObject(
+internal record class SimpleObject(
     string Name,
     int Number,
     DateTime Date,
     Guid Id,
     decimal[] Coordinates);
+
+[JsonSerializable(typeof(SimpleObject))]
+internal partial class SimpleContext : JsonSerializerContext
+{
+}

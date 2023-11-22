@@ -10,10 +10,11 @@ internal sealed class DefaultFileCommandIssuer(
     private readonly Func<string, string, ValueTask> _writeLineTask = writeLineTask.ThrowIfNull();
 
     /// <inheritdoc />
-    ValueTask IFileCommandIssuer.IssueFileCommandAsync<TValue>(
-        string commandSuffix, TValue message)
+    ValueTask IFileCommandIssuer.IssueFileCommandAsync(
+        string commandSuffix, string message)
     {
         var filePath = GetEnvironmentVariable($"{GITHUB_}{commandSuffix}");
+
         if (string.IsNullOrWhiteSpace(filePath))
         {
             throw new Exception(
@@ -31,7 +32,7 @@ internal sealed class DefaultFileCommandIssuer(
     }
 
     /// <inheritdoc />
-    string IFileCommandIssuer.PrepareKeyValueMessage<TValue>(string key, TValue value)
+    string IFileCommandIssuer.PrepareKeyValueMessage(string key, string value)
     {
         var delimiter = $"ghadelimiter_{Guid.NewGuid()}";
         var convertedValue = value.ToCommandValue();

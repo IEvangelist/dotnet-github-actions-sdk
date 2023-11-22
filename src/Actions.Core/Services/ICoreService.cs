@@ -66,7 +66,7 @@ public interface ICoreService
     /// <param name="value">value to store.
     /// Non-string values will be converted to a string via <see cref="JsonSerializer.Serialize(object?, Type, JsonSerializerOptions?)"/>
     /// </param>
-    ValueTask SetOutputAsync<T>(string name, T value);
+    ValueTask SetOutputAsync(string name, string value);
 
     /// <summary>
     /// Enables or disables the echoing of commands into stdout for the rest of the step.
@@ -149,7 +149,7 @@ public interface ICoreService
     /// <param name="value">value to store.
     /// Non-string values will be converted to a string via <see cref="JsonSerializer.Serialize(object?, Type, JsonSerializerOptions?)"/>
     /// </param>
-    ValueTask SaveStateAsync<T>(string name, T value);
+    ValueTask SaveStateAsync(string name, string value);
 
     /// <summary>
     /// Gets the vale of a state set by this actions's main execution.

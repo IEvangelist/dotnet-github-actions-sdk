@@ -18,10 +18,7 @@ try
     var payload = JsonSerializer.Serialize(Context.Current.Payload);
     core.Info($"The event payload: {payload}");
 
-    await core.SetOutputAsync("yesItWorks", new[]
-    {
-        "testing/this/out"
-    });
+    await core.SetOutputAsync("yesItWorks", "testing/this/out");
 }
 catch (Exception ex)
 {
