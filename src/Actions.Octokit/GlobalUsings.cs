@@ -10,6 +10,8 @@ global using Octokit;
 global using Actions.Octokit.Interfaces;
 global using Actions.Octokit.Serialization;
 
+global using Microsoft.Extensions.DependencyInjection;
+
 global using static System.Environment;
 
 global using static Actions.Octokit.EnvironmentVariables.Keys;

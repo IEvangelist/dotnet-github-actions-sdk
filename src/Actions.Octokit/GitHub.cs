@@ -3,7 +3,7 @@
 
 namespace Actions.Octokit;
 
-public sealed class GitHub
+public readonly record struct GitHub
 {
     private static readonly Lazy<GitHubClient> s_client =
         new(CreateClient);
@@ -12,17 +12,15 @@ public sealed class GitHub
 
     private static GitHubClient CreateClient()
     {
-        var client = new GitHubClient(
-            new ProductHeaderValue(
-                "ievangelist-dotnet-github-action-sdk"));
-
         var token = GetEnvironmentVariable(GITHUB_TOKEN);
 
-        if (!string.IsNullOrWhiteSpace(token))
-        {
-            client.Credentials = new Credentials(token);
-        }
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(token);
 
-        return client;
+        return new GitHubClient(
+            new ProductHeaderValue(
+                "ievangelist-dotnet-github-action-sdk", "1.0"))
+        {
+            Credentials = new Credentials(token)
+        };
     }
 }
