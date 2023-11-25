@@ -82,18 +82,16 @@ public sealed class Context
     private Context()
     {
         var eventPath = GetEnvironmentVariable(GITHUB_EVENT_PATH);
-        if (!string.IsNullOrWhiteSpace(eventPath))
+        if (!string.IsNullOrWhiteSpace(eventPath) && File.Exists(eventPath))
         {
-            if (File.Exists(eventPath))
-            {
-                var json = File.ReadAllText(eventPath, Encoding.UTF8);
-                Payload = JsonSerializer.Deserialize<WebhookPayload>(
-                    json, OctokitContexts.Default.WebhookPayload)!;
-            }
-            else
-            {
-                Console.WriteLine($"GITHUB_EVENT_PATH ${eventPath} does not exist");
-            }
+            var json = File.ReadAllText(eventPath, Encoding.UTF8);
+
+            Payload = JsonSerializer.Deserialize<WebhookPayload>(
+                json, OctokitContexts.Default.WebhookPayload)!;
+        }
+        else
+        {
+            Console.WriteLine($"GITHUB_EVENT_PATH ${eventPath} does not exist");
         }
 
         EventName = GetEnvironmentVariable(GITHUB_EVENT_NAME);
@@ -103,7 +101,7 @@ public sealed class Context
         Action = GetEnvironmentVariable(GITHUB_ACTION);
         Actor = GetEnvironmentVariable(GITHUB_ACTOR);
         Job = GetEnvironmentVariable(GITHUB_JOB);
-        
+
         RunNumber = int.TryParse(GetEnvironmentVariable(GITHUB_RUN_NUMBER), out var number) ? number : 10;
         RunId = int.TryParse(GetEnvironmentVariable(GITHUB_RUN_ID), out var id) ? id : 10;
         ApiUrl = GetEnvironmentVariable(GITHUB_API_URL) ?? "https://api.github.com";
