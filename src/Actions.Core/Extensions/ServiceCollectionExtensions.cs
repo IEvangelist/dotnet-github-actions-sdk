@@ -9,7 +9,7 @@ namespace Actions.Core.Extensions;
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// Adds all the services required to interact with GitHub Action workflows.
+    /// Adds all the services required to interact with GitHubClientFactory Action workflows.
     /// Consumers should require the <see cref="ICoreService"/> to interact with the workflow.
     /// </summary>
     public static IServiceCollection AddGitHubActionsCore(this IServiceCollection services)

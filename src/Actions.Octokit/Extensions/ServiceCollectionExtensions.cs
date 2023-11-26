@@ -8,16 +8,20 @@ public static class ServiceCollectionExtensions
     /// <summary>
     /// Adds the Octokit services to the <see cref="IServiceCollection"/>.
     /// <list type="bullet">
-    /// <item><see cref="GitHub.Client"/>: A <see cref="GitHubClient"/> instance initialized with the <c>GITHUB_TOKEN</c>.</item>
-    /// <item><see cref="Context.Current"/>: The current context as materialized from the workflows environment.</item>
+    /// <item>A <see cref="GitHubClient"/> instance initialized with the token.</item>
+    /// <item>A <see cref="Context"/> as materialized from the workflows environment.</item>
     /// </list>
     /// </summary>
     /// <param name="services">The service collection to add services to.</param>
+    /// <param name="gitHubToken">The GitHub token used to create the <see cref="GitHubClient"/>.
+    /// Commonly assigned from <c>${{ secrets.GITHUB_TOKEN }}</c>
+    /// </param>
     /// <returns>The same service collection, but with added services.</returns>
     public static IServiceCollection AddGitHubClientServices(
-        this IServiceCollection services)
+        this IServiceCollection services,
+        string gitHubToken)
     {
-        services.AddSingleton(GitHub.Client);
+        services.AddSingleton(GitHubClientFactory.Create(gitHubToken));
 
         services.AddSingleton(Context.Current);
 
