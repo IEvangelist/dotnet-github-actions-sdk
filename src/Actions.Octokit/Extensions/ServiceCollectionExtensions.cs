@@ -14,7 +14,7 @@ public static class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services">The service collection to add services to.</param>
     /// <returns>The same service collection, but with added services.</returns>
-    public static IServiceCollection AddOctokitServices(
+    public static IServiceCollection AddGitHubClientServices(
         this IServiceCollection services)
     {
         services.AddSingleton(GitHub.Client);
