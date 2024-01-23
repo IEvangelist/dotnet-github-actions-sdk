@@ -14,17 +14,25 @@ internal interface IFileCommandIssuer
     /// </summary>
     /// <param name="commandSuffix">The command suffix as found in <see cref="Octokit.EnvironmentVariables.Suffixes"/></param>
     /// <param name="message">An arbitrary message value</param>
+    /// <param name="typeInfo">The JSON type info used to serialize.</param>
     /// <returns>A task that represents the asynchronous operation of writing the message to file.</returns>
-    ValueTask IssueFileCommandAsync(string commandSuffix, string message);
+    ValueTask IssueFileCommandAsync<TValue>(
+        string commandSuffix,
+        TValue message,
+        JsonTypeInfo<TValue>? typeInfo = null);
 
     /// <summary>
     /// Prepares a key-value message, given the <paramref name="key"/> and <paramref name="value"/>.
     /// </summary>
     /// <param name="key">The key used as the left-operand.</param>
     /// <param name="value">The value used as the right-operand.</param>
+    /// <param name="typeInfo">The JSON type info used to serialize.</param>
     /// <returns>
     /// A string representation of the key-value pair, formatted
     /// with the appropriate unique delimiter.
     /// </returns>
-    string PrepareKeyValueMessage(string key, string value);
+    string PrepareKeyValueMessage<TValue>(
+        string key,
+        TValue value,
+        JsonTypeInfo<TValue>? typeInfo = null);
 }

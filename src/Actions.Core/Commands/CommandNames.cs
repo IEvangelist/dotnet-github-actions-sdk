@@ -31,8 +31,8 @@ internal static class CommandNames
     public static readonly string SaveState = "save-state";
     public static readonly string SetOutput = "set-output";
 
-    private static readonly Lazy<string[]> s_all = new(() => new[]
-    {
+    private static readonly Lazy<string[]> s_all = new(() =>
+    [
         SetEnv,
         AddMask,
         AddPath,
@@ -45,7 +45,7 @@ internal static class CommandNames
         EndGroup,
         SaveState,
         SetOutput
-    });
+    ]);
 
     internal static bool IsConventional(string? command) =>
         s_all.Value.Contains(command);

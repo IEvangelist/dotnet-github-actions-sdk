@@ -10,8 +10,8 @@ internal sealed class DefaultFileCommandIssuer(
     private readonly Func<string, string, ValueTask> _writeLineTask = writeLineTask.ThrowIfNull();
 
     /// <inheritdoc />
-    ValueTask IFileCommandIssuer.IssueFileCommandAsync(
-        string commandSuffix, string message)
+    ValueTask IFileCommandIssuer.IssueFileCommandAsync<TValue>(
+        string commandSuffix, TValue message, JsonTypeInfo<TValue>? typeInfo)
     {
         var filePath = GetEnvironmentVariable($"{GITHUB_}{commandSuffix}");
 
@@ -27,15 +27,16 @@ internal sealed class DefaultFileCommandIssuer(
             false => throw new Exception(
                 $"Missing file at path: '{filePath}' for file command '{commandSuffix}'."),
 
-            _ => _writeLineTask.Invoke(filePath, message.ToCommandValue())
+            _ => _writeLineTask.Invoke(filePath, message.ToCommandValue(typeInfo))
         };
     }
 
     /// <inheritdoc />
-    string IFileCommandIssuer.PrepareKeyValueMessage(string key, string value)
+    string IFileCommandIssuer.PrepareKeyValueMessage<TValue>(
+        string key, TValue value, JsonTypeInfo<TValue>? typeInfo)
     {
         var delimiter = $"ghadelimiter_{Guid.NewGuid()}";
-        var convertedValue = value.ToCommandValue();
+        var convertedValue = value.ToCommandValue(typeInfo);
 
         // These should realistically never happen, but just in case someone finds a
         // way to exploit guid generation let's not allow keys or values that contain

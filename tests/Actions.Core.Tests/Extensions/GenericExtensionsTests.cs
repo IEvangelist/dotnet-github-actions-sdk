@@ -30,14 +30,20 @@ public sealed class GenericExtensionsTests
         SimpleObject actual = new(
             "David", 7, DateTime.Now, Guid.NewGuid(), [(decimal)Math.PI]);
 
-        var typeInfo = SimpleContext.Default.SimpleObject;
-        var commandValue = actual.ToCommandValue<SimpleObject>(typeInfo);
+        var typeInfo = SourceGenerationContexts.Default.SimpleObject;
 
-        var expected = JsonSerializer.Deserialize<SimpleObject>(
-            commandValue, typeInfo.Options);
+        var commandValue = actual.ToCommandValue<SimpleObject>(typeInfo);
+        
+        var expected = JsonSerializer.Deserialize<SimpleObject>(commandValue, typeInfo);
 
         Assert.Equivalent(expected, actual);
     }
+}
+
+
+[JsonSerializable(typeof(SimpleObject))]
+internal partial class SourceGenerationContexts : JsonSerializerContext
+{
 }
 
 internal record class SimpleObject(

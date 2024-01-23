@@ -64,9 +64,10 @@ public interface ICoreService
     /// </summary>
     /// <param name="name">name of the output to set.</param>
     /// <param name="value">value to store.
-    /// Non-string values will be converted to a string via <see cref="JsonSerializer.Serialize(object?, Type, JsonSerializerOptions?)"/>
+    /// Non-string values will be converted to a string via <see cref="JsonSerializer.Serialize(object?, JsonTypeInfo)"/>
     /// </param>
-    ValueTask SetOutputAsync(string name, string value);
+    /// <param name="typeInfo">The JSON type info used to serialize.</param>
+    ValueTask SetOutputAsync<T>(string name, T value, JsonTypeInfo<T>? typeInfo = null);
 
     /// <summary>
     /// Enables or disables the echoing of commands into stdout for the rest of the step.
@@ -83,7 +84,7 @@ public interface ICoreService
     void SetFailed(string message);
 
     /// <summary>
-    /// Gets whether the Github Action has enabled "Runner Debug", i.e.; <c>RUNNER_DEBUG</c> is set to <c>1</c>.
+    /// Gets whether the GitHub Action has enabled "Runner Debug", i.e.; <c>RUNNER_DEBUG</c> is set to <c>1</c>.
     /// </summary>
     bool IsDebug { get; }
 
@@ -147,12 +148,13 @@ public interface ICoreService
     /// </summary>
     /// <param name="name">name of the state to store</param>
     /// <param name="value">value to store.
-    /// Non-string values will be converted to a string via <see cref="JsonSerializer.Serialize(object?, Type, JsonSerializerOptions?)"/>
+    /// Non-string values will be converted to a string via <see cref="JsonSerializer.Serialize(object?, JsonTypeInfo)"/>
     /// </param>
-    ValueTask SaveStateAsync(string name, string value);
+    /// <param name="typeInfo">The JSON type info used to serialize.</param>
+    ValueTask SaveStateAsync<T>(string name, T value, JsonTypeInfo<T>? typeInfo = null);
 
     /// <summary>
-    /// Gets the vale of a state set by this actions's main execution.
+    /// Gets the vale of a state set by this action's main execution.
     /// </summary>
     /// <param name="name">name of the state to get</param>
     /// <returns>The string representation of the state.</returns>

@@ -136,21 +136,21 @@ internal sealed class DefaultCoreService(
             CommandNames.Notice, properties?.ToCommandProperties(), message);
 
     /// <inheritdoc />
-    public async ValueTask SaveStateAsync(string name, string value)
+    public async ValueTask SaveStateAsync<T>(string name, T value, JsonTypeInfo<T>? typeInfo)
     {
         var filePath = GetEnvironmentVariable(GITHUB_STATE);
         if (filePath is not null)
         {
             await fileCommandIssuer.IssueFileCommandAsync(
                 STATE,
-                fileCommandIssuer.PrepareKeyValueMessage(name, value));
+                fileCommandIssuer.PrepareKeyValueMessage(name, value, typeInfo));
         }
         else
         {
             commandIssuer.IssueCommand(
                 CommandNames.SaveState,
                 name.ToCommandProperties(),
-                value.ToCommandValue());
+                value.ToCommandValue(typeInfo));
         }
     }
 
@@ -167,14 +167,14 @@ internal sealed class DefaultCoreService(
     }
 
     /// <inheritdoc />
-    public async ValueTask SetOutputAsync(string name, string value)
+    public async ValueTask SetOutputAsync<T>(string name, T value, JsonTypeInfo<T>? typeInfo)
     {
         var filePath = GetEnvironmentVariable(GITHUB_OUTPUT);
         if (filePath is not null)
         {
             await fileCommandIssuer.IssueFileCommandAsync(
                 OUTPUT,
-                fileCommandIssuer.PrepareKeyValueMessage(name, value));
+                fileCommandIssuer.PrepareKeyValueMessage(name, value, typeInfo));
         }
         else
         {
@@ -183,7 +183,7 @@ internal sealed class DefaultCoreService(
             commandIssuer.IssueCommand(
                 CommandNames.SetOutput,
                 name.ToCommandProperties(),
-                value.ToCommandValue());
+                value.ToCommandValue(typeInfo));
         }
     }
 

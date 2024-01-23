@@ -5,10 +5,9 @@ namespace Actions.Glob.Tests;
 
 public sealed class StringExtensionsTests
 {
-    public readonly static IEnumerable<object[]> GetGlobResultTestInput = new[]
-    {
-        new object[]
-        {
+    public readonly static IEnumerable<object[]> GetGlobResultTestInput =
+    [
+        [
             "parent",
             new[] { "**/*" },
             Array.Empty<string>(),
@@ -26,7 +25,7 @@ public sealed class StringExtensionsTests
                 "parent/child/grandchild/style.css",
                 "parent/child/grandchild/sub.text"
             })
-        },
+        ],
         [
             "parent",
             new[] { "**/*child/*.md" },
@@ -48,7 +47,7 @@ public sealed class StringExtensionsTests
                 "parent/child/grandchild/file.md"
             })
         ],
-    };
+    ];
 
     [Theory, MemberData(nameof(GetGlobResultTestInput))]
     public void GetGlobResultTest(
@@ -92,8 +91,8 @@ public sealed class StringExtensionsTests
 
         var directory = "parent";
         var actualFiles = directory.GetGlobFiles(
-                new[] { "**/*.md", "**/*.svg" },
-                new[] { "*/more.md" })
+                ["**/*.md", "**/*.svg"],
+                ["*/more.md"])
             .ToArray();
 
         string[] expected =

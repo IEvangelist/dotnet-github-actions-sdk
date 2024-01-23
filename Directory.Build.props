@@ -12,8 +12,9 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <DefaultTargetFrameworks>net7.0;net8.0</DefaultTargetFrameworks>
-    <LangVersion>preview</LangVersion>
+    <DefaultTargetFrameworks>net8.0</DefaultTargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup>

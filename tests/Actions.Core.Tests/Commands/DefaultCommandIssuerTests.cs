@@ -40,17 +40,16 @@ public sealed class DefaultCommandIssuerTests
             actual: testConsole.Output.ToString());
     }
 
-    public static IEnumerable<object[]> WritesOutputInput = new[]
-    {
-        new object[]
-        {
+    public static IEnumerable<object[]> WritesOutputInput =
+    [
+        [
             new Dictionary<string, string>
             {
                 ["name"] = "summary"
             },
             "Everything worked as expected",
             $"::{CommandNames.SetOutput} name=summary::Everything worked as expected"
-        },
+        ],
         [
             null!,
             "deftones",
@@ -90,7 +89,7 @@ public sealed class DefaultCommandIssuerTests
             ::{{CommandNames.SetOutput}} prop1={"test"%3A"object"},prop2=123,prop3=true::{"test":"object"}
             """
         ]
-    };
+    ];
 
     [Theory]
     [MemberData(nameof(WritesOutputInput))]

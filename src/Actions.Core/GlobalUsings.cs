@@ -9,14 +9,15 @@ global using System.Text.Json.Serialization.Metadata;
 
 global using Actions.Core.Commands;
 global using Actions.Core.Extensions;
-
-global using Microsoft.Extensions.DependencyInjection;
 global using Actions.Core.Output;
 global using Actions.Core.Services;
 global using Actions.Core.Workflows;
 
+global using Microsoft.Extensions.DependencyInjection;
+
 global using static System.Environment;
 global using static System.IO.Path;
+
 global using static Actions.Octokit.EnvironmentVariables.Keys;
 global using static Actions.Octokit.EnvironmentVariables.Prefixes;
 global using static Actions.Octokit.EnvironmentVariables.Suffixes;

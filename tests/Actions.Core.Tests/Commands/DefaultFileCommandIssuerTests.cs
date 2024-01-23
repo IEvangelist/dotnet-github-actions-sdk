@@ -17,20 +17,15 @@ public sealed class DefaultFileCommandIssuerTests
         IFileCommandIssuer sut = new DefaultFileCommandIssuer(
             (filePath, actual) =>
             {
-                Assert.NotNull(filePath);
-
-                var expected = """{"test":"Values","number":7}""";
-                Assert.Equal(expected, actual);
+                Assert.Fail("Anonymous types are not permitted.");
 
                 return ValueTask.CompletedTask;
             });
 
-        var message = JsonSerializer.Serialize(
-            new { test = "Values", number = 7 });
-
-        await sut.IssueFileCommandAsync(
-            commandSuffix: "TEST",
-            message);
+        await Assert.ThrowsAsync<ArgumentException>(
+            async () => await sut.IssueFileCommandAsync(
+                commandSuffix: "TEST",
+                message: new { Test = "Values", Number = 7 }));
     }
 
     [Fact]
@@ -50,12 +45,13 @@ public sealed class DefaultFileCommandIssuerTests
             var provider = services.BuildServiceProvider();
             var core = provider.GetRequiredService<ICoreService>();
 
-            await core.SetOutputAsync("has-remaining-work", "true");
-            await core.SetOutputAsync("upgrade-projects", JsonSerializer.Serialize(new[]
-            {
+            await core.SetOutputAsync("has-remaining-work", true);
+            await core.SetOutputAsync<string[]>("upgrade-projects",
+            [
                 "this/is/a/test.csproj",
                 "another/test/example.csproj"
-            }));
+            ],
+            TestContext.Default.StringArray);
 
             var lines = await File.ReadAllLinesAsync(path);
             Assert.NotNull(lines);
@@ -73,4 +69,9 @@ public sealed class DefaultFileCommandIssuerTests
                 null);
         }        
     }
+}
+
+[JsonSerializable(typeof(string[]))]
+internal partial class TestContext : JsonSerializerContext
+{
 }

@@ -5,12 +5,11 @@ namespace Actions.Core.Tests.Workflows;
 
 public sealed class CommandTests
 {
-    public static IEnumerable<object[]> CommandToStringInput = new[]
-    {
-        new object[]
-        {
-            "some-cmd", "7", null!, "::some-cmd::7",
-        },
+    public static IEnumerable<object[]> CommandToStringInput =
+    [
+        [
+            "some-cmd", 7, null!, "::some-cmd::7",
+        ],
         [
             "another-name", "true", null!, "::another-name::true"
         ],
@@ -23,7 +22,7 @@ public sealed class CommandTests
         [
             null!, null!, null!, "::::"
         ]
-    };
+    ];
 
     [Theory]
     [MemberData(nameof(CommandToStringInput))]
