@@ -14,11 +14,9 @@ public static class GitHubClientFactory
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(token);
 
-        return new GitHubClient(
-            new ProductHeaderValue(
-                "ievangelist-dotnet-github-action-sdk", "1.0"))
-        {
-            Credentials = new Credentials(token)
-        };
+        var request = RequestAdapter.Create(
+            new TokenAuthenticationProvider("Octokit.Gen", token));
+
+        return new GitHubClient(request);
     }
 }

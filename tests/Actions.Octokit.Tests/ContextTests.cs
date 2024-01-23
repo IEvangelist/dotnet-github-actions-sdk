@@ -1,8 +1,6 @@
 // Copyright (c) David Pine. All rights reserved.
 // Licensed under the MIT License.
 
-using Actions.Octokit.Serialization;
-
 namespace Actions.Octokit.Tests;
 
 public class ContextTests
@@ -507,5 +505,6 @@ public class ContextTests
             json, SourceGenerationContexts.Default.WebhookPayload);
 
         Assert.NotNull(payload);
+        Assert.Equal("opened", payload.Action);
     }
 }

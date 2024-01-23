@@ -3,7 +3,6 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <DefaultTargetFrameworks>net8.0</DefaultTargetFrameworks>
   </PropertyGroup>
-
   <!-- TFM agnostic -->
   <ItemGroup>
     <PackageVersion Include="coverlet.collector" Version="6.0.0" />
@@ -16,6 +15,6 @@
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
     <PackageVersion Include="Pathological.Globbing" Version="8.0.0" />
-    <PackageVersion Include="Octokit" Version="9.0.0" />
+    <PackageVersion Include="Octokit.NET.SDK" Version="0.0.4" />
   </ItemGroup>
 </Project>

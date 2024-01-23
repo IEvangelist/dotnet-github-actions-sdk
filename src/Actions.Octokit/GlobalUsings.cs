@@ -8,9 +8,11 @@ global using System.Text.Json.Serialization;
 global using Actions.Octokit.Interfaces;
 global using Actions.Octokit.Serialization;
 
-global using Microsoft.Extensions.DependencyInjection;
+global using GitHub;
+global using GitHub.Authentication;
+global using GitHub.Client;
 
-global using Octokit;
+global using Microsoft.Extensions.DependencyInjection;
 
 global using static System.Environment;
 global using static Actions.Octokit.EnvironmentVariables.Keys;
