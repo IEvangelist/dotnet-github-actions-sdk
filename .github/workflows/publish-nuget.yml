@@ -20,7 +20,7 @@ jobs:
       run: echo $GITHUB_REF
       
     - name: Extract version number
-      uses: actions-ecosystem/action-regex-match@v2
+      uses: actions-ecosystem/action-regex-match@main
       id: regex-match
       with:
         text: ${{ github.ref }}
@@ -31,9 +31,9 @@ jobs:
     - name: Print version number
       run: echo '${{ steps.regex-match.outputs.group1 }}'
       
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@main
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@main
       with:
         dotnet-version: 8.0.x
         
@@ -50,7 +50,7 @@ jobs:
         dotnet pack ./src/${{ matrix.project }}/${{ matrix.project }}.csproj --output packages
 
     - name: Upload ${{ matrix.project }}
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@main
       with:
         name: ${{ matrix.project }}.${{ steps.regex-match.outputs.group1 }}.nupkg
         path: packages/*.nupkg

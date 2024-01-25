@@ -25,14 +25,14 @@ jobs:
         os: [ubuntu-latest, windows-latest, macOS-latest]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@main
 
     - name: 'Print manual build reason'
       if: ${{ github.event_name == 'workflow_dispatch' }}
       run: |
         echo 'Reason: ${{ github.event.inputs.reason }}'
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@main
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
         dotnet-quality: 'preview'

@@ -38,25 +38,25 @@ public sealed class Summary
 
         try
         {
-            using var fs = new FileStream(pathFromEnv, FileMode.Open, FileAccess.ReadWrite);
+            if (File.Exists(pathFromEnv) is false)
+            {
+                throw new Exception($"There is no file at: '{pathFromEnv}'");
+            }
+
+            using var fs = File.OpenWrite(pathFromEnv);
             if (fs is not { CanRead: true } and not { CanWrite: true })
             {
-                Throw(pathFromEnv);
+                throw new Exception(
+                    $"Unable to access summary file: '{pathFromEnv}'. Check if the file has correct read/write permissions.");
             }
         }
         catch (Exception ex)
         {
-            Throw(pathFromEnv, ex);
+            throw new Exception(
+                $"Unable to access summary file: '${pathFromEnv}'. Check if the file has correct read/write permissions.", ex);
         }
 
         return _filePath = pathFromEnv;
-
-        static void Throw(string path, Exception? exception = null)
-        {
-            throw new Exception(
-                $"Unable to access summary file: '{path}'. Check if the file has correct read/write permissions.",
-                exception);
-        }
     }
 
     /// <summary>Wraps content in an HTML tag, adding any HTML attributes</summary>

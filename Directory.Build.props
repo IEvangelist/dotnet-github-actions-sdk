@@ -12,7 +12,6 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <DefaultTargetFrameworks>net8.0</DefaultTargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
