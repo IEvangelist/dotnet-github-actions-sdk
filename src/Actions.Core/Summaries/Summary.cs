@@ -28,6 +28,7 @@ public sealed class Summary
         }
 
         var pathFromEnv = GetEnvironmentVariable(GITHUB_STEP_SUMMARY);
+
         if (string.IsNullOrWhiteSpace(pathFromEnv))
         {
             throw new Exception($"""
@@ -36,27 +37,9 @@ public sealed class Summary
                 """);
         }
 
-        try
-        {
-            if (File.Exists(pathFromEnv) is false)
-            {
-                throw new Exception($"There is no file at: '{pathFromEnv}'");
-            }
-
-            using var fs = File.OpenWrite(pathFromEnv);
-            if (fs is not { CanRead: true } and not { CanWrite: true })
-            {
-                throw new Exception(
-                    $"Unable to access summary file: '{pathFromEnv}'. Check if the file has correct read/write permissions.");
-            }
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(
-                $"Unable to access summary file: '${pathFromEnv}'. Check if the file has correct read/write permissions.", ex);
-        }
-
-        return _filePath = pathFromEnv;
+        return File.Exists(pathFromEnv)
+            ? (_filePath = pathFromEnv)
+            : throw new Exception($"There is no file at: '{pathFromEnv}'");
     }
 
     /// <summary>Wraps content in an HTML tag, adding any HTML attributes</summary>
