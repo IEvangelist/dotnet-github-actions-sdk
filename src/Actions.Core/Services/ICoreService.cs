@@ -11,6 +11,11 @@ namespace Actions.Core.Services;
 public interface ICoreService
 {
     /// <summary>
+    /// Gets the <see cref="Summary"/> used to summarize the workflow.
+    /// </summary>
+    Summary Summary { get; }
+
+    /// <summary>
     /// Sets env variable for this action and future actions in the job.
     /// </summary>
     /// <param name="name">The name of the variable to se</param>

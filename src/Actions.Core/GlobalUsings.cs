@@ -10,6 +10,7 @@ global using System.Text.Json.Serialization.Metadata;
 global using Actions.Core.Commands;
 global using Actions.Core.Extensions;
 global using Actions.Core.Output;
+global using Actions.Core.Summaries;
 global using Actions.Core.Services;
 global using Actions.Core.Workflows;
 

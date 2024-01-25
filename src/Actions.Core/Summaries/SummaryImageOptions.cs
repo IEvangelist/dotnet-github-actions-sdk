@@ -9,5 +9,5 @@ namespace Actions.Core.Summaries;
 /// <param name="Width">(optional) The width of the image in pixels. Must be an integer without a unit.</param>
 /// <param name="Height">(optional) The height of the image in pixels. Must be an integer without a unit.</param>
 public readonly record struct SummaryImageOptions(
-    string? Width = null,
-    string? Height = null);
+    int? Width = null,
+    int? Height = null);

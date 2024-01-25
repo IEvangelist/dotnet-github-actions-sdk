@@ -8,12 +8,14 @@ namespace Actions.Core.Summaries;
 /// </summary>
 public sealed class Summary
 {
+    private static readonly string[] s_htmlHeadings = ["h1", "h2", "h3", "h4", "h5", "h6"];
+
     private readonly StringBuilder _buffer = new();
     private string? _filePath;
 
     /// <summary>If the summary buffer is empty</summary>
     /// <returns><c>true</c> if the buffer is empty</returns>
-    public bool IsEmptyBuffer => _buffer.Length is 0;
+    public bool IsBufferEmpty => _buffer.Length is 0;
 
     /// <summary>Finds the summary file path from the environment, rejects if env var 
     /// is not found or file does not exist. Also checks r/w permissions.</summary>
@@ -36,7 +38,7 @@ public sealed class Summary
 
         try
         {
-            using var fs = new FileStream(pathFromEnv, FileMode.Open);
+            using var fs = new FileStream(pathFromEnv, FileMode.Open, FileAccess.ReadWrite);
             if (fs is not { CanRead: true } and not { CanWrite: true })
             {
                 Throw(pathFromEnv);
@@ -68,17 +70,22 @@ public sealed class Summary
         IReadOnlyDictionary<string, string>? attributes = null)
     {
         var htmlAttrs = attributes?.Select(
-            kvp => $"{kvp.Key}={kvp.Value}");
+            static kvp => $"{kvp.Key}=\"{kvp.Value}\"")
+                ?.ToList();
+
+        var attributeContent = htmlAttrs is { Count: > 0 }
+            ? $" {string.Join(' ', htmlAttrs)}"
+            : "";
 
         return content is null or { Length: 0 }
-            ? $"<{tag} {htmlAttrs}>"
-            : $"<{tag} {htmlAttrs}>{content}</{tag}>";
+            ? $"<{tag}{attributeContent}>"
+            : $"<{tag}{attributeContent}>{content}</{tag}>";
     }
 
     /// <summary>Writes text in the buffer to the summary buffer file and empties buffer. Will append by default.</summary>
     /// <param name="options">The (optional) <see cref="SummaryWriteOptions"/> for write operation.</param>
     /// <returns>The <c>Summary</c> instance</returns>
-    public async Task<Summary> WriteAsync(SummaryWriteOptions? options)
+    public async Task<Summary> WriteAsync(SummaryWriteOptions? options = default)
     {
         var filePath = FilePath();
 
@@ -141,7 +148,7 @@ public sealed class Summary
     /// <param name="items">items list of items to render</param>
     /// <param name="ordered">(optional) if the rendered list should be ordered or not (default: false)</param>
     /// <returns>The <c>Summary</c> instance</returns>
-    public Summary AddList(string[] items, bool ordered = false)
+    public Summary AddList(IEnumerable<string> items, bool ordered = false)
     {
         var tag = ordered ? "ol" : "ul";
         var listItems = string.Join("", items.Select(item => Wrap("li", item)));
@@ -168,13 +175,19 @@ public sealed class Summary
 
                         var (data, header, colspan, rowspan) = cell;
                         var tag = header is true ? "th" : "td";
-                        var attrs = colspan is not null && rowspan is not null
-                            ? new Dictionary<string, string>
-                            {
-                                [nameof(colspan)] = colspan,
-                                [nameof(rowspan)] = rowspan,
-                            }
-                            : null;
+
+                        Dictionary<string, string>? attrs = null;
+
+                        if (colspan.HasValue)
+                        {
+                            attrs ??= [];
+                            attrs[nameof(colspan)] = colspan.Value.ToString();
+                        }
+                        if (rowspan.HasValue)
+                        {
+                            attrs ??= [];
+                            attrs[nameof(rowspan)] = rowspan.Value.ToString();
+                        }
 
                         return Wrap(tag, data, attrs);
                     }));
@@ -186,9 +199,9 @@ public sealed class Summary
         return AddRaw(element).AddNewLine();
     }
 
-    /// <summary>Adds a collapsable HTML details element to the summary buffer</summary>
+    /// <summary>Adds a collapsible HTML details element to the summary buffer</summary>
     /// <param name="label">label text for the closed state</param>
-    /// <param name="content">content collapsable content</param>
+    /// <param name="content">content collapsible content</param>
     /// <returns>The <c>Summary</c> instance</returns>
     public Summary AddDetails(string label, string content)
     {
@@ -210,13 +223,13 @@ public sealed class Summary
         };
 
         var (width, height) = options.GetValueOrDefault();
-        if (width is not null)
+        if (width.HasValue)
         {
-            attrs[nameof(width)] = width;
+            attrs[nameof(width)] = width.Value.ToString();
         }
-        if (height is not null)
+        if (height.HasValue)
         {
-            attrs[nameof(height)] = height;
+            attrs[nameof(height)] = height.Value.ToString();
         }
 
         var element = Wrap("img", null, attrs);
@@ -227,10 +240,10 @@ public sealed class Summary
     /// <param name="text">text heading text</param>
     /// <param name="level">(optional) the heading level, default: 1</param>
     /// <returns>The <c>Summary</c> instance</returns>
-    public Summary AddHeading(string text, int? level)
+    public Summary AddHeading(string text, int level = 1)
     {
         var tag = $"h{level}";
-        var allowedTag = new[] { "h1", "h2", "h3", "h4", "h5", "h6" }.Any(h => h == tag)
+        var allowedTag = s_htmlHeadings.Any(h => h == tag)
             ? tag : "h1";
         var element = Wrap(allowedTag, text);
         return AddRaw(element).AddNewLine();
@@ -240,16 +253,14 @@ public sealed class Summary
     /// <returns>The <c>Summary</c> instance</returns>
     public Summary AddSeparator()
     {
-        var element = Wrap("hr", null);
-        return AddRaw(element).AddNewLine();
+        return AddRaw("<hr>").AddNewLine();
     }
 
     /// <summary>Adds an HTML line break (<c>&lt;br&gt;</c>) to the summary buffer</summary>
     /// <returns>The <c>Summary</c> instance</returns>
     public Summary AddBreak()
     {
-        var element = Wrap("br", null);
-        return AddRaw(element).AddNewLine();
+        return AddRaw("<br>").AddNewLine();
     }
 
     /// <summary>Adds an HTML blockquote to the summary buffer</summary>
