@@ -1,0 +1,16 @@
+<Project>
+    <PropertyGroup>
+        <!-- Provide a global opt-out for our modifications - a user can set IsTargetingGithubActions to false to make sure we don't do anything -->
+        <IsTargetingGithubActions 
+            Condition="'$(IsTargetingGithubActions)' == ''" >true</IsTargetingGithubActions>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(IsTargetingGithubActions)' == 'true'">
+        <!-- Per https://docs.github.com/en/actions/creating-actions/dockerfile-support-for-github-actions#user, 
+             GitHub Actions must run as root in order to not break sevearl system invariants.
+             By default, let's make sure that users of this Actions-related library don't run
+             face-first into any problems, since the .NET SDK Container builds default to rootless
+             container users -->
+        <ContainerUser>root</ContainerUser>
+    </PropertyGroup>
+</Project>
