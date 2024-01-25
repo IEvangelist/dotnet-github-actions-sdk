@@ -87,14 +87,17 @@ public sealed class Summary
     /// <returns>The <c>Summary</c> instance</returns>
     public async Task<Summary> WriteAsync(SummaryWriteOptions? options = default)
     {
-        var filePath = FilePath();
+        var path = FilePath();
+        var mode = options is { Overwrite: true } ? FileMode.Truncate : FileMode.Append;
+
+        await using var fs = new FileStream(path, mode);
+        await using TextWriter writer = new StreamWriter(fs);
 
         var summaryContents = _buffer.ToString();
-        Func<string, string?, Encoding, CancellationToken, Task> writeTask = options is { Overwrite: true }
-            ? File.WriteAllTextAsync
-            : File.AppendAllTextAsync;
 
-        await writeTask(filePath, summaryContents, Encoding.UTF8, default);
+        await writer.WriteAsync(summaryContents);
+
+        await writer.FlushAsync();
 
         return EmptyBuffer();
     }
