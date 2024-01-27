@@ -120,7 +120,7 @@ public sealed class Summary
         return AddRawMarkdown($"""
             > [!{type.ToString().ToUpper()}]
             > {content}
-            """);
+            """, true);
     }
 
     /// <summary>Adds raw text to the summary buffer</summary>
@@ -129,19 +129,23 @@ public sealed class Summary
     /// <returns>The <c>Summary</c> instance</returns>
     public Summary AddRaw(string text, bool addNewLine = false)
     {
-        _buffer.Append(text);
-
         if (addNewLine)
         {
             // Switching from HTML to Markdown requires two newlines
             if (_currentMode != _previousMode && _previousMode is not Mode.Unspecified)
             {
                 _buffer.Append(NewLine);
+                _buffer.Append(NewLine);
             }
 
             _previousMode = _currentMode;
 
+            _buffer.Append(text);
             _buffer.Append(NewLine);
+        }
+        else
+        {
+            _buffer.Append(text);
         }
 
         return this;
@@ -390,7 +394,7 @@ public sealed class Summary
         var allowedHeading = s_markdownHeadings.Any(h => h == heading)
             ? heading : "#";
         var element = $"{allowedHeading} {text}";
-        return AddRawMarkdown(element).AddNewLine();
+        return AddRawMarkdown(element, true);
     }
 
     /// <summary>Adds an HTML thematic break "<c>&lt;hr&gt;</c>" to the summary buffer</summary>

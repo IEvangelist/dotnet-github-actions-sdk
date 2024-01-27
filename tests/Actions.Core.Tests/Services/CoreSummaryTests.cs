@@ -389,6 +389,24 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
     });
 
     [Fact]
+    public Task AddsCorrectSpacingBetweenHtmlAndMarkdown() => fixture.TestAsync(async () =>
+    {
+        var sut = new Summary();
+
+        sut.AddHeading("Test");
+
+        sut.AddRaw("This is a test");
+
+        sut.AddMarkdownHeading("Example", 2);
+
+        await sut.WriteAsync();
+
+        var expected = $"<h1>Test</h1>{Environment.NewLine}This is a test{Environment.NewLine}{Environment.NewLine}## Example{Environment.NewLine}";
+
+        await AssertSummary(expected);
+    });
+
+    [Fact]
     public Task AddsH1IfHeadingLevelNotSpecified() => fixture.TestAsync(async () =>
     {
         var sut = new Summary();

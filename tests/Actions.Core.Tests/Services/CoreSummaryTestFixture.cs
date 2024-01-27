@@ -1,8 +1,6 @@
 ﻿// Copyright (c) David Pine. All rights reserved.
 // Licensed under the MIT License.
 
-using Actions.Core.Markdown;
-
 namespace Actions.Core.Tests.Services;
 
 public sealed class CoreSummaryTestFixture

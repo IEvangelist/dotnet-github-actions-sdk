@@ -7,9 +7,10 @@ global using System.Text.Json.Serialization;
 
 global using Actions.Core.Commands;
 global using Actions.Core.Extensions;
+global using Actions.Core.Markdown;
 global using Actions.Core.Output;
-global using Actions.Core.Summaries;
 global using Actions.Core.Services;
+global using Actions.Core.Summaries;
 global using Actions.Core.Tests.Output;
 global using Actions.Core.Workflows;
 
