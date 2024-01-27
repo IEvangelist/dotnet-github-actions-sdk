@@ -1,6 +1,8 @@
 ﻿// Copyright (c) David Pine. All rights reserved.
 // Licensed under the MIT License.
 
+using Actions.Core.Markdown;
+
 namespace Actions.Core.Tests.Services;
 
 public sealed class CoreSummaryTestFixture
@@ -26,6 +28,36 @@ public sealed class CoreSummaryTestFixture
             """;
 
         internal IEnumerable<string> List = ["foo", "bar", "baz", "💣"];
+
+        internal IEnumerable<TaskItem> Tasks =
+            [
+                new TaskItem("foo"),
+                new TaskItem("bar", true),
+                new TaskItem("(Optional) baz"),
+                new TaskItem("💣", false),
+            ];
+
+        internal SummaryTable SummaryTable = new(
+            Heading: new SummaryTableRow(
+                [
+                        new("foo", Alignment: TableHeadAlignment.Right),
+                        new("bar"),
+                        new("baz", Alignment: TableHeadAlignment.Left),
+                    ]),
+            Rows: [
+                new SummaryTableRow(
+                    [
+                    new("one"),
+                    new("two"),
+                    new("333"),
+                ]),
+                new SummaryTableRow(
+                    [
+                    new("a"),
+                    new("b"),
+                    new("c"),
+                ])
+            ]);
 
         internal SummaryTableRow[] Table =
             [

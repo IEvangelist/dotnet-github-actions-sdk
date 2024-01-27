@@ -8,10 +8,16 @@ namespace Actions.Core.Summaries;
 /// </summary>
 public sealed class Summary
 {
-    private static readonly string[] s_htmlHeadings = ["h1", "h2", "h3", "h4", "h5", "h6"];
+    private enum Mode { Unspecified, Html, Markdown };
 
     private readonly StringBuilder _buffer = new();
     private string? _filePath;
+
+    private Mode _previousMode = Mode.Unspecified;
+    private Mode _currentMode = Mode.Unspecified;
+
+    private static readonly string[] s_htmlHeadings = ["h1", "h2", "h3", "h4", "h5", "h6"];
+    private static readonly string[] s_markdownHeadings = ["#", "##", "###", "####", "#####", "######"];
 
     /// <summary>If the summary buffer is empty</summary>
     /// <returns><c>true</c> if the buffer is empty</returns>
@@ -42,16 +48,19 @@ public sealed class Summary
             : throw new Exception($"There is no file at: '{pathFromEnv}'");
     }
 
-    /// <summary>Wraps content in an HTML tag, adding any HTML attributes</summary>
+    /// <summary>Wraps content in an HTML tag, adding any HTML attributes,
+    /// and sets the current mode as HTML.</summary>
     /// <param name="tag">tag HTML tag to wrap</param>
     /// <param name="content">content content within the tag</param>
     /// <param name="attributes">attrs key-value list of HTML attributes to add</param>
     /// <returns>A <c>string</c> content wrapped in HTML element</returns>
-    private static string Wrap(
+    private string Wrap(
         string tag,
         string? content,
         IReadOnlyDictionary<string, string>? attributes = null)
     {
+        _currentMode = Mode.Html;
+
         var htmlAttrs = attributes?.Select(
             static kvp => $"{kvp.Key}=\"{kvp.Value}\"")
                 ?.ToList();
@@ -102,6 +111,18 @@ public sealed class Summary
         return this;
     }
 
+    /// <summary>Adds a GitHub flavored markdown alert to the summary buffer</summary>
+    /// <param name="content">the content to add to the alert</param>
+    /// <param name="type">(optional) type of alert used to determine the rendering (default: Note)</param>
+    /// <returns>The <c>Summary</c> instance</returns>
+    public Summary AddAlert(string content, AlertType type = AlertType.Note)
+    {
+        return AddRawMarkdown($"""
+            > [!{type.ToString().ToUpper()}]
+            > {content}
+            """);
+    }
+
     /// <summary>Adds raw text to the summary buffer</summary>
     /// <param name="text">text content to add</param>
     /// <param name="addNewLine">(optional) append a <see cref="NewLine"/> to the raw text (default: false)</param>
@@ -109,12 +130,40 @@ public sealed class Summary
     public Summary AddRaw(string text, bool addNewLine = false)
     {
         _buffer.Append(text);
-        return addNewLine ? AddNewLine() : this;
+
+        if (addNewLine)
+        {
+            // Switching from HTML to Markdown requires two newlines
+            if (_currentMode != _previousMode && _previousMode is not Mode.Unspecified)
+            {
+                _buffer.Append(NewLine);
+            }
+
+            _previousMode = _currentMode;
+
+            _buffer.Append(NewLine);
+        }
+
+        return this;
+    }
+
+    /// <summary>Adds raw markdown text to the summary buffer</summary>
+    /// <param name="markdown">the markdown to add</param>
+    /// <param name="addNewLine">(optional) append a <see cref="NewLine"/> to the raw text (default: false)</param>
+    /// <returns>The <c>Summary</c> instance</returns>
+    public Summary AddRawMarkdown(string markdown, bool addNewLine = false)
+    {
+        _currentMode = Mode.Markdown;
+
+        return AddRaw(markdown, addNewLine);
     }
 
     /// <summary>Adds the operating system-specific end-of-line marker to the buffer</summary>
     /// <returns>The <c>Summary</c> instance</returns>
-    public Summary AddNewLine() => AddRaw(NewLine);
+    public Summary AddNewLine()
+    {
+        return AddRaw(NewLine);
+    }
 
     /// <summary>Adds an HTML codeblock to the summary buffer</summary>
     /// <param name="code">code content to render within fenced code block</param>
@@ -127,7 +176,22 @@ public sealed class Summary
             : null;
         var element = Wrap("pre", Wrap("code", code), attrs);
 
-        return AddRaw(element).AddNewLine();
+        return AddRaw(element, true);
+    }
+
+    /// <summary>Adds a markdown codeblock to the summary buffer</summary>
+    /// <param name="code">code content to render within fenced code block</param>
+    /// <param name="lang">lang (optional) language to syntax highlight code</param>
+    /// <returns>The <c>Summary</c> instance</returns>
+    public Summary AddMarkdownCodeBlock(string code, string? lang = null)
+    {
+        var codeblock = $"""
+            ```{lang}
+            {code}
+            ```
+            """;
+
+        return AddRawMarkdown(codeblock, true);
     }
 
     /// <summary>Adds an HTML list to the summary buffer</summary>
@@ -140,7 +204,45 @@ public sealed class Summary
         var listItems = string.Join("", items.Select(item => Wrap("li", item)));
         var element = Wrap(tag, listItems);
 
-        return AddRaw(element).AddNewLine();
+        return AddRaw(element, true);
+    }
+
+    /// <summary>Adds a markdown list to the summary buffer</summary>
+    /// <param name="items">items list of items to render</param>
+    /// <param name="ordered">(optional) if the rendered list should be ordered or not (default: false)</param>
+    /// <returns>The <c>Summary</c> instance</returns>
+    public Summary AddMarkdownList(IEnumerable<string> items, bool ordered = false)
+    {
+        var tag = ordered ? "1." : "-";
+        var listItems = string.Join(
+            '\n', items.Select(i => $"{tag} {i}"));
+
+        return AddRawMarkdown(listItems, true);
+    }
+
+    /// <summary>Adds a markdown task list to the summary buffer</summary>
+    /// <param name="items">items list of items to render</param>
+    /// <returns>The <c>Summary</c> instance</returns>
+    /// <remarks>
+    /// See <a href="https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#task-lists"></a>
+    /// </remarks>
+    public Summary AddMarkdownTaskList(IEnumerable<TaskItem> items)
+    {
+        var listItems = string.Join(
+            '\n', items.Select(
+                static i => $"- [{(i.IsComplete ? 'x' : ' ')}] {EscapeContent(i.Content)}"));
+
+        return AddRawMarkdown(listItems, true);
+
+        static string EscapeContent(string content)
+        {
+            if (content.StartsWith('('))
+            {
+                return $"\\{content}";
+            }
+
+            return content;
+        }
     }
 
     /// <summary>Adds an HTML table to the summary buffer</summary>
@@ -159,7 +261,7 @@ public sealed class Summary
                             return Wrap("td", cell.Data);
                         }
 
-                        var (data, header, colspan, rowspan) = cell;
+                        var (data, header, colspan, rowspan, align) = cell;
                         var tag = header is true ? "th" : "td";
 
                         Dictionary<string, string>? attrs = null;
@@ -174,6 +276,11 @@ public sealed class Summary
                             attrs ??= [];
                             attrs[nameof(rowspan)] = rowspan.Value.ToString();
                         }
+                        if (align is not TableHeadAlignment.Center)
+                        {
+                            attrs ??= [];
+                            attrs[nameof(align)] = align.ToString().ToLower();
+                        }
 
                         return Wrap(tag, data, attrs);
                     }));
@@ -182,7 +289,44 @@ public sealed class Summary
             }));
 
         var element = Wrap("table", tableBody);
-        return AddRaw(element).AddNewLine();
+        return AddRaw(element, true);
+    }
+
+    /// <summary>Adds a markdown table to the summary buffer</summary>
+    /// <param name="table">the table to write</param>
+    /// <returns>The <c>Summary</c> instance</returns>
+    public Summary AddMarkdownTable(SummaryTable table)
+    {
+        var heading = string.Join(" | ", table.Heading.Cells.Select(c => c.Data));
+        var alignment = string.Join(" | ", table.Heading.Cells.Select(AlignmentSeparator));
+        var body = string.Join("", table.Rows.Select((row, index) =>
+        {
+            var cells = string.Join(" | ", row.Cells.Select(c => c.Data));
+
+            // Add a newline after all rows, except the last row
+            var isLastRow = table.Rows.Length == index + 1;
+            var end = isLastRow ? "" : "\n";
+
+            return $"| {cells} |{end}";
+        }));
+
+        var element = $"""
+            | {heading} |
+            | {alignment} |
+            {body}
+            """;
+
+        return AddRawMarkdown(element, true);
+
+        static string AlignmentSeparator(SummaryTableCell cell)
+        {
+            return cell switch
+            {
+                { Alignment: TableHeadAlignment.Left } => ":--",
+                { Alignment: TableHeadAlignment.Right } => "--:",
+                _ => "---"
+            };
+        }
     }
 
     /// <summary>Adds a collapsible HTML details element to the summary buffer</summary>
@@ -192,7 +336,7 @@ public sealed class Summary
     public Summary AddDetails(string label, string content)
     {
         var element = Wrap("details", $"{Wrap("summary", label)}{content}");
-        return AddRaw(element).AddNewLine();
+        return AddRaw(element, true);
     }
 
     /// <summary>Adds an HTML image tag to the summary buffer</summary>
@@ -219,7 +363,7 @@ public sealed class Summary
         }
 
         var element = Wrap("img", null, attrs);
-        return AddRaw(element).AddNewLine();
+        return AddRaw(element, true);
     }
 
     /// <summary>Adds an HTML section heading element</summary>
@@ -232,21 +376,42 @@ public sealed class Summary
         var allowedTag = s_htmlHeadings.Any(h => h == tag)
             ? tag : "h1";
         var element = Wrap(allowedTag, text);
-        return AddRaw(element).AddNewLine();
+        return AddRaw(element, true);
     }
 
-    /// <summary>Adds an HTML thematic break (<c>&lt;hr&gt;</c>) to the summary buffer</summary>
+    /// <summary>Adds a markdown section heading element</summary>
+    /// <param name="text">text heading text</param>
+    /// <param name="level">(optional) the heading level, default: 1</param>
+    /// <returns>The <c>Summary</c> instance</returns>
+    public Summary AddMarkdownHeading(string text, int level = 1)
+    {
+        level = Math.Max(1, level);
+        var heading = new string('#', level);
+        var allowedHeading = s_markdownHeadings.Any(h => h == heading)
+            ? heading : "#";
+        var element = $"{allowedHeading} {text}";
+        return AddRawMarkdown(element).AddNewLine();
+    }
+
+    /// <summary>Adds an HTML thematic break "<c>&lt;hr&gt;</c>" to the summary buffer</summary>
     /// <returns>The <c>Summary</c> instance</returns>
     public Summary AddSeparator()
     {
-        return AddRaw("<hr>").AddNewLine();
+        return AddRaw("<hr>", true);
     }
 
-    /// <summary>Adds an HTML line break (<c>&lt;br&gt;</c>) to the summary buffer</summary>
+    /// <summary>Adds a markdown thematic break "<c>---</c>" to the summary buffer</summary>
+    /// <returns>The <c>Summary</c> instance</returns>
+    public Summary AddMarkdownSeparator()
+    {
+        return AddRawMarkdown("---", true);
+    }
+
+    /// <summary>Adds an HTML line break "<c>&lt;br&gt;</c>" to the summary buffer</summary>
     /// <returns>The <c>Summary</c> instance</returns>
     public Summary AddBreak()
     {
-        return AddRaw("<br>").AddNewLine();
+        return AddRaw("<br>", true);
     }
 
     /// <summary>Adds an HTML blockquote to the summary buffer</summary>
@@ -262,7 +427,17 @@ public sealed class Summary
             }
             : null;
         var element = Wrap("blockquote", text, attrs);
-        return AddRaw(element).AddNewLine();
+        return AddRaw(element, true);
+    }
+
+    /// <summary>Adds an markdown quote to the summary buffer</summary>
+    /// <param name="text">quote text</param>
+    /// <returns>The <c>Summary</c> instance</returns>
+    public Summary AddMarkdownQuote(string text)
+    {
+        var element = $"> {text}";
+
+        return AddRawMarkdown(element, true);
     }
 
     /// <summary>Adds an HTML anchor tag to the summary buffer</summary>
@@ -272,6 +447,18 @@ public sealed class Summary
     public Summary AddLink(string text, string href)
     {
         var element = Wrap("a", text, new Dictionary<string, string>() { [nameof(href)] = href });
-        return AddRaw(element).AddNewLine();
+
+        return AddRaw(element, true);
+    }
+
+    /// <summary>Adds a markdown link to the summary buffer</summary>
+    /// <param name="text">text link text/content</param>
+    /// <param name="href">href hyperlink</param>
+    /// <returns>The <c>Summary</c> instance</returns>
+    public Summary AddMarkdownLink(string text, string href)
+    {
+        var element = $"[{text}]({href})";
+
+        return AddRawMarkdown(element, true);
     }
 }

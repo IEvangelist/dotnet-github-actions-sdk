@@ -175,6 +175,26 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
     });
 
     [Fact]
+    public Task AddsMarkdownCodeBlockWithoutLanguage() => fixture.TestAsync(async () =>
+    {
+        var sut = new Summary();
+
+        await sut.AddMarkdownCodeBlock(fixture.TestCase.Code).WriteAsync();
+
+        var expected = $$"""
+            ```
+            func fork() {
+                for {
+                    go fork()
+                }
+            }
+            ```{{Environment.NewLine}}
+            """;
+
+        await AssertSummary(expected);
+    });
+
+    [Fact]
     public Task AddsACodeBlockWithALanguage() => fixture.TestAsync(async () =>
     {
         var sut = new Summary();
@@ -193,6 +213,26 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
     });
 
     [Fact]
+    public Task AddsMarkdownCodeBlockWithALanguage() => fixture.TestAsync(async () =>
+    {
+        var sut = new Summary();
+
+        await sut.AddMarkdownCodeBlock(fixture.TestCase.Code, "go").WriteAsync();
+
+        var expected = $$"""
+            ```go
+            func fork() {
+                for {
+                    go fork()
+                }
+            }
+            ```{{Environment.NewLine}}
+            """;
+
+        await AssertSummary(expected);
+    });
+
+    [Fact]
     public Task AddsAnUnorderedList() => fixture.TestAsync(async () =>
     {
         var sut = new Summary();
@@ -200,6 +240,23 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
         await sut.AddList(fixture.TestCase.List).WriteAsync();
 
         var expected = $"<ul><li>foo</li><li>bar</li><li>baz</li><li>💣</li></ul>{Environment.NewLine}";
+
+        await AssertSummary(expected);
+    });
+
+    [Fact]
+    public Task AddsMarkdownUnorderedList() => fixture.TestAsync(async () =>
+    {
+        var sut = new Summary();
+
+        await sut.AddMarkdownList(fixture.TestCase.List).WriteAsync();
+
+        var expected = $"""
+            - foo
+            - bar
+            - baz
+            - 💣{Environment.NewLine}
+            """;
 
         await AssertSummary(expected);
     });
@@ -217,6 +274,40 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
     });
 
     [Fact]
+    public Task AddsMarkdownOrderedList() => fixture.TestAsync(async () =>
+    {
+        var sut = new Summary();
+
+        await sut.AddMarkdownList(fixture.TestCase.List, true).WriteAsync();
+
+        var expected = $"""
+            1. foo
+            1. bar
+            1. baz
+            1. 💣{Environment.NewLine}
+            """;
+
+        await AssertSummary(expected);
+    });
+
+    [Fact]
+    public Task AddsMarkdownTaskList() => fixture.TestAsync(async () =>
+    {
+        var sut = new Summary();
+
+        await sut.AddMarkdownTaskList(fixture.TestCase.Tasks).WriteAsync();
+
+        var expected = $"""
+            - [ ] foo
+            - [x] bar
+            - [ ] \(Optional) baz
+            - [ ] 💣{Environment.NewLine}
+            """;
+
+        await AssertSummary(expected);
+    });
+
+    [Fact]
     public Task AddsATable() => fixture.TestAsync(async () =>
     {
         var sut = new Summary();
@@ -224,6 +315,23 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
         await sut.AddTable(fixture.TestCase.Table).WriteAsync();
 
         var expected = $"<table><tr><th>foo</th><th>bar</th><th>baz</th><td rowspan=\"3\">tall</td></tr><tr><td>one</td><td>two</td><td>three</td></tr><tr><td colspan=\"3\">wide</td></tr></table>{Environment.NewLine}";
+
+        await AssertSummary(expected);
+    });
+
+    [Fact]
+    public Task AddsMarkdownTable() => fixture.TestAsync(async () =>
+    {
+        var sut = new Summary();
+
+        await sut.AddMarkdownTable(fixture.TestCase.SummaryTable).WriteAsync();
+
+        var expected = $"""
+            | foo | bar | baz |
+            | --: | --- | :-- |
+            | one | two | 333 |
+            | a | b | c |{Environment.NewLine}
+            """;
 
         await AssertSummary(expected);
     });
@@ -285,6 +393,22 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
     });
 
     [Fact]
+    public Task AddsMarkdownHeadingsH1ToH6() => fixture.TestAsync(async () =>
+    {
+        var sut = new Summary();
+        for (var i = 1; i <= 6; i++)
+        {
+            sut.AddMarkdownHeading("heading", i);
+        }
+
+        await sut.WriteAsync();
+
+        var expected = $"# heading{Environment.NewLine}## heading{Environment.NewLine}### heading{Environment.NewLine}#### heading{Environment.NewLine}##### heading{Environment.NewLine}###### heading{Environment.NewLine}";
+
+        await AssertSummary(expected);
+    });
+
+    [Fact]
     public Task AddsH1IfHeadingLevelNotSpecified() => fixture.TestAsync(async () =>
     {
         var sut = new Summary();
@@ -292,6 +416,18 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
         await sut.AddHeading("heading").WriteAsync();
 
         var expected = $"<h1>heading</h1>{Environment.NewLine}";
+
+        await AssertSummary(expected);
+    });
+
+    [Fact]
+    public Task AddsMarkdownH1IfHeadingLevelNotSpecified() => fixture.TestAsync(async () =>
+    {
+        var sut = new Summary();
+
+        await sut.AddMarkdownHeading("heading").WriteAsync();
+
+        var expected = $"# heading{Environment.NewLine}";
 
         await AssertSummary(expected);
     });
@@ -311,6 +447,20 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
     });
 
     [Fact]
+    public Task UsesMarkdownH1IfHeadingLevelIsGarbageOrOutOfRange() => fixture.TestAsync(async () =>
+    {
+        var sut = new Summary();
+
+        await sut.AddMarkdownHeading("heading", 1337)
+          .AddMarkdownHeading("heading", -1)
+          .WriteAsync();
+
+        var expected = $"# heading{Environment.NewLine}# heading{Environment.NewLine}";
+
+        await AssertSummary(expected);
+    });
+
+    [Fact]
     public Task AddsASeparator() => fixture.TestAsync(async () =>
     {
         var sut = new Summary();
@@ -318,6 +468,18 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
         await sut.AddSeparator().WriteAsync();
 
         var expected = $"<hr>{Environment.NewLine}";
+
+        await AssertSummary(expected);
+    });
+
+    [Fact]
+    public Task AddsMarkdownSeparator() => fixture.TestAsync(async () =>
+    {
+        var sut = new Summary();
+
+        await sut.AddMarkdownSeparator().WriteAsync();
+
+        var expected = $"---{Environment.NewLine}";
 
         await AssertSummary(expected);
     });
@@ -347,6 +509,18 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
     });
 
     [Fact]
+    public Task AddsMarkdownQuote() => fixture.TestAsync(async () =>
+    {
+        var sut = new Summary();
+
+        await sut.AddMarkdownQuote(fixture.TestCase.Quote.Text).WriteAsync();
+
+        var expected = $"> Where the world builds software{Environment.NewLine}";
+
+        await AssertSummary(expected);
+    });
+
+    [Fact]
     public Task AddsAQuoteWithCitation() => fixture.TestAsync(async () =>
     {
         var sut = new Summary();
@@ -366,6 +540,18 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
         await sut.AddLink(fixture.TestCase.Link.Text, fixture.TestCase.Link.Href).WriteAsync();
 
         var expected = $"<a href=\"https://github.com\">GitHub</a>{Environment.NewLine}";
+
+        await AssertSummary(expected);
+    });
+
+    [Fact]
+    public Task AddsMarkdownLinkWithHref() => fixture.TestAsync(async () =>
+    {
+        var sut = new Summary();
+
+        await sut.AddMarkdownLink(fixture.TestCase.Link.Text, fixture.TestCase.Link.Href).WriteAsync();
+
+        var expected = $"[GitHub](https://github.com){Environment.NewLine}";
 
         await AssertSummary(expected);
     });

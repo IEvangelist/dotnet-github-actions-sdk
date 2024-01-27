@@ -10,11 +10,13 @@ namespace Actions.Core.Summaries;
 /// <param name="Header">Render cell as header. (optional) default: false</param>
 /// <param name="Colspan">Number of columns the cell extends. (optional)</param>
 /// <param name="Rowspan">Number of rows the cell extends. (optional)</param>
+/// <param name="Alignment">The cell <c>align</c> value (optional) default: unset (center)</param>
 public readonly record struct SummaryTableCell(
     string Data,
     bool? Header = null,
     int? Colspan = null,
-    int? Rowspan = null)
+    int? Rowspan = null,
+    TableHeadAlignment Alignment = TableHeadAlignment.Center)
 {
     /// <summary>
     /// Whether or not the cell is considered simple, meaning 
