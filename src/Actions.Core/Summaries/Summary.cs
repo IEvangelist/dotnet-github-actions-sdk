@@ -219,7 +219,7 @@ public sealed class Summary
     {
         var tag = ordered ? "1." : "-";
         var listItems = string.Join(
-            '\n', items.Select(i => $"{tag} {i}"));
+            NewLine, items.Select(i => $"{tag} {i}"));
 
         return AddRawMarkdown(listItems, true);
     }
@@ -233,7 +233,7 @@ public sealed class Summary
     public Summary AddMarkdownTaskList(IEnumerable<TaskItem> items)
     {
         var listItems = string.Join(
-            '\n', items.Select(
+            NewLine, items.Select(
                 static i => $"- [{(i.IsComplete ? 'x' : ' ')}] {EscapeContent(i.Content)}"));
 
         return AddRawMarkdown(listItems, true);
@@ -309,16 +309,12 @@ public sealed class Summary
 
             // Add a newline after all rows, except the last row
             var isLastRow = table.Rows.Length == index + 1;
-            var end = isLastRow ? "" : "\n";
+            var end = isLastRow ? "" : NewLine;
 
             return $"| {cells} |{end}";
         }));
 
-        var element = $"""
-            | {heading} |
-            | {alignment} |
-            {body}
-            """;
+        var element = $"| {heading} |{NewLine}| {alignment} |{NewLine}{body}";
 
         return AddRawMarkdown(element, true);
 

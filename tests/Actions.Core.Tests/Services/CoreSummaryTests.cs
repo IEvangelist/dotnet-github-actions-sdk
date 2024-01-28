@@ -251,7 +251,7 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await sut.AddMarkdownList(fixture.TestCase.List).WriteAsync();
 
-        var expected = $"- foo\n- bar\n- baz\n- 💣{Environment.NewLine}";
+        var expected = $"- foo{Environment.NewLine}- bar{Environment.NewLine}- baz{Environment.NewLine}- 💣{Environment.NewLine}";
 
         await AssertSummary(expected);
     });
@@ -275,7 +275,7 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await sut.AddMarkdownList(fixture.TestCase.List, true).WriteAsync();
 
-        var expected = $"1. foo\n1. bar\n1. baz\n1. 💣{Environment.NewLine}";
+        var expected = $"1. foo{Environment.NewLine}1. bar{Environment.NewLine}1. baz{Environment.NewLine}1. 💣{Environment.NewLine}";
 
         await AssertSummary(expected);
     });
@@ -287,7 +287,7 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await sut.AddMarkdownTaskList(fixture.TestCase.Tasks).WriteAsync();
 
-        var expected = $"- [ ] foo\n- [x] bar\n- [ ] \\(Optional) baz\n- [ ] 💣{Environment.NewLine}";
+        var expected = $"- [ ] foo{Environment.NewLine}- [x] bar{Environment.NewLine}- [ ] \\(Optional) baz{Environment.NewLine}- [ ] 💣{Environment.NewLine}";
 
         await AssertSummary(expected);
     });
@@ -311,7 +311,7 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await sut.AddMarkdownTable(fixture.TestCase.SummaryTable).WriteAsync();
 
-        var expected = $"| foo | bar | baz |\n| --: | --- | :-- |\n| one | two | 333 |\n| a | b | c |{Environment.NewLine}";
+        var expected = $"| foo | bar | baz |{Environment.NewLine}| --: | --- | :-- |{Environment.NewLine}| one | two | 333 |{Environment.NewLine}| a | b | c |{Environment.NewLine}";
 
         await AssertSummary(expected);
     });
