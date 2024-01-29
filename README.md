@@ -24,7 +24,6 @@ Provides functions for inputs, outputs, results, logging, secrets and variables.
 ```
 dotnet add package GitHub.Actions.Core
 ```
-<br/>
 
 For more information, see [📦 GitHub.Actions.Core](https://www.nuget.org/packages/GitHub.Actions.Core).
 
@@ -35,7 +34,6 @@ Provides functions to search for files matching glob patterns. Read more [here](
 ```
 dotnet add package GitHub.Actions.Glob
 ```
-<br/>
 
 For more information, see [📦 GitHub.Actions.Glob](https://www.nuget.org/packages/GitHub.Actions.Glob).
 
@@ -48,7 +46,6 @@ Provides disk i/o functions like cp, mv, rmRF, which etc. Read more [here](src/A
 ```
 dotnet add package GitHub.Actions.IO
 ```
-<br/>
 
 For more information, see [📦 GitHub.Actions.IO](https://www.nuget.org/packages/GitHub.Actions.IO).
 
