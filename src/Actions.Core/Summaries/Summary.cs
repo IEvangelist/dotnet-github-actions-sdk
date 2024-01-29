@@ -87,6 +87,14 @@ public sealed class Summary
 
         var summaryContents = _buffer.ToString();
 
+        if (mode is FileMode.Append && new FileInfo(path).Length > 0)
+        {
+            // Account for the potential of HTML to Markdown
+            // (or vice versa) parsing mode change.
+            await writer.WriteLineAsync();
+            await writer.WriteLineAsync();
+        }
+
         await writer.WriteAsync(summaryContents);
 
         await writer.FlushAsync();

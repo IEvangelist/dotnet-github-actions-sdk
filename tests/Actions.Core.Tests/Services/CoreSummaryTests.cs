@@ -51,7 +51,7 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await sut.AddRaw(fixture.TestCase.Text).WriteAsync();
 
-        await AssertSummary($"# {fixture.TestCase.Text}");
+        await AssertSummary($"# {Environment.NewLine}{Environment.NewLine}{fixture.TestCase.Text}");
     });
 
     [Fact]
@@ -75,7 +75,7 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await sut.AddRaw(fixture.TestCase.Text, true).WriteAsync();
 
-        await AssertSummary($"# {fixture.TestCase.Text}{Environment.NewLine}");
+        await AssertSummary($"# {Environment.NewLine}{Environment.NewLine}{fixture.TestCase.Text}{Environment.NewLine}");
     });
 
     [Fact]
