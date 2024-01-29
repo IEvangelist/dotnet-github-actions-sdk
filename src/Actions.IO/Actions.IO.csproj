@@ -4,7 +4,7 @@
     <TargetFrameworks>$(DefaultTargetFrameworks)</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Description>This is an unofficial .NET SDK for GitHub Actions workflows (based on @actions/glob).</Description>
+    <Description>This is an unofficial .NET SDK for GitHub Actions workflows (based on @actions/io).</Description>
     <Copyright>Copyright © David Pine. All rights reserved. Licensed under the MIT License.</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
     <CurrentDate>$([System.DateTime]::Now.ToString(yyyyMMdd))</CurrentDate>
@@ -17,9 +17,9 @@
     <FileVersion>$(ClientVersion)</FileVersion>
     <Authors>David Pine</Authors>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <AssemblyName>Actions.Glob</AssemblyName>
-    <Title>GitHub Actions: Glob .NET SDK (@actions/glob)</Title>
-    <PackageId>GitHub.Actions.Glob</PackageId>
+    <AssemblyName>Actions.IO</AssemblyName>
+    <Title>GitHub Actions: IO .NET SDK (@actions/io)</Title>
+    <PackageId>GitHub.Actions.IO</PackageId>
     <PackageTags>dotnet;dotnetcore;csharp;github;actions;devops;</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/IEvangelist/dotnet-github-actions-sdk</PackageProjectUrl>
@@ -33,7 +33,7 @@
     <DebugType>embedded</DebugType>
     <IncludeSymbols>false</IncludeSymbols>
     <IncludeSource>false</IncludeSource>
-    <RootNamespace>Actions.Glob</RootNamespace>
+    <RootNamespace>Actions.IO</RootNamespace>
     <NoWarn>NU5104;NU5125;NU5039</NoWarn>
     <Optimize Condition="'$(Configuration)'=='Release'">true</Optimize>
     <RepositoryUrl>https://github.com/IEvangelist/dotnet-github-actions-sdk</RepositoryUrl>
@@ -49,6 +49,17 @@
     <!--<PackageIcon>logo.png</PackageIcon>-->
     <IsAotCompatible>true</IsAotCompatible>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="MinVer">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 
   <ItemGroup Label="Files">
     <None Include="..\..\LICENSE" Pack="true" PackagePath="\" />

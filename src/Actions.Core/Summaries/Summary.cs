@@ -52,7 +52,7 @@ public sealed class Summary
     /// and sets the current mode as HTML.</summary>
     /// <param name="tag">tag HTML tag to wrap</param>
     /// <param name="content">content content within the tag</param>
-    /// <param name="attributes">attrs key-value list of HTML attributes to add</param>
+    /// <param name="attributes">attributes key-value list of HTML attributes to add</param>
     /// <returns>A <c>string</c> content wrapped in HTML element</returns>
     private string Wrap(
         string tag,
@@ -61,12 +61,12 @@ public sealed class Summary
     {
         _currentMode = Mode.Html;
 
-        var htmlAttrs = attributes?.Select(
+        var htmlAttributes = attributes?.Select(
             static kvp => $"{kvp.Key}=\"{kvp.Value}\"")
                 ?.ToList();
 
-        var attributeContent = htmlAttrs is { Count: > 0 }
-            ? $" {string.Join(' ', htmlAttrs)}"
+        var attributeContent = htmlAttributes is { Count: > 0 }
+            ? $" {string.Join(' ', htmlAttributes)}"
             : "";
 
         return content is null or { Length: 0 }
@@ -108,6 +108,7 @@ public sealed class Summary
     public Summary EmptyBuffer()
     {
         _buffer.Clear();
+
         return this;
     }
 
@@ -131,7 +132,7 @@ public sealed class Summary
     {
         if (addNewLine)
         {
-            // Switching from HTML to Markdown requires two newlines
+            // Switching from HTML to Markdown (or vice versa) requires two newlines.
             if (_currentMode != _previousMode && _previousMode is not Mode.Unspecified)
             {
                 _buffer.Append(NewLine);
@@ -178,6 +179,7 @@ public sealed class Summary
         var attrs = lang is not null
             ? new Dictionary<string, string> { [nameof(lang)] = lang }
             : null;
+
         var element = Wrap("pre", Wrap("code", code), attrs);
 
         return AddRaw(element, true);
@@ -268,25 +270,25 @@ public sealed class Summary
                         var (data, header, colspan, rowspan, align) = cell;
                         var tag = header is true ? "th" : "td";
 
-                        Dictionary<string, string>? attrs = null;
+                        Dictionary<string, string>? attributes = null;
 
                         if (colspan.HasValue)
                         {
-                            attrs ??= [];
-                            attrs[nameof(colspan)] = colspan.Value.ToString();
+                            attributes ??= [];
+                            attributes[nameof(colspan)] = colspan.Value.ToString();
                         }
                         if (rowspan.HasValue)
                         {
-                            attrs ??= [];
-                            attrs[nameof(rowspan)] = rowspan.Value.ToString();
+                            attributes ??= [];
+                            attributes[nameof(rowspan)] = rowspan.Value.ToString();
                         }
                         if (align is not TableHeadAlignment.Center)
                         {
-                            attrs ??= [];
-                            attrs[nameof(align)] = align.ToString().ToLower();
+                            attributes ??= [];
+                            attributes[nameof(align)] = align.ToString().ToLower();
                         }
 
-                        return Wrap(tag, data, attrs);
+                        return Wrap(tag, data, attributes);
                     }));
 
                 return Wrap("tr", cells);
@@ -336,6 +338,7 @@ public sealed class Summary
     public Summary AddDetails(string label, string content)
     {
         var element = Wrap("details", $"{Wrap("summary", label)}{content}");
+
         return AddRaw(element, true);
     }
 
@@ -346,7 +349,7 @@ public sealed class Summary
     /// <returns>The <c>Summary</c> instance</returns>
     public Summary AddImage(string src, string alt, SummaryImageOptions? options = default)
     {
-        var attrs = new Dictionary<string, string>
+        var attributes = new Dictionary<string, string>
         {
             [nameof(src)] = src,
             [nameof(alt)] = alt
@@ -355,14 +358,14 @@ public sealed class Summary
         var (width, height) = options.GetValueOrDefault();
         if (width.HasValue)
         {
-            attrs[nameof(width)] = width.Value.ToString();
+            attributes[nameof(width)] = width.Value.ToString();
         }
         if (height.HasValue)
         {
-            attrs[nameof(height)] = height.Value.ToString();
+            attributes[nameof(height)] = height.Value.ToString();
         }
 
-        var element = Wrap("img", null, attrs);
+        var element = Wrap("img", null, attributes);
         return AddRaw(element, true);
     }
 
@@ -420,13 +423,13 @@ public sealed class Summary
     /// <returns>The <c>Summary</c> instance</returns>
     public Summary AddQuote(string text, string? cite = null)
     {
-        var attrs = cite is not null
+        var attributes = cite is not null
             ? new Dictionary<string, string>
             {
                 [nameof(cite)] = cite
             }
             : null;
-        var element = Wrap("blockquote", text, attrs);
+        var element = Wrap("blockquote", text, attributes);
         return AddRaw(element, true);
     }
 

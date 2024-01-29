@@ -13,7 +13,7 @@ jobs:
         - Actions.Core
         - Actions.Octokit
         - Actions.Glob
-        #- Actions.IO
+        - Actions.IO
     steps:
     
     - name: Print tag ref
