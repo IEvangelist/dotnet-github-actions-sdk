@@ -51,9 +51,9 @@ For more information, see [📦 GitHub.Actions.IO](https://www.nuget.org/package
 
 -->
 
-:octocat: [`GitHub.Actions.Octokit`](src/Action.Octokit)
+:octocat: [`GitHub.Actions.Octokit`](src/Actions.Octokit)
 
-Provides an Octokit client hydrated with the context that the current action is being run in. Read more [here](src/Action.Octokit)
+Provides an Octokit client hydrated with the context that the current action is being run in. Read more [here](src/Actions.Octokit)
 
 ```bash
 dotnet add package GitHub.Actions.Octokit
