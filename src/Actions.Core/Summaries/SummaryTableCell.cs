@@ -16,7 +16,7 @@ public readonly record struct SummaryTableCell(
     bool? Header = null,
     int? Colspan = null,
     int? Rowspan = null,
-    TableHeadAlignment Alignment = TableHeadAlignment.Center)
+    TableColumnAlignment Alignment = TableColumnAlignment.Center)
 {
     /// <summary>
     /// Whether or not the cell is considered simple, meaning 

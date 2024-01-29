@@ -290,7 +290,7 @@ public sealed class Summary
                             attributes ??= [];
                             attributes[nameof(rowspan)] = rowspan.Value.ToString();
                         }
-                        if (align is not TableHeadAlignment.Center)
+                        if (align is not TableColumnAlignment.Center)
                         {
                             attributes ??= [];
                             attributes[nameof(align)] = align.ToString().ToLower();
@@ -332,8 +332,8 @@ public sealed class Summary
         {
             return cell switch
             {
-                { Alignment: TableHeadAlignment.Left } => ":--",
-                { Alignment: TableHeadAlignment.Right } => "--:",
+                { Alignment: TableColumnAlignment.Left } => ":--",
+                { Alignment: TableColumnAlignment.Right } => "--:",
                 _ => "---"
             };
         }

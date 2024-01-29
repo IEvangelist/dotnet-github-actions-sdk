@@ -1,6 +1,8 @@
 ﻿// Copyright (c) David Pine. All rights reserved.
 // Licensed under the MIT License.
 
+using Actions.Core.Markdown;
+
 namespace Actions.Core.Tests.Services;
 
 public sealed class CoreSummaryTestFixture
@@ -38,9 +40,9 @@ public sealed class CoreSummaryTestFixture
         internal SummaryTable SummaryTable = new(
             Heading: new SummaryTableRow(
                 [
-                        new("foo", Alignment: TableHeadAlignment.Right),
+                        new("foo", Alignment: TableColumnAlignment.Right),
                         new("bar"),
-                        new("baz", Alignment: TableHeadAlignment.Left),
+                        new("baz", Alignment: TableColumnAlignment.Left),
                     ]),
             Rows: [
                 new SummaryTableRow(

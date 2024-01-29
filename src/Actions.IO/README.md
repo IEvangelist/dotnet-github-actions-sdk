@@ -1,41 +1,71 @@
-# GitHub `Actions.IO` .NET SDK
+# `GitHub.Actions.IO` package
 
-The .NET equivalent of the official GitHub [actions/toolkit](https://github.com/actions/toolkit) `@actions/io` project.
-
-## Blog
-
-[🔗 Hello from the GitHub `Actions.IO` .NET SDK](https://davidpine.net/blog/github-actions-sdk)
-
-## Usage
-
-### Installing the NuGet package 📦
-
-Welcome to the `Actions.IO` .NET SDK. This SDK is used to create GitHub Actions in .NET. The SDK is a thin wrapper around the .NET implementation of the GitHub Actions a select few packages from the [`@actions/toolkit`](https://github.com/actions/toolkit).
-
-> ![Warning]
-> This package is **not** an official _Microsoft_ or _GitHub_ product. It is a community-driven project.
-
-You"ll need to install the [GitHub `Actions.IO` .NET SDK](https://www.nuget.org/packages/Actions.IO) NuGet package to use the .NET APIs. The package is available on NuGet.org. The following is the command to install the package:
-
-#### Adding package references
-
-Either add the package reference to your project file:
+To install the [`GitHub.Actions.IO`](https://www.nuget.org/packages/GitHub.Actions.IO) NuGet package:
 
 ```xml
-<PackageReference Include="GitHub.Actions.Glob" />
+<PackageReference Include="GitHub.Actions.IO" Version="[Version]" />
 ```
 
 Or use the [`dotnet add package`](https://learn.microsoft.com/dotnet/core/tools/dotnet-add-package) .NET CLI command:
 
 ```bash
-dotnet add package Actions.IO
+dotnet add package GitHub.Actions.IO
 ```
 
+## `GitHub.Actions.IO`
 
-## `Actions.IO`
+This was modified, but borrowed from the [_glob/README.md_](https://github.com/actions/toolkit/blob/main/packages/io/README.md).
 
-This was modified, but borrowed from the [_glob/README.md_](https://github.com/actions/toolkit/blob/main/packages/glob/README.md).
+> Core functions for cli filesystem scenarios
 
-> You can use this package to search for files matching glob patterns.
+## Usage
 
-### Basic usage
+#### mkdir -p
+
+Recursively make a directory. Follows rules specified in [man mkdir](https://linux.die.net/man/1/mkdir) with the `-p` option specified:
+
+```csharp
+using Action.IO;
+
+await io.mkdirP("path/to/make");
+```
+
+#### cp/mv
+
+Copy or move files or folders. Follows rules specified in [man cp](https://linux.die.net/man/1/cp) and [man mv](https://linux.die.net/man/1/mv):
+
+```csharp
+const io = require("@actions/io");
+
+// Recursive must be true for directories
+const options = { recursive: true, force: false }
+
+await io.cp("path/to/directory", "path/to/dest", options);
+await io.mv("path/to/file", "path/to/dest");
+```
+
+#### rm -rf
+
+Remove a file or folder recursively. Follows rules specified in [man rm](https://linux.die.net/man/1/rm) with the `-r` and `-f` rules specified.
+
+```csharp
+const io = require("@actions/io");
+
+await io.rmRF("path/to/directory");
+await io.rmRF("path/to/file");
+```
+
+#### which
+
+Get the path to a tool and resolves via paths. Follows the rules specified in [man which](https://linux.die.net/man/1/which).
+
+```csharp
+using Action.IO;
+
+const exec = require("@actions/exec");
+const io = require("@actions/io");
+
+const pythonPath: string = await io.which("python", true)
+
+await exec.exec(`"${pythonPath}"`, ["main.py"]);
+```
