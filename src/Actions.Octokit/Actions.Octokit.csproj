@@ -64,8 +64,9 @@
   </ItemGroup>
 
   <ItemGroup Label="Files">
-    <None Include="..\..\LICENSE" Pack="true" PackagePath="\" />
+    <None Include="../../LICENSE" Pack="true" PackagePath="/" />
     <None Include="build/**" Pack="true" PackagePath="build/" />
+    <None Include="README.md" Pack="true" PackagePage="/" />
   </ItemGroup>
 
   <ItemGroup>
