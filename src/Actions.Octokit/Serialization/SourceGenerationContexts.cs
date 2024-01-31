@@ -9,8 +9,13 @@ using Install = Actions.Octokit.Interfaces.Installation;
 
 namespace Actions.Octokit.Serialization;
 
+[JsonSourceGenerationOptions(
+    defaults: JsonSerializerDefaults.Web,
+    WriteIndented = true,
+    UseStringEnumConverter = true)]
 [JsonSerializable(typeof(CommonIssue))]
 [JsonSerializable(typeof(CommonRepo))]
+[JsonSerializable(typeof(Context))]
 [JsonSerializable(typeof(Comment))]
 [JsonSerializable(typeof(Install))]
 [JsonSerializable(typeof(Owner))]

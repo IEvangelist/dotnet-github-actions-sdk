@@ -133,4 +133,14 @@ public sealed class Context
                 Payload.Repository.Name);
         }
     }
+
+    /// <summary>
+    /// Gets a JSON representation of the current context.
+    /// </summary>
+    public override string ToString()
+    {
+        return JsonSerializer.Serialize(
+            this,
+            SourceGenerationContexts.Default.Context);
+    }
 }
