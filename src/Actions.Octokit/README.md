@@ -24,6 +24,7 @@ To use the `GitHubClient` in your .NET project, register the services with an `I
 
 ```csharp
 using Microsoft.Extensions.DependencyInjection;
+using GitHub;
 using Actions.Octokit;
 using Actions.Octokit.Extensions;
 
@@ -34,6 +35,7 @@ using var provider = new ServiceCollection()
 // The client relies on the value from ${{ secrets.GITHUB_TOKEN }}
 var client = provider.GetRequiredService<GitHubClient>();
 
+// Call GitHub REST API /repos/octokit/rest.js/pulls/123
 var pullRequest = client.Repos["octokit"]["rest.js"].Pulls[123].GetAsync();
 
 Console.WriteLine(pullRequest.Title);

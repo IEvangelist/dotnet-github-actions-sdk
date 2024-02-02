@@ -9,8 +9,8 @@ global using Actions.Octokit.Interfaces;
 global using Actions.Octokit.Serialization;
 
 global using GitHub;
-global using GitHub.Authentication;
-global using GitHub.Client;
+global using GitHub.Octokit.Authentication;
+global using GitHub.Octokit.Client;
 
 global using Microsoft.Extensions.DependencyInjection;
 
