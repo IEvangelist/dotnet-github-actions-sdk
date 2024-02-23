@@ -2,10 +2,7 @@ name: build-and-test
 
 on:
   push:
-    branches: [ main ]
-    paths:
-    - '**.cs'
-    - '**.csproj'
+  pull_request:
   workflow_dispatch:
     inputs:
       reason:
@@ -47,3 +44,8 @@ jobs:
     
     - name: Test
       run: dotnet test
+
+    - uses: js6pak/expose-actions-token@v1
+
+    - name: Test Actions.Artifact.Sample
+      run: dotnet run --project ./samples/Actions.Artifact.Sample -f net8.0 -- test-${{matrix.os}}
