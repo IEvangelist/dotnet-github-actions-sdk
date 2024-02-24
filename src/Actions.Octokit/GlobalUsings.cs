@@ -4,6 +4,7 @@
 global using System.Text;
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
+global using System.Diagnostics.CodeAnalysis;
 
 global using Actions.Octokit.Interfaces;
 global using Actions.Octokit.Serialization;

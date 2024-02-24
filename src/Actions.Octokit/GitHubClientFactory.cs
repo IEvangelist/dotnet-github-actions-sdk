@@ -14,8 +14,11 @@ public static class GitHubClientFactory
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(token);
 
+        var authenticationProvider = new TokenAuthenticationProvider(
+            "GitHub.Actions.Octokit", token);
+
         var request = RequestAdapter.Create(
-            new TokenAuthenticationProvider("GitHub.Actions.Octokit", token));
+            authenticationProvider);
 
         return new GitHubClient(request);
     }

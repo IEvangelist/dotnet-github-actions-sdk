@@ -12,7 +12,12 @@ namespace Actions.Octokit.Serialization;
 [JsonSourceGenerationOptions(
     defaults: JsonSerializerDefaults.Web,
     WriteIndented = true,
-    UseStringEnumConverter = true)]
+    UseStringEnumConverter = true,
+    AllowTrailingCommas = true,
+    NumberHandling = JsonNumberHandling.AllowReadingFromString,
+    PropertyNameCaseInsensitive = false,
+    PropertyNamingPolicy = JsonKnownNamingPolicy.SnakeCaseLower,
+    IncludeFields = true)]
 [JsonSerializable(typeof(CommonIssue))]
 [JsonSerializable(typeof(CommonRepo))]
 [JsonSerializable(typeof(Context))]

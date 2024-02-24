@@ -21,6 +21,10 @@ public static class Keys
     /// </summary>
     public const string GITHUB_JOB = nameof(GITHUB_JOB);
     /// <summary>
+    /// The environment variable key: <c>GITHUB_RUN_ATTEMPT</c>.
+    /// </summary>
+    public const string GITHUB_RUN_ATTEMPT = nameof(GITHUB_RUN_ATTEMPT);
+    /// <summary>
     /// The environment variable key: <c>GITHUB_RUN_NUMBER</c>.
     /// </summary>
     public const string GITHUB_RUN_NUMBER = nameof(GITHUB_RUN_NUMBER);
