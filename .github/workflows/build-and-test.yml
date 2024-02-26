@@ -2,10 +2,7 @@ name: build-and-test
 
 on:
   push:
-    branches: [ main ]
-    paths:
-    - '**.cs'
-    - '**.csproj'
+  pull_request:
   workflow_dispatch:
     inputs:
       reason:
@@ -13,37 +10,49 @@ on:
         required: true
         default: 'Manual build'
 
-env:
-  DOTNET_VERSION: '8.0.x' # set this to the dot net version to use
-
 jobs:
   build:
     name: build-${{matrix.os}}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
 
     steps:
-    - uses: actions/checkout@main
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: tree:0
 
-    - name: 'Print manual build reason'
-      if: ${{ github.event_name == 'workflow_dispatch' }}
-      run: |
-        echo 'Reason: ${{ github.event.inputs.reason }}'
-    - name: Setup .NET
-      uses: actions/setup-dotnet@main
-      with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
-        dotnet-quality: 'preview'
+      - name: 'Print manual build reason'
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        run: |
+          echo 'Reason: ${{ github.event.inputs.reason }}'
 
-    - name: Install dependencies
-      run: |
-        dotnet restore
-      
-    - name: Build
-      run: |
-        dotnet build --configuration Release --no-restore
-    
-    - name: Test
-      run: dotnet test
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Install dependencies
+        run: |
+          dotnet restore
+
+      - name: Build
+        run: |
+          dotnet build --configuration Release --no-restore
+
+      - uses: actions/upload-artifact@v4
+        if: matrix.os == 'ubuntu-latest'
+        with:
+          name: nuget
+          path: artifacts/package/release/*.nupkg
+
+      - name: Test
+        run: dotnet test --configuration Release --no-restore
+
+      - name: Publish
+        if: matrix.os == 'ubuntu-latest' && github.ref_type == 'tag'
+        run: |
+          dotnet nuget push --skip-duplicate artifacts/package/release/*.nupkg \
+            --source "https://api.nuget.org/v3/index.json" --api-key "${{ secrets.NUGET_API_KEY }}"
