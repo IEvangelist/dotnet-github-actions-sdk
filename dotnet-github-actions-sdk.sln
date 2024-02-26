@@ -52,6 +52,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "playground", "playground", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Octokit.Sandbox", "playground\Octokit.Sandbox\Octokit.Sandbox.csproj", "{15747619-FE95-451A-AE69-EB7567E0FF44}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Actions.HttpClient", "src\Actions.HttpClient\Actions.HttpClient.csproj", "{2B185665-CB39-4457-8B16-AACBCDF58DE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Actions.HttpClient.Tests", "tests\Actions.HttpClient.Tests\Actions.HttpClient.Tests.csproj", "{30D9FC5A-465B-4B53-A20C-7774F4AFBE7E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -98,10 +102,6 @@ Global
 		{1987D078-C132-4BAF-8BCC-DB11168B3B1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1987D078-C132-4BAF-8BCC-DB11168B3B1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1987D078-C132-4BAF-8BCC-DB11168B3B1D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{15747619-FE95-451A-AE69-EB7567E0FF44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{15747619-FE95-451A-AE69-EB7567E0FF44}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{15747619-FE95-451A-AE69-EB7567E0FF44}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{15747619-FE95-451A-AE69-EB7567E0FF44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -117,7 +117,6 @@ Global
 		{A150FB1F-0388-4FF3-B9FE-03AF72A451FF} = {05787D83-7374-483A-A42C-E9A53EA5B224}
 		{F0D351B4-8FB2-4729-9C93-530AB71237E4} = {795A1BB4-B65E-4455-B041-DEBCC6543B36}
 		{1987D078-C132-4BAF-8BCC-DB11168B3B1D} = {795A1BB4-B65E-4455-B041-DEBCC6543B36}
-		{15747619-FE95-451A-AE69-EB7567E0FF44} = {F176BEDF-7EF2-4B3B-AC60-74F3B15B1271}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {49382294-2F91-4B26-B415-0933D5DF38E1}
