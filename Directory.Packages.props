@@ -1,20 +1,23 @@
 <Project>
-  <PropertyGroup>
-    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-    <DefaultTargetFrameworks>net8.0</DefaultTargetFrameworks>
-  </PropertyGroup>
-  <!-- TFM agnostic -->
-  <ItemGroup>
-    <PackageVersion Include="coverlet.collector" Version="6.0.1" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
-    <PackageVersion Include="MinVer" Version="5.0.0-beta.1" />
-    <PackageVersion Include="xunit" Version="2.7.0" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.7" />
-    <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
-    <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
-    <PackageVersion Include="Pathological.Globbing" Version="8.0.1" />
-    <PackageVersion Include="GitHub.Octokit.SDK" Version="0.0.7" />
-  </ItemGroup>
+    <PropertyGroup>
+        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+        <DefaultTargetFrameworks>net8.0</DefaultTargetFrameworks>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <GlobalPackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
+        <GlobalPackageReference Include="MinVer" Version="5.0.0-beta.1" />
+
+        <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+        <PackageVersion Include="xunit" Version="2.7.0" />
+        <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.7" />
+        <PackageVersion Include="coverlet.collector" Version="6.0.1" />
+
+        <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
+        <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+        <PackageVersion Include="GitHub.Octokit.SDK" Version="0.0.7" />
+        <PackageVersion Include="Pathological.Globbing" Version="8.0.1" />
+
+        <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
+    </ItemGroup>
 </Project>
