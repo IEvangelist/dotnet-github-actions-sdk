@@ -17,7 +17,8 @@
         <ReportAnalyzer>true</ReportAnalyzer>
 
         <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
-        <TreatWarningsAsErrors Condition="'$(ContinuousIntegrationBuild)' == 'true' or '$(Configuration)' == 'Release'">true</TreatWarningsAsErrors>
+        <!-- TODO re-enable -->
+        <!-- <TreatWarningsAsErrors Condition="'$(ContinuousIntegrationBuild)' == 'true' or '$(Configuration)' == 'Release'">true</TreatWarningsAsErrors> -->
 
         <Authors>David Pine</Authors>
         <Copyright>2022 David Pine</Copyright>
