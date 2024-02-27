@@ -1,0 +1,38 @@
+name: "Build"
+
+inputs:
+  upload-artifacts:
+    description: "Whether to upload artifacts"
+    required: true
+    default: "true"
+  run-tests:
+    description: "Whether to runs tests"
+    required: true
+    default: "true"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        global-json-file: global.json
+
+    - name: Install dependencies
+      shell: bash
+      run: dotnet restore
+
+    - name: Build
+      shell: bash
+      run: dotnet build --configuration Release --no-restore
+
+    - uses: actions/upload-artifact@v4
+      if: inputs.upload-artifacts == 'true'
+      with:
+        name: nuget
+        path: artifacts/package/release/*.nupkg
+
+    - name: Test
+      if: inputs.run-tests == 'true'
+      shell: bash
+      run: dotnet test --configuration Release --no-restore
