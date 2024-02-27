@@ -21,7 +21,7 @@
         <!-- <TreatWarningsAsErrors Condition="'$(ContinuousIntegrationBuild)' == 'true' or '$(Configuration)' == 'Release'">true</TreatWarningsAsErrors> -->
 
         <Authors>David Pine</Authors>
-        <Copyright>2022 David Pine</Copyright>
+        <Copyright>© 2022-2024 David Pine</Copyright>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageTags>dotnet;dotnetcore;csharp;github;actions;devops;</PackageTags>
