@@ -5,12 +5,12 @@ namespace Actions.HttpClient;
 
 internal static class ClientNames
 {
-    /// <summary>Basic username and password.</summary>
+    /// <summary><c>"Basic"</c> client names corresponding to username and password.</summary>
     internal const string Basic = nameof(Basic);
 
-    /// <summary>Personal access token (PAT)</summary>
+    /// <summary><c>"Pat"</c> client names corresponding to personal access token (PAT)</summary>
     internal const string Pat = nameof(Pat);
 
-    /// <summary>Bearer token.</summary>
+    /// <summary><c>"Bearer"</c> client names corresponding to token.</summary>
     internal const string Bearer = nameof(Bearer);
 }

@@ -1,37 +1,46 @@
 ﻿// Copyright (c) David Pine. All rights reserved.
 // Licensed under the MIT License.
 
-using System.Net.Http.Headers;
-using System.Text;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace Actions.HttpClient.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddHttpClientServices(this IServiceCollection services)
+    public const string UserAgentHeader = "dotnet-github-actions-sdk";
+
+    /// <summary>
+    /// Adds the required HTTP client services to the <see cref="IServiceCollection"/>.
+    /// Exposes the <see cref="IHttpCredentialClientFactory"/> for consuming services.
+    /// </summary>
+    /// <param name="services">The <see cref="IServiceCollection"/> to add services to.</param>
+    /// <param name="userAgent">The optional user-argent value which will be applied
+    /// as an HTTP header on all outgoing requests.</param>
+    /// <returns></returns>
+    public static IServiceCollection AddHttpClientServices(
+        this IServiceCollection services,
+        string? userAgent = UserAgentHeader)
     {
-        services.AddHttpClient(ClientNames.Basic, client =>
-        {
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
-                "Basic",
-                Convert.ToBase64String(Encoding.UTF8.GetBytes("username:password")));
-        });
+        services.AddSingleton<IHttpCredentialClientFactory, DefaultHttpKeyedClientFactory>();
 
-        services.AddHttpClient(ClientNames.Bearer, client =>
-        {
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
-                "Bearer",
-                "token");
-        });
+        services.AddHttpClient(ClientNames.Basic, ConfigureClient)
+                .AddStandardResilienceHandler();
 
-        services.AddHttpClient(ClientNames.Pat, client =>
-        {
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
-                "Basic",
-                Convert.ToBase64String(Encoding.UTF8.GetBytes("PAT:token")));
-        });
+        services.AddHttpClient(ClientNames.Bearer, ConfigureClient)
+                .AddStandardResilienceHandler();
+
+        services.AddHttpClient(ClientNames.Pat, ConfigureClient)
+                .AddStandardResilienceHandler();
 
         return services;
+
+        void ConfigureClient(NetClient client)
+        {
+            if (userAgent is not null)
+            {
+                client.DefaultRequestHeaders.UserAgent.ParseAdd(userAgent);
+            }
+
+            client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));
+        }
     }
 }

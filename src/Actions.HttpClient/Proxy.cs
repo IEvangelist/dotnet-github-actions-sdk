@@ -5,7 +5,7 @@ namespace Actions.HttpClient;
 
 internal sealed class Proxy
 {
-    public Uri? GetProxyUrl(Uri requestUrl)
+    public static Uri? GetProxyUrl(Uri requestUrl)
     {
         var usingSsl = requestUrl.Scheme is "https";
 
@@ -44,7 +44,7 @@ internal sealed class Proxy
         return null;
     }
 
-    private static bool CheckBypass(Uri requestUrl)
+    internal static bool CheckBypass(Uri requestUrl)
     {
         var hostName = requestUrl.Host;
 
