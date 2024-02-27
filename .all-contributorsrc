@@ -15,6 +15,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "js6pak",
+      "name": "js6pak",
+      "avatar_url": "https://avatars.githubusercontent.com/u/35262707?v=4",
+      "profile": "https://github.com/js6pak",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
