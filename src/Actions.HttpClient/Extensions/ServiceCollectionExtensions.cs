@@ -3,8 +3,14 @@
 
 namespace Actions.HttpClient.Extensions;
 
+/// <summary>
+/// Extensions methods on <see cref="IServiceCollection"/> to register HTTP client services.
+/// </summary>
 public static class ServiceCollectionExtensions
 {
+    /// <summary>
+    /// The default <c>user-agent</c> HTTP header value, <c>"dotnet-github-actions-sdk"</c>.
+    /// </summary>
     public const string UserAgentHeader = "dotnet-github-actions-sdk";
 
     /// <summary>

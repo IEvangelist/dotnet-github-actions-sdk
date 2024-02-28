@@ -33,8 +33,8 @@ internal sealed class Proxy
             }
             catch
             {
-                if (proxyVar.StartsWith("http://") is false &&
-                    proxyVar.StartsWith("https://") is false)
+                if (proxyVar.StartsWith("http://", StringComparison.OrdinalIgnoreCase) is false &&
+                    proxyVar.StartsWith("https://", StringComparison.OrdinalIgnoreCase) is false)
                 {
                     return new Uri($"http://{proxyVar}");
                 }
@@ -68,20 +68,20 @@ internal sealed class Proxy
 
         string[] upperReqHosts =
         [
-            requestUrl.Host.ToUpper(),
-            $"{requestUrl.Host.ToUpper()}:{requestUrl.Port}"
+            requestUrl.Host.ToUpperInvariant(),
+            $"{requestUrl.Host.ToUpperInvariant()}:{requestUrl.Port}"
         ];
 
         var upperNoProxyItems = noProxy.Split(',', StringSplitOptions.RemoveEmptyEntries)
-            .Select(x => x.Trim().ToUpper())
+            .Select(x => x.Trim().ToUpperInvariant())
             .Where(x => !string.IsNullOrEmpty(x));
 
         foreach (var upperNoProxyItem in upperNoProxyItems)
         {
             if (upperNoProxyItem is "*" ||
                 upperReqHosts.Any(x => x == upperNoProxyItem ||
-                    x.EndsWith($".{upperNoProxyItem}") ||
-                (upperNoProxyItem.StartsWith('.') && x.EndsWith(upperNoProxyItem))))
+                    x.EndsWith($".{upperNoProxyItem}", StringComparison.OrdinalIgnoreCase) ||
+                (upperNoProxyItem.StartsWith('.') && x.EndsWith(upperNoProxyItem, StringComparison.OrdinalIgnoreCase))))
             {
                 return true;
             }

@@ -14,7 +14,7 @@ public class HttpMethodExtensionsTests
     [InlineData("PUT", false)]
     [InlineData("POST", false)]
     [InlineData("PATCH", false)]
-    public void IsRetriableMethod_CorrectlyEvaluatesEligibility(string method, bool expected)
+    public void IsRetriableMethodCorrectlyEvaluatesEligibility(string method, bool expected)
     {
         var httpMethod = new HttpMethod(method);
 
