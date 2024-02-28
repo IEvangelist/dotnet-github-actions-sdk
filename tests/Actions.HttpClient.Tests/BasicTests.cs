@@ -5,9 +5,16 @@ namespace Actions.HttpClient.Tests;
 
 public class BasicTests
 {
+    public BasicTests()
+    {
+        Environment.SetEnvironmentVariable("no_proxy", null);
+        Environment.SetEnvironmentVariable("http_proxy", null);
+        Environment.SetEnvironmentVariable("https_proxy", null);
+    }
+
     [Theory]
-    [InlineData("http://postman-echo.com/get", "testing")]
-    [InlineData("https://postman-echo.com/get", "123")]
+    [InlineData("http://postman-echo.com/get", "functional-test-agent")]
+    [InlineData("https://postman-echo.com/get", "test-agent")]
     public async Task DoesBasicGetRequestWithUserAgent(string requestUri, string userAgent)
     {
         using var client = new ServiceCollection()

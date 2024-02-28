@@ -5,6 +5,13 @@ namespace Actions.HttpClient.Tests;
 
 public class AuthTests
 {
+    public AuthTests()
+    {
+        Environment.SetEnvironmentVariable("no_proxy", null);
+        Environment.SetEnvironmentVariable("http_proxy", null);
+        Environment.SetEnvironmentVariable("https_proxy", null);
+    }
+
     [Fact]
     public async Task HttpGetRequestWithBasicAuthCorrectlyDeserializesTypedResponse()
     {
