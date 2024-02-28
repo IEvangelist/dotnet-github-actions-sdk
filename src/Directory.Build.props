@@ -1,0 +1,13 @@
+<Project>
+    <Import Project="$([MSBuild]::GetPathOfFileAbove(Directory.Build.props, $(MSBuildThisFileDirectory)..))" />
+
+    <PropertyGroup>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="$(MSBuildProjectDirectory)/README.md" Pack="true" PackagePath="/" />
+        <None Include="$(MSBuildThisFileDirectory)/build/Common.props" Pack="true" PackagePath="build/$(PackageId).props" />
+    </ItemGroup>
+</Project>

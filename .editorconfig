@@ -6,8 +6,13 @@ root = true
 
 # All files 
 [*] 
-indent_style = space 
+indent_style = space
+insert_final_newline = true
 file_header_template = Copyright (c) David Pine. All rights reserved.\nLicensed under the MIT License.
+
+[*.{xml,*proj,props,targets,ruleset,config,nuspec,resx}]
+indent_size = 4
+ij_xml_space_inside_empty_tag = true
 
 # Code files 
 [*.cs] 

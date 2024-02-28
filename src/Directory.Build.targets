@@ -1,0 +1,16 @@
+<Project>
+    <Import Project="$([MSBuild]::GetPathOfFileAbove(Directory.Build.targets, $(MSBuildThisFileDirectory)..))" />
+
+    <PropertyGroup>
+        <PackageId>GitHub.$(AssemblyName)</PackageId>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(BasedOn)' != ''">
+        <Title>GitHub Actions: Core .NET SDK ($(BasedOn))</Title>
+        <Description>This is an unofficial .NET SDK for GitHub Actions workflows (based on $(BasedOn)).</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="$(AssemblyName).Tests" />
+    </ItemGroup>
+</Project>

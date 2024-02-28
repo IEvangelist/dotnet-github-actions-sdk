@@ -1,31 +1,34 @@
 <Project>
-  <PropertyGroup>
-    <_ParentDirectoryBuildPropsPath Condition="'$(_DirectoryBuildPropsFile)' != ''">$([System.IO.Path]::Combine('..', '$(_DirectoryBuildPropsFile)'))</_ParentDirectoryBuildPropsPath>
-  </PropertyGroup>
+    <PropertyGroup>
+        <UseArtifactsOutput>true</UseArtifactsOutput>
+        <ArtifactsPath>$(MSBuildThisFileDirectory)artifacts</ArtifactsPath>
 
-  <Import Project="$(_ParentDirectoryBuildPropsPath)" Condition="Exists('$(_ParentDirectoryBuildPropsPath)')"/>
+        <LangVersion>latest</LangVersion>
+        <Features>strict</Features>
+        <DebugType>embedded</DebugType>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
 
-  <PropertyGroup>
-    <WarningLevel>3</WarningLevel>
-    <AnalysisLevel>preview</AnalysisLevel>
-    <Features>strict</Features>
-  </PropertyGroup>
+        <EnableNETAnalyzers>true</EnableNETAnalyzers>
+        <AnalysisLevel>latest</AnalysisLevel>
+        <AnalysisMode>recommended</AnalysisMode>
+        <IsAotCompatible>true</IsAotCompatible>
+        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+        <ReportAnalyzer>true</ReportAnalyzer>
 
-  <PropertyGroup>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+        <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+        <!-- TODO re-enable -->
+        <!-- <TreatWarningsAsErrors Condition="'$(ContinuousIntegrationBuild)' == 'true' or '$(Configuration)' == 'Release'">true</TreatWarningsAsErrors> -->
 
-  <PropertyGroup>
-    <IsPackable>true</IsPackable>
-  </PropertyGroup>
+        <Authors>David Pine</Authors>
+        <Copyright>© 2022-2024 David Pine</Copyright>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageTags>dotnet;dotnetcore;csharp;github;actions;devops;</PackageTags>
+        <PackageProjectUrl>https://github.com/IEvangelist/dotnet-github-actions-sdk</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/IEvangelist/dotnet-github-actions-sdk</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
 
-  <PropertyGroup>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <SourceLinkCreate>true</SourceLinkCreate>
-    <SourceLinkOriginUrl>https://github.com/IEvangelist/dotnet-github-actions-sdk</SourceLinkOriginUrl>
-  </PropertyGroup>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    </PropertyGroup>
 </Project>

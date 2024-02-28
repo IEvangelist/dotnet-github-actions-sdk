@@ -1,0 +1,24 @@
+name: publish nuget
+
+on:
+  push:
+    tags:
+      - '**'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: tree:0
+
+      - name: Build
+        uses: ./.github/actions/build
+
+      - name: Publish
+        run: |
+          dotnet nuget push --skip-duplicate artifacts/package/release/*.nupkg \
+            --source "https://api.nuget.org/v3/index.json" --api-key "${{ secrets.NUGET_API_KEY }}"
