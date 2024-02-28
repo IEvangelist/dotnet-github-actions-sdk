@@ -1,15 +1,12 @@
 ﻿// Copyright (c) David Pine. All rights reserved.
 // Licensed under the MIT License.
 
-using Actions.HttpClient.Clients;
-using Actions.HttpClient.Factories;
-
 namespace Actions.HttpClient.Tests;
 
 public class ServiceCollectionExtensionsTests
 {
     [Fact]
-    public void AddHttpClientServices_CorrectlyRegistersExpectedClients()
+    public void AddHttpClientServicesCorrectlyRegistersExpectedClients()
     {
         // Arrange
         var services = new ServiceCollection()

@@ -3,6 +3,9 @@
 
 namespace Actions.HttpClient.Clients;
 
+/// <summary>
+/// Represents an HTTP client abstraction, exposing Native AOT compatible APIs.
+/// </summary>
 public interface IHttpClient : IDisposable
 {
     /// <summary>

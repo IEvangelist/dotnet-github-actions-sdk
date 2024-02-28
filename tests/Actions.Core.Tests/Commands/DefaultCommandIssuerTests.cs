@@ -83,11 +83,11 @@ public sealed class DefaultCommandIssuerTests
         {
             new Dictionary<string, string>
             {
-                ["prop1"] = JsonSerializer.Serialize(new { test = "object" }),
+                ["prop1"] = JsonSerializer.Serialize(new TestObject("object"), TestObjectContext.Default.TestObject),
                 ["prop2"] = "123",
                 ["prop3"] = "true"
             },
-            JsonSerializer.Serialize(new { test = "object" }).ToCommandValue(),
+            JsonSerializer.Serialize(new TestObject("object"), TestObjectContext.Default.TestObject).ToCommandValue(),
             $$"""
             ::{{CommandNames.SetOutput}} prop1={"test"%3A"object"},prop2=123,prop3=true::{"test":"object"}
             """
@@ -115,4 +115,12 @@ public sealed class DefaultCommandIssuerTests
                 """,
             actual: testConsole.Output.ToString());
     }
+}
+
+public record class TestObject([property: JsonPropertyName("test")] string Test);
+
+[JsonSourceGenerationOptions(JsonSerializerDefaults.Web)]
+[JsonSerializable(typeof(TestObject))]
+internal sealed partial class TestObjectContext : JsonSerializerContext
+{
 }

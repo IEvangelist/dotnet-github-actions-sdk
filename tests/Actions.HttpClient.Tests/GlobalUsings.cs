@@ -5,6 +5,7 @@ global using System.Net;
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
 
+global using Actions.HttpClient.Clients;
 global using Actions.HttpClient.Extensions;
 global using Actions.HttpClient.Factories;
 

@@ -6,7 +6,7 @@ namespace Actions.HttpClient.Tests;
 public class AuthTests
 {
     [Fact]
-    public async Task HttpGetRequestWithBasicAuth_CorrectlyDeserializesTypedResponse()
+    public async Task HttpGetRequestWithBasicAuthCorrectlyDeserializesTypedResponse()
     {
         using var client = new ServiceCollection()
             .AddHttpClientServices()
@@ -28,7 +28,7 @@ public class AuthTests
     }
 
     [Fact]
-    public async Task HttpGetRequestWithBearerAuth_CorrectlyDeserializesTypedResponse()
+    public async Task HttpGetRequestWithBearerAuthCorrectlyDeserializesTypedResponse()
     {
         var token = "scbfb44vxzku5l4xgc3qfazn3lpk4awflfryc76esaiq7aypcbhs";
 
@@ -51,7 +51,7 @@ public class AuthTests
     }
 
     [Fact]
-    public async Task HttpGetRequestWithPatAuth_CorrectlyDeserializesTypedResponse()
+    public async Task HttpGetRequestWithPatAuthCorrectlyDeserializesTypedResponse()
     {
         var pat = "scbfb44vxzku5l4xgc3qfazn3lpk4awflfryc76esaiq7aypcbhs";
 
