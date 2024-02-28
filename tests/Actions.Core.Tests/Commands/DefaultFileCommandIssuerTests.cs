@@ -72,6 +72,6 @@ public sealed class DefaultFileCommandIssuerTests
 }
 
 [JsonSerializable(typeof(string[]))]
-internal partial class TestContext : JsonSerializerContext
+internal sealed partial class TestContext : JsonSerializerContext
 {
 }

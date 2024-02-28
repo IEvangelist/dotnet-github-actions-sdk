@@ -29,7 +29,7 @@ internal sealed class DefaultGlobPatternResolverBuilder : IGlobPatternResolverBu
     }
 
     /// <inheritdoc />
-    public IGlobPatternResolverBuilder With(params string[] patterns)
+    public IGlobPatternResolverBuilder WithInclusions(params string[] patterns)
     {
         foreach (var include in patterns)
         {
@@ -40,7 +40,7 @@ internal sealed class DefaultGlobPatternResolverBuilder : IGlobPatternResolverBu
     }
 
     /// <inheritdoc />
-    public IGlobPatternResolverBuilder Without(params string[] patterns)
+    public IGlobPatternResolverBuilder WithExclusions(params string[] patterns)
     {
         foreach (var exclude in patterns)
         {

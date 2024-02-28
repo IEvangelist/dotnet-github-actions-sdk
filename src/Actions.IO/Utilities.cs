@@ -5,17 +5,29 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Actions.IO;
 
+/// <summary>
+/// A collection of utilities for working with file system paths.
+/// </summary>
 public static class Utilities
 {
+    /// <summary>
+    /// Gets a value indicating whether the current operating system is Windows.
+    /// </summary>
     public static bool IsWindows { get; } =
         RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 
+    /// <summary>
+    /// Gets all of the <c>PATH</c> environment variables as a <see cref="string"/> array.
+    /// </summary>
     public static Lazy<string[]> Paths { get; } = new (() =>
     {
         var path = Environment.GetEnvironmentVariable("PATH");
         return path?.Split(Path.PathSeparator) ?? [];
     });
 
+    /// <summary>
+    /// Gets all of the <c>PATHEXT</c> environment variables as a <see cref="string"/> array.
+    /// </summary>
     public static Lazy<string[]> PathExtensions { get; } = new(() =>
     {
         var pathExts = Environment.GetEnvironmentVariable("PATHEXT");
@@ -29,7 +41,13 @@ public static class Utilities
     ///<inheritdoc cref="Path.IsPathRooted(string?)" />
     public static bool IsRooted(string? path) =>
         Path.IsPathRooted(path);
-    
+
+    /// <summary>
+    /// Indicates whether the given <paramref name="path"/> resolves as a directory.
+    /// </summary>
+    /// <param name="path">The path to evaluate.</param>
+    /// <returns><see langword="true"/> when <paramref name="path"/> refers to a
+    /// directory, else <see langword="false"/>.</returns>
     public static bool IsDirectory(
         [NotNullWhen(true)] string? path) =>
         Directory.Exists(path) && (File.GetAttributes(path!) & FileAttributes.Directory) is FileAttributes.Directory;

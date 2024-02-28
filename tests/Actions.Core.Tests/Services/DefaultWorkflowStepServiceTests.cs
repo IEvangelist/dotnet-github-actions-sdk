@@ -15,7 +15,7 @@ public sealed class DefaultWorkflowStepServiceTests
         IFileCommandIssuer fileCommandIssuer = new DefaultFileCommandIssuer(
             (filePath, actual) => ValueTask.CompletedTask);
 
-        ICoreService sut = new DefaultCoreService(
+        var sut = new DefaultCoreService(
             testConsole, commandIssuer, fileCommandIssuer);
 
         await sut.AddPathAsync("some/path/to/test");
@@ -44,7 +44,7 @@ public sealed class DefaultWorkflowStepServiceTests
                 return ValueTask.CompletedTask;
             });
 
-        ICoreService sut = new DefaultCoreService(
+        var sut = new DefaultCoreService(
             testConsole, commandIssuer, fileCommandIssuer);
 
         await sut.AddPathAsync("path/to/test");

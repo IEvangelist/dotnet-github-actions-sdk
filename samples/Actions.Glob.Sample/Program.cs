@@ -9,5 +9,5 @@ var core = provider.GetRequiredService<ICoreService>();
 var globber = Globber.Create(core.GetInput("files"));
 foreach (var file in globber.GlobFiles())
 {
-    core.Info(file);
+    core.WriteInfo(file);
 }

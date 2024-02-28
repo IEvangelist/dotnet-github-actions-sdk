@@ -17,14 +17,14 @@ internal sealed class DefaultFileCommandIssuer(
 
         if (string.IsNullOrWhiteSpace(filePath))
         {
-            throw new Exception(
+            throw new ArgumentException(
                 "Unable to find environment variable for file " +
                 $"command suffix '{commandSuffix} ({GITHUB_}{commandSuffix})'.");
         }
 
         return File.Exists(filePath) switch
         {
-            false => throw new Exception(
+            false => throw new FileNotFoundException(
                 $"Missing file at path: '{filePath}' for file command '{commandSuffix}'."),
 
             _ => _writeLineTask.Invoke(filePath, message.ToCommandValue(typeInfo))
@@ -43,13 +43,13 @@ internal sealed class DefaultFileCommandIssuer(
         // the delimiter.
         if (key.Contains(delimiter, StringComparison.OrdinalIgnoreCase))
         {
-            throw new Exception(
+            throw new InvalidOperationException(
                 $"Unexpected input: name should not contain the delimiter {delimiter}");
         }
 
         if (convertedValue.Contains(delimiter, StringComparison.OrdinalIgnoreCase))
         {
-            throw new Exception(
+            throw new InvalidOperationException(
                 $"Unexpected input: value should not contain the delimiter {delimiter}");
         }
 

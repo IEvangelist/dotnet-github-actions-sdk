@@ -11,12 +11,13 @@ try
 {
     // "who-to-greet" input defined in action metadata file
     var nameToGreet = core.GetInput("who-to-greet");
-    core.Info($"Hello {nameToGreet}!");
+    core.WriteInfo($"Hello {nameToGreet}!");
     await core.SetOutputAsync("time", DateTime.UtcNow.ToString("o"));
 
     // Get the JSON webhook payload for the event that triggered the workflow
-    var payload = JsonSerializer.Serialize(Context.Current.Payload);
-    core.Info($"The event payload: {payload}");
+    var payload = Context.Current?.Payload?.ToString();
+
+    core.WriteInfo($"The event payload: {payload}");
 
     await core.SetOutputAsync("yesItWorks", "testing/this/out");
 }

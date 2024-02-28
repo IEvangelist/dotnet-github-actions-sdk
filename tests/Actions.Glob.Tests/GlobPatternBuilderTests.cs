@@ -14,8 +14,8 @@ public sealed class GlobPatternBuilderTests
     public void GlobPatternBuilderYieldsWorkingResolver()
     {
         var resolver = new DefaultGlobPatternResolverBuilder()
-            .With("**/*.md", "**/*.svg")
-            .Without("*/more.md")
+            .WithInclusions("**/*.md", "**/*.svg")
+            .WithExclusions("*/more.md")
             .Build();
 
         var result = resolver.GetGlobResult("parent");

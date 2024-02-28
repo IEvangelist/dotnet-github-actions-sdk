@@ -3,6 +3,9 @@
 
 namespace Actions.Octokit;
 
+/// <summary>
+/// Represents a factory for creating <see cref="GitHubClient"/> instances.
+/// </summary>
 public static class GitHubClientFactory
 {
     /// <summary>

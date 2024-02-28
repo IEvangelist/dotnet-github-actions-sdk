@@ -97,34 +97,34 @@ public interface ICoreService
     /// Writes debug message to user log.
     /// </summary>
     /// <param name="message">debug message</param>
-    void Debug(string message);
+    void WriteDebug(string message);
 
     /// <summary>
     /// Adds an error issue.
     /// </summary>
-    /// <param name="message">Error issue message.</param>
+    /// <param name="message">WriteError issue message.</param>
     /// <param name="properties">Optional properties to add to the annotation.</param>
-    void Error(string message, AnnotationProperties? properties = null);
+    void WriteError(string message, AnnotationProperties? properties = null);
 
     /// <summary>
     /// Adds a warning issue.
     /// </summary>
-    /// <param name="message">Error issue message.</param>
+    /// <param name="message">WriteError issue message.</param>
     /// <param name="properties">Optional properties to add to the annotation.</param>
-    void Warning(string message, AnnotationProperties? properties = null);
+    void WriteWarning(string message, AnnotationProperties? properties = null);
 
     /// <summary>
     /// Adds a notice issue.
     /// </summary>
-    /// <param name="message">Error issue message.</param>
+    /// <param name="message">WriteError issue message.</param>
     /// <param name="properties">Optional properties to add to the annotation.</param>
-    void Notice(string message, AnnotationProperties? properties = null);
+    void WriteNotice(string message, AnnotationProperties? properties = null);
 
     /// <summary>
     /// Writes info to log with console.log.
     /// </summary>
     /// <param name="message">info message</param>
-    void Info(string message);
+    void WriteInfo(string message);
 
     /// <summary>
     /// Begin an output group.

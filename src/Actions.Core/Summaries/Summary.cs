@@ -37,7 +37,7 @@ public sealed class Summary
 
         if (string.IsNullOrWhiteSpace(pathFromEnv))
         {
-            throw new Exception($"""
+            throw new ArgumentException($"""
                 Unable to find environment variable for {GITHUB_STEP_SUMMARY}. 
                 Check if your runtime environment supports job summaries.
                 """);
@@ -45,7 +45,7 @@ public sealed class Summary
 
         return File.Exists(pathFromEnv)
             ? (_filePath = pathFromEnv)
-            : throw new Exception($"There is no file at: '{pathFromEnv}'");
+            : throw new FileNotFoundException($"There is no file at: '{pathFromEnv}'");
     }
 
     /// <summary>Wraps content in an HTML tag, adding any HTML attributes,
@@ -127,7 +127,7 @@ public sealed class Summary
     public Summary AddAlert(string content, AlertType type = AlertType.Note)
     {
         return AddRawMarkdown($"""
-            > [!{type.ToString().ToUpper()}]
+            > [!{type.ToString().ToUpperInvariant()}]
             > {content}
             """, true);
     }
@@ -283,17 +283,17 @@ public sealed class Summary
                         if (colspan.HasValue)
                         {
                             attributes ??= [];
-                            attributes[nameof(colspan)] = colspan.Value.ToString();
+                            attributes[nameof(colspan)] = $"{colspan.Value}";
                         }
                         if (rowspan.HasValue)
                         {
                             attributes ??= [];
-                            attributes[nameof(rowspan)] = rowspan.Value.ToString();
+                            attributes[nameof(rowspan)] = $"{rowspan.Value}";
                         }
                         if (align is not TableColumnAlignment.Center)
                         {
                             attributes ??= [];
-                            attributes[nameof(align)] = align.ToString().ToLower();
+                            attributes[nameof(align)] = align.ToString().ToLowerInvariant();
                         }
 
                         return Wrap(tag, data, attributes);
@@ -366,11 +366,11 @@ public sealed class Summary
         var (width, height) = options.GetValueOrDefault();
         if (width.HasValue)
         {
-            attributes[nameof(width)] = width.Value.ToString();
+            attributes[nameof(width)] = $"{width.Value}";
         }
         if (height.HasValue)
         {
-            attributes[nameof(height)] = height.Value.ToString();
+            attributes[nameof(height)] = $"{height.Value}";
         }
 
         var element = Wrap("img", null, attributes);

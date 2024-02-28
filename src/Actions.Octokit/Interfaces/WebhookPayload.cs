@@ -49,4 +49,13 @@ public sealed class WebhookPayload
     /// </summary>
     [JsonPropertyName("comment")]
     public Comment? Comment { get; set; }
+
+    /// <summary>
+    /// Gets a JSON <see langword="string"/> representation of the webhook payload.
+    /// </summary>
+    /// <returns>A JSON <see langword="string"/> representing the webhook payload.</returns>
+    public override string ToString()
+    {
+        return JsonSerializer.Serialize(this, SourceGenerationContexts.Default.WebhookPayload);
+    }
 }

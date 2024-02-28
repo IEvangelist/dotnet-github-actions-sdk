@@ -1,8 +1,14 @@
 // Copyright (c) David Pine. All rights reserved.
 // Licensed under the MIT License.
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace Actions.IO.Tests;
 
+[SuppressMessage(
+    "Performance",
+    "CA1859:Use concrete types when possible for improved performance",
+    Justification = "We need to use the IOperations interface.")]
 public sealed class OperationTests(TempFolderTestFixture fixture) : IClassFixture<TempFolderTestFixture>
 {
     [Fact]

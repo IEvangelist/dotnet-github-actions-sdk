@@ -3,6 +3,10 @@
 
 namespace Actions.Octokit.Extensions;
 
+/// <summary>
+/// Represents a collection of extension methods on <see cref="IServiceCollection"/>
+/// for adding GitHub services.
+/// </summary>
 public static class ServiceCollectionExtensions
 {
     /// <summary>

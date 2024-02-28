@@ -9,7 +9,7 @@ public sealed class DefaultCommandIssuerTests
     public void IssuesCorrectly()
     {
         var testConsole = new TestConsole();
-        ICommandIssuer sut = new DefaultCommandIssuer(testConsole);
+        var sut = new DefaultCommandIssuer(testConsole);
 
         sut.Issue(
             commandName: "command",
@@ -26,7 +26,7 @@ public sealed class DefaultCommandIssuerTests
     public void IssuesCommandCorrectly()
     {
         var testConsole = new TestConsole();
-        ICommandIssuer sut = new DefaultCommandIssuer(testConsole);
+        var sut = new DefaultCommandIssuer(testConsole);
 
         sut.IssueCommand(
             commandName: "command",
@@ -40,7 +40,9 @@ public sealed class DefaultCommandIssuerTests
             actual: testConsole.Output.ToString());
     }
 
+#pragma warning disable CA2211 // Non-constant fields should not be visible
     public static IEnumerable<object[]> WritesOutputInput =
+#pragma warning restore CA2211 // Non-constant fields should not be visible
     [
         [
             new Dictionary<string, string>
@@ -99,7 +101,7 @@ public sealed class DefaultCommandIssuerTests
         string? expected = null)
     {
         var testConsole = new TestConsole();
-        ICommandIssuer sut = new DefaultCommandIssuer(testConsole);
+        var sut = new DefaultCommandIssuer(testConsole);
 
         sut.IssueCommand(
             commandName: CommandNames.SetOutput,

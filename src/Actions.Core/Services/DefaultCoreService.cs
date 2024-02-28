@@ -34,7 +34,7 @@ internal sealed class DefaultCoreService(
     }
 
     /// <inheritdoc />
-    public void Debug(string message) =>
+    public void WriteDebug(string message) =>
         commandIssuer.IssueCommand(
             CommandNames.Debug, message: message);
 
@@ -44,7 +44,7 @@ internal sealed class DefaultCoreService(
             CommandNames.EndGroup, "");
 
     /// <inheritdoc />
-    public void Error(string message, AnnotationProperties? properties = default) =>
+    public void WriteError(string message, AnnotationProperties? properties = default) =>
         commandIssuer.IssueCommand(
             CommandNames.Error, properties?.ToCommandProperties(), message);
 
@@ -76,7 +76,7 @@ internal sealed class DefaultCoreService(
 
         return bool.TryParse(value, out var result)
             ? result
-            : throw new Exception($"""
+            : throw new InvalidOperationException($"""
                 Input does not meet YAML 1.2 "Core Schema" specification: {name}
                 Support boolean input list: \`true | True | TRUE | false | False | FALSE\`
                 """);
@@ -90,7 +90,7 @@ internal sealed class DefaultCoreService(
 
         return options.HasValue && options.Value is { Required: true } &&
             string.IsNullOrWhiteSpace(value)
-            ? throw new Exception(
+            ? throw new InvalidOperationException(
                 $"Input required and not supplied: {name}")
             : options.HasValue && options.Value is { TrimWhitespace: false }
                 ? value ?? ""
@@ -131,10 +131,10 @@ internal sealed class DefaultCoreService(
     }
 
     /// <inheritdoc />
-    public void Info(string message) => console.WriteLine(message);
+    public void WriteInfo(string message) => console.WriteLine(message);
 
     /// <inheritdoc />
-    public void Notice(string message, AnnotationProperties? properties = default) =>
+    public void WriteNotice(string message, AnnotationProperties? properties = default) =>
         commandIssuer.IssueCommand(
             CommandNames.Notice, properties?.ToCommandProperties(), message);
 
@@ -166,7 +166,7 @@ internal sealed class DefaultCoreService(
     public void SetFailed(string message)
     {
         Environment.ExitCode = (int)ExitCode.Failure;
-        Error(message);
+        WriteError(message);
     }
 
     /// <inheritdoc />
@@ -201,7 +201,7 @@ internal sealed class DefaultCoreService(
             CommandNames.Group, name);
 
     /// <inheritdoc />
-    public void Warning(string message, AnnotationProperties? properties = default) =>
+    public void WriteWarning(string message, AnnotationProperties? properties = default) =>
         commandIssuer.IssueCommand(
             CommandNames.Warning, properties?.ToCommandProperties(), message);
 }

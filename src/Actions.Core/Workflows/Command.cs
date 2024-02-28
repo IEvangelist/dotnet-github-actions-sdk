@@ -42,11 +42,11 @@ internal readonly record struct Command(
                 {
                     builder.Append(',');
                 }
-                builder.Append($"{key}={EscapeProperty(value)}");
+                builder.Append(CultureInfo.InvariantCulture, $"{key}={EscapeProperty(value)}");
             }
         }
 
-        builder.Append($"{CMD_STRING}{EscapeData(Message)}");
+        builder.Append(CultureInfo.InvariantCulture, $"{CMD_STRING}{EscapeData(Message)}");
 
         return builder.ToString();
     }

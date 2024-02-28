@@ -8,10 +8,9 @@ namespace Actions.Core.Output;
 /// </summary>
 public interface IConsole
 {
-    /// <inheritdoc cref="Environment.Exit" />
-    void Exit(int exitCode = 0) =>
-        Environment.Exit(
-            Environment.ExitCode = exitCode);
+    /// <inheritdoc cref="Exit" />
+    void ExitWithCode(int exitCode = 0) =>
+        Exit(Environment.ExitCode = exitCode);
 
     /// <inheritdoc cref="Console.Write(string?)" />
     void Write(string? message = null) =>

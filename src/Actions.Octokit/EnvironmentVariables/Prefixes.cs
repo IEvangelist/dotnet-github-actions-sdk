@@ -6,6 +6,10 @@ namespace Actions.Octokit.EnvironmentVariables;
 /// <summary>
 /// A collection of environment variable prefixes, used with corresponding <see cref="Suffixes"/>.
 /// </summary>
+[SuppressMessage(
+    "Naming",
+    "CA1707:Identifiers should not contain underscores",
+    Justification = "These values correspond to environment variables and I want them to match exactly.")]
 public static class Prefixes
 {
     /// <summary>

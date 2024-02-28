@@ -24,7 +24,7 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
             return sut.AddRaw(fixture.TestCase.Text).WriteAsync();
         }
 
-        await Assert.ThrowsAsync<Exception>(WriteAsync);
+        await Assert.ThrowsAsync<ArgumentException>(WriteAsync);
     });
 
     [Fact]
@@ -39,7 +39,7 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
             return sut.AddRaw(fixture.TestCase.Text).WriteAsync();
         }
 
-        await Assert.ThrowsAsync<Exception>(WriteAsync);
+        await Assert.ThrowsAsync<FileNotFoundException>(WriteAsync);
     });
 
     [Fact]

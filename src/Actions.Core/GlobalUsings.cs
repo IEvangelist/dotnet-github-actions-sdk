@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 global using System.Diagnostics;
+global using System.Globalization;
 global using System.Runtime.CompilerServices;
 global using System.Text;
 global using System.Text.Json;
@@ -11,8 +12,8 @@ global using Actions.Core.Commands;
 global using Actions.Core.Extensions;
 global using Actions.Core.Markdown;
 global using Actions.Core.Output;
-global using Actions.Core.Summaries;
 global using Actions.Core.Services;
+global using Actions.Core.Summaries;
 global using Actions.Core.Workflows;
 
 global using Microsoft.Extensions.DependencyInjection;

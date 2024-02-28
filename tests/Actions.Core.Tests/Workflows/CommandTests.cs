@@ -5,7 +5,9 @@ namespace Actions.Core.Tests.Workflows;
 
 public sealed class CommandTests
 {
+#pragma warning disable CA2211 // Non-constant fields should not be visible
     public static IEnumerable<object[]> CommandToStringInput =
+#pragma warning restore CA2211 // Non-constant fields should not be visible
     [
         [
             "some-cmd", 7, null!, "::some-cmd::7",

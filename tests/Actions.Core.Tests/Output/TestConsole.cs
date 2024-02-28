@@ -8,10 +8,10 @@ internal sealed class TestConsole : IConsole
     public StringBuilder Output { get; } = new();
     public StringBuilder ErrorOutput { get; } = new();
 
-    public int ExitCode { get; internal set; } = 0;
-    public bool Exited { get; internal set; } = false;
+    public int ExitCode { get; internal set; }
+    public bool Exited { get; internal set; }
     
-    public void Exit(int exitCode = 0) =>
+    public void ExitWithCode(int exitCode = 0) =>
         (ExitCode, Exited) = (exitCode, true);
 
     public void Write(string? message = null) =>
