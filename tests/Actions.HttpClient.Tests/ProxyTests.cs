@@ -200,4 +200,11 @@ public sealed class ProxyTests : IDisposable
         Environment.SetEnvironmentVariable("http_proxy", null);
         Environment.SetEnvironmentVariable("https_proxy", null);
     }
+
+    public void Dispose()
+    {
+        Environment.SetEnvironmentVariable("no_proxy", null);
+        Environment.SetEnvironmentVariable("http_proxy", null);
+        Environment.SetEnvironmentVariable("https_proxy", null);
+    }
 }
