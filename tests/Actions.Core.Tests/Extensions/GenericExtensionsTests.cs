@@ -42,18 +42,13 @@ public sealed class GenericExtensionsTests
 
 
 [JsonSerializable(typeof(SimpleObject))]
-internal partial class SourceGenerationContexts : JsonSerializerContext
+internal sealed partial class SourceGenerationContexts : JsonSerializerContext
 {
 }
 
-internal record class SimpleObject(
+internal sealed record class SimpleObject(
     string Name,
     int Number,
     DateTime Date,
     Guid Id,
     decimal[] Coordinates);
-
-[JsonSerializable(typeof(SimpleObject))]
-internal partial class SimpleContext : JsonSerializerContext
-{
-}

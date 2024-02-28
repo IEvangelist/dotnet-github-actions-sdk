@@ -13,7 +13,7 @@ public sealed class CoreSummaryTestFixture
 
     internal readonly TestCases TestCase = new();
 
-    internal record class TestCases
+    internal sealed record class TestCases
     {
         internal readonly string Text = "hello world 🌎";
 
