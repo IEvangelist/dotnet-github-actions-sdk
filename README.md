@@ -2,7 +2,7 @@
 
 [![build-and-test](https://github.com/IEvangelist/dotnet-github-actions-sdk/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/IEvangelist/dotnet-github-actions-sdk/actions/workflows/build-and-test.yml)
 [![code analysis](https://github.com/IEvangelist/dotnet-github-actions-sdk/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/IEvangelist/dotnet-github-actions-sdk/actions/workflows/codeql-analysis.yml)
-[![publish nuget](https://github.com/IEvangelist/dotnet-github-actions-sdk/actions/workflows/publish-nuget.yml/badge.svg)](https://github.com/IEvangelist/dotnet-github-actions-sdk/actions/workflows/publish-nuget.yml)
+[![publish nuget](https://github.com/IEvangelist/dotnet-github-actions-sdk/actions/workflows/publish.yml/badge.svg)](https://github.com/IEvangelist/dotnet-github-actions-sdk/actions/workflows/publish.yml)
 [![NuGet](https://img.shields.io/nuget/v/GitHub.Actions.Core.svg?style=flat)](https://www.nuget.org/packages/GitHub.Actions.Core) <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
