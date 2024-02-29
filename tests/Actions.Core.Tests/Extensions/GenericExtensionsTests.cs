@@ -1,9 +1,6 @@
 ﻿// Copyright (c) David Pine. All rights reserved.
 // Licensed under the MIT License.
 
-using System.Text.Json.Serialization;
-using Actions.Core.Extensions;
-
 namespace Actions.Core.Tests.Extensions;
 
 public sealed class GenericExtensionsTests
