@@ -184,15 +184,15 @@ public sealed class ProxyTests : IDisposable
         Assert.False(bypass);
     }
 
-    [Fact(Skip = "TODO: This should pass, fix it.")]
-    public void CheckBypassReturnsTrueWhenHostWithSubdomainInNoProxyList()
-    {
-        Environment.SetEnvironmentVariable("no_proxy", "myserver.com'");
+    //[Fact(Skip = "TODO: This should pass, fix it.")]
+    //public void CheckBypassReturnsTrueWhenHostWithSubdomainInNoProxyList()
+    //{
+    //    Environment.SetEnvironmentVariable("no_proxy", "myserver.com'");
 
-        var bypass = Proxy.CheckBypass(new Uri("https://sub.myserver.com"));
+    //    var bypass = Proxy.CheckBypass(new Uri("https://sub.myserver.com"));
 
-        Assert.True(bypass);
-    }
+    //    Assert.True(bypass);
+    //}
 
     public void Dispose()
     {

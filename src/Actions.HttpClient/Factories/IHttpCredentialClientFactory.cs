@@ -1,7 +1,7 @@
 ﻿// Copyright (c) David Pine. All rights reserved.
 // Licensed under the MIT License.
 
-namespace Actions.HttpClient.Factories;
+namespace Actions.HttpClient;
 
 /// <summary>
 /// Represents a factory for creating <see cref="IHttpClient"/> instances, given a set of credentials.

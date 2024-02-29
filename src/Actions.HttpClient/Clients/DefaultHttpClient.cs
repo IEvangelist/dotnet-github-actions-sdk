@@ -1,7 +1,7 @@
 ﻿// Copyright (c) David Pine. All rights reserved.
 // Licensed under the MIT License.
 
-namespace Actions.HttpClient.Clients;
+namespace Actions.HttpClient;
 
 internal sealed class DefaultHttpClient(NetClient client, IRequestHandler? requestHandler = null) : IHttpClient
 {

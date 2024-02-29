@@ -1,7 +1,7 @@
 ﻿// Copyright (c) David Pine. All rights reserved.
 // Licensed under the MIT License.
 
-namespace Actions.HttpClient.Clients;
+namespace Actions.HttpClient;
 
 /// <summary>
 /// Represents an HTTP client abstraction, exposing Native AOT compatible APIs.
