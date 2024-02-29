@@ -17,13 +17,7 @@ internal sealed class DefaultHttpClient(NetClient client, IRequestHandler? reque
 
         if (response.IsSuccessStatusCode)
         {
-            
-#if DEBUG
-            var json = await response.Content.ReadAsStringAsync(cancellationToken);
-            var result = JsonSerializer.Deserialize(json, jsonTypeInfo);
-#else
             var result = await response.Content.ReadFromJsonAsync(jsonTypeInfo, cancellationToken);
-#endif
 
             typedResponse = typedResponse with
             {
