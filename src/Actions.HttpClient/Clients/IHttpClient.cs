@@ -9,7 +9,7 @@ namespace Actions.HttpClient;
 public interface IHttpClient : IDisposable
 {
     /// <summary>
-    /// Send an <c>OPTIONS</c> request to the specified <paramref name="requestUri"/>.
+    /// Sends an HTTP <c>OPTIONS</c> request to the specified <paramref name="requestUri"/>.
     /// </summary>
     /// <param name="requestUri">The Uri the request is sent to.</param>
     /// <param name="additionalHeaders">A set of additional HTTP request headers.</param>
@@ -21,7 +21,7 @@ public interface IHttpClient : IDisposable
         CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Sends a <c>GET</c> request to the specified <paramref name="requestUri"/>.
+    /// Sends an HTTP <c>GET</c> request to the specified <paramref name="requestUri"/>.
     /// </summary>
     /// <typeparam name="T">The target type to deserialize to.</typeparam>
     /// <param name="requestUri">The Uri the request is sent to.</param>
@@ -36,7 +36,7 @@ public interface IHttpClient : IDisposable
         CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Sends a <c>DELETE</c> request to the specified <paramref name="requestUri"/>.
+    /// Sends an HTTP <c>DELETE</c> request to the specified <paramref name="requestUri"/>.
     /// </summary>
     /// <param name="requestUri">The Uri the request is sent to.</param>
     /// <param name="additionalHeaders">A set of additional HTTP request headers.</param>
@@ -48,7 +48,8 @@ public interface IHttpClient : IDisposable
         CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Sends a <c>POST</c> request to the specified <paramref name="requestUri"/>.
+    /// Sends an HTTP <c>POST</c> request to the specified <paramref name="requestUri"/>,
+    /// with the given <paramref name="data"/> as the request body.
     /// </summary>
     /// <typeparam name="TData">The data type to deserialize as the POST body.</typeparam>
     /// <typeparam name="TResult">The target resulting type to deserialize the response as.</typeparam>
@@ -68,7 +69,8 @@ public interface IHttpClient : IDisposable
         CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Sends a <c>PATCH</c> request to the specified <paramref name="requestUri"/>.
+    /// Sends an HTTP <c>PATCH</c> request to the specified <paramref name="requestUri"/>,
+    /// with the given <paramref name="data"/> as the request body.
     /// </summary>
     /// <typeparam name="TData">The data type to deserialize as the POST body.</typeparam>
     /// <typeparam name="TResult">The target resulting type to deserialize the response as.</typeparam>
@@ -88,7 +90,8 @@ public interface IHttpClient : IDisposable
         CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Sends a <c>PUT</c> request to the specified <paramref name="requestUri"/>.
+    /// Sends an HTTP <c>PUT</c> request to the specified <paramref name="requestUri"/>,
+    /// with the given <paramref name="data"/> as the request body.
     /// </summary>
     /// <typeparam name="TData">The data type to deserialize as the POST body.</typeparam>
     /// <typeparam name="TResult">The target resulting type to deserialize the response as.</typeparam>
@@ -108,7 +111,7 @@ public interface IHttpClient : IDisposable
         CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Sends a <c>HEAD</c> request to the specified <paramref name="requestUri"/>.
+    /// Sends an HTTP <c>HEAD</c> request to the specified <paramref name="requestUri"/>.
     /// </summary>
     /// <param name="requestUri">The Uri the request is sent to.</param>
     /// <param name="additionalHeaders">A set of additional HTTP request headers.</param>
