@@ -5,9 +5,10 @@ namespace Actions.Glob.Tests;
 
 public sealed class StringExtensionsTests
 {
-    public readonly static IEnumerable<object[]> GetGlobResultTestInput =
-    [
-        [
+    public readonly static TheoryData<string, string[], string[], (bool, string[])> GetGlobResultTestInput =
+    new()
+    {
+        {
             "parent",
             new[] { "**/*" },
             Array.Empty<string>(),
@@ -25,8 +26,8 @@ public sealed class StringExtensionsTests
                 "parent/child/grandchild/style.css",
                 "parent/child/grandchild/sub.text"
             })
-        ],
-        [
+        },
+        {
             "parent",
             new[] { "**/*child/*.md" },
             Array.Empty<string>(),
@@ -36,8 +37,8 @@ public sealed class StringExtensionsTests
                 "parent/child/more.md",
                 "parent/child/grandchild/file.md"
             })
-        ],
-        [
+        },
+        {
             "parent",
             new[] { "**/*/file.md" },
             Array.Empty<string>(),
@@ -46,8 +47,8 @@ public sealed class StringExtensionsTests
                 "parent/child/file.MD",
                 "parent/child/grandchild/file.md"
             })
-        ],
-    ];
+        }
+    };
 
     [Theory, MemberData(nameof(GetGlobResultTestInput))]
     public void GetGlobResultTest(

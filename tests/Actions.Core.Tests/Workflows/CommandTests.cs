@@ -6,25 +6,26 @@ namespace Actions.Core.Tests.Workflows;
 public sealed class CommandTests
 {
 #pragma warning disable CA2211 // Non-constant fields should not be visible
-    public static IEnumerable<object[]> CommandToStringInput =
+    public static TheoryData<string?, string, Dictionary<string, string>?, string?> CommandToStringInput =
 #pragma warning restore CA2211 // Non-constant fields should not be visible
-    [
-        [
-            "some-cmd", 7, null!, "::some-cmd::7",
-        ],
-        [
+    new()
+    {
+        {
+            "some-cmd", "7", null!, "::some-cmd::7"
+        },
+        {
             "another-name", "true", null!, "::another-name::true"
-        ],
-        [
+        },
+        {
             "cmdr", "false", new Dictionary<string, string> { ["k1"] = "v1" }, "::cmdr k1=v1::false"
-        ],
-        [
+        },
+        {
             "~~~", "Hi friends!", null!, "::~~~::Hi friends!"
-        ],
-        [
+        },
+        {
             null!, null!, null!, "::::"
-        ]
-    ];
+        }
+    };
 
     [Theory]
     [MemberData(nameof(CommandToStringInput))]
