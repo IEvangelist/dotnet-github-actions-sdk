@@ -1,3 +1,7 @@
+<!-- https://socialify.git.ci/IEvangelist/dotnet-github-actions-sdk?description=1&font=Rokkitt&language=1&name=1&owner=1&pattern=Plus&theme=Dark -->
+
+![dotnet-github-actions-sdk](https://socialify.git.ci/IEvangelist/dotnet-github-actions-sdk/image?description=1&font=Rokkitt&language=1&name=1&owner=1&pattern=Plus&theme=Dark)
+
 # GitHub Actions Workflow .NET SDK
 
 [![build-and-test](https://github.com/IEvangelist/dotnet-github-actions-sdk/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/IEvangelist/dotnet-github-actions-sdk/actions/workflows/build-and-test.yml)
