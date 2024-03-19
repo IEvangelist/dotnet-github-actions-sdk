@@ -103,8 +103,7 @@ public class BasicTests
             .CreateClient();
 
         var response = await client.GetAsync(
-            $"https://postman-echo.com/redirect-to?url={
-                Uri.EscapeDataString("https://postman-echo.com/get")}&status_code=303",
+            $"https://postman-echo.com/redirect-to?url={Uri.EscapeDataString("https://postman-echo.com/get")}&status_code=303",
             SourceGenerationContext.Default.PostmanEchoGetResponse);
 
         Assert.NotNull(response);

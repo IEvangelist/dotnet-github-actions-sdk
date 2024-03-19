@@ -14,7 +14,7 @@ internal sealed class DefaultGlobPatternResolverBuilder : IGlobPatternResolverBu
     {
         var (anyInclusions, anyExclusions) =
             (_includePatterns.IsValueCreated, _excludePatterns.IsValueCreated);
-        
+
         if (!anyInclusions && !anyExclusions)
         {
             throw new ArgumentException(

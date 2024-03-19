@@ -3,9 +3,8 @@
 
 using CommonIssue = Actions.Octokit.Common.Issue;
 using CommonRepo = Actions.Octokit.Common.Repository;
-
-using PR = Actions.Octokit.Interfaces.PullRequest;
 using Install = Actions.Octokit.Interfaces.Installation;
+using PR = Actions.Octokit.Interfaces.PullRequest;
 
 namespace Actions.Octokit.Serialization;
 
