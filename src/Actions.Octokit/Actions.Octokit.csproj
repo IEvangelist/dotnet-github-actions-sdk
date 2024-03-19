@@ -8,4 +8,8 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
         <PackageReference Include="GitHub.Octokit.SDK" />
     </ItemGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="Octokit.Sandbox" />
+    </ItemGroup>
 </Project>
