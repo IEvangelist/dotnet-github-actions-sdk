@@ -20,5 +20,5 @@ public readonly record struct GlobResult(
         new(
             HasMatches: result.HasMatches,
             Files: result.Files?.Select(match => match)
-                ?? Enumerable.Empty<FileInfo>());
+                ?? []);
 }

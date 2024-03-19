@@ -14,8 +14,8 @@ public class Globber
         IEnumerable<string> inclusions,
         IEnumerable<string>? exclusions = null) =>
         _glob = new DefaultGlobPatternResolverBuilder()
-            .WithInclusions((inclusions ?? Enumerable.Empty<string>()).ToArray())
-            .WithExclusions((exclusions ?? Enumerable.Empty<string>()).ToArray())
+            .WithInclusions((inclusions ?? []).ToArray())
+            .WithExclusions((exclusions ?? []).ToArray())
             .Build();
 
     /// <summary>

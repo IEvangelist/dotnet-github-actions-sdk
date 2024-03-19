@@ -24,5 +24,5 @@ public static partial class StringExtensions
         directory.GetGlobResult(
             includePatterns, excludePatterns) is { HasMatches: true } result
             ? result.Files.Select(file => file.FullName)
-            : Enumerable.Empty<string>();
+            : [];
 }
