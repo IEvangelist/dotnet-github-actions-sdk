@@ -13,7 +13,7 @@ public sealed class ArgumentNullExceptionExtensionsTests
         Assert.Throws<ArgumentNullException>(
             nameof(pickles), () => pickles!.ThrowIfNull());
     }
-    
+
     [Fact]
     public void ThrowIfNullExtensionCorrectlyYieldsValueTest()
     {

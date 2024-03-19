@@ -5,3 +5,5 @@ global using Microsoft.Extensions.DependencyInjection;
 global using Actions.Octokit;
 global using Actions.Core.Extensions;
 global using Actions.Core.Services;
+global using Actions.Octokit;
+global using Microsoft.Extensions.DependencyInjection;

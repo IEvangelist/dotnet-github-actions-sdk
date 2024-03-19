@@ -9,11 +9,11 @@ public sealed class MoveOptionsTests
     public void MoveOptionsCorrectlyDefaultsProperties()
     {
         MoveOptions options = default;
-        
+
         Assert.False(options.Force);
 
         options = new();
-        
+
         Assert.True(options.Force);
     }
 }

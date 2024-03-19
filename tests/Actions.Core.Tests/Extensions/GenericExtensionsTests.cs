@@ -30,7 +30,7 @@ public sealed class GenericExtensionsTests
         var typeInfo = SourceGenerationContexts.Default.SimpleObject;
 
         var commandValue = actual.ToCommandValue<SimpleObject>(typeInfo);
-        
+
         var expected = JsonSerializer.Deserialize<SimpleObject>(commandValue, typeInfo);
 
         Assert.Equivalent(expected, actual);

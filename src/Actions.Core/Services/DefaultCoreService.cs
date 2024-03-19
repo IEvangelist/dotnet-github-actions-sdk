@@ -10,7 +10,7 @@ internal sealed class DefaultCoreService(
     IFileCommandIssuer fileCommandIssuer) : ICoreService
 {
     /// <inheritdoc />
-    public Summary Summary {  get; } = new();
+    public Summary Summary { get; } = new();
 
     /// <inheritdoc />
     public bool IsDebug => GetEnvironmentVariable(RUNNER_DEBUG) is "1";
