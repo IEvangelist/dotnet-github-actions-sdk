@@ -3,10 +3,11 @@
 
 global using System.Net;
 global using System.Net.Http.Headers;
-
+global using System.Net.Http.Json;
 global using System.Text;
 global using System.Text.Json;
 global using System.Text.Json.Serialization.Metadata;
+
 global using Actions.HttpClient.Extensions;
 global using Actions.HttpClient.Handlers;
 
