@@ -5,5 +5,5 @@ namespace Actions.HttpClient.Handlers;
 
 internal interface IRequestHandler
 {
-    void PrepareRequestHeaders(Dictionary<string, IEnumerable<string>> headers);
+    Dictionary<string, IEnumerable<string>> PrepareRequestHeaders(Dictionary<string, IEnumerable<string>> headers);
 }
