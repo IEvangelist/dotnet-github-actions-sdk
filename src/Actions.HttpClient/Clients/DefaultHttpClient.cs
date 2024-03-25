@@ -108,6 +108,7 @@ internal sealed class DefaultHttpClient(NetClient client, IRequestHandler? reque
         CancellationToken cancellationToken)
     {
         using var request = PrepareRequest(requestUri, method, headers);
+
         using var content = GetRequestJsonContent(data, dataJsonTypeInfo);
 
         request.Content = content;
@@ -126,11 +127,10 @@ internal sealed class DefaultHttpClient(NetClient client, IRequestHandler? reque
             method,
             requestUri);
 
-        headers ??= [];
+        var requestHeaders =
+            requestHandler?.PrepareRequestHeaders(headers ?? []);
 
-        requestHandler?.PrepareRequestHeaders(headers);
-
-        foreach (var (headerKey, headerValues) in headers)
+        foreach (var (headerKey, headerValues) in requestHeaders ?? [])
         {
             request.Headers.Add(headerKey, headerValues);
         }

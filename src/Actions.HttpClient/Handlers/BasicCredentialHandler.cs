@@ -5,7 +5,8 @@ namespace Actions.HttpClient.Handlers;
 
 internal sealed class BasicCredentialHandler(string username, string password) : IRequestHandler
 {
-    void IRequestHandler.PrepareRequestHeaders(Dictionary<string, IEnumerable<string>> headers)
+    Dictionary<string, IEnumerable<string>> IRequestHandler.PrepareRequestHeaders(
+        Dictionary<string, IEnumerable<string>> headers)
     {
         ArgumentNullException.ThrowIfNull(headers);
 
@@ -17,5 +18,7 @@ internal sealed class BasicCredentialHandler(string username, string password) :
             )
             .ToString()
         ];
+
+        return headers;
     }
 }
