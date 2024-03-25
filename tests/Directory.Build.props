@@ -1,10 +1,9 @@
 <Project>
     <Import Project="$([MSBuild]::GetPathOfFileAbove(Directory.Build.props, $(MSBuildThisFileDirectory)..))" />
 
-    <PropertyGroup>
-        <!-- TODO do we want AOT analyzers on tests? -->
-        <IsAotCompatible>false</IsAotCompatible>
-    </PropertyGroup>
+    <ItemGroup>
+        <Using Include="Xunit" />
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.NET.Test.Sdk" />

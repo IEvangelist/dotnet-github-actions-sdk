@@ -19,7 +19,7 @@ public static class Utilities
     /// <summary>
     /// Gets all of the <c>PATH</c> environment variables as a <see cref="string"/> array.
     /// </summary>
-    public static Lazy<string[]> Paths { get; } = new (() =>
+    public static Lazy<string[]> Paths { get; } = new(() =>
     {
         var path = Environment.GetEnvironmentVariable("PATH");
         return path?.Split(Path.PathSeparator) ?? [];

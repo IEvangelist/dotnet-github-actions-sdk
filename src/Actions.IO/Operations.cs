@@ -35,7 +35,7 @@ internal sealed class Operations : IOperations
             destination = copySourceDirectory
                 ? new(Path.Combine(destinationPath, Path.GetFileName(sourcePath)!))
                 : destination;
-            
+
             if (destination.Exists is false)
             {
                 destination.Create();

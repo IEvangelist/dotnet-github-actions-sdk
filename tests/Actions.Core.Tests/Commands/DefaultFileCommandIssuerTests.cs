@@ -67,7 +67,7 @@ public sealed class DefaultFileCommandIssuerTests
             Environment.SetEnvironmentVariable(
                 "GITHUB_OUTPUT",
                 null);
-        }        
+        }
     }
 }
 

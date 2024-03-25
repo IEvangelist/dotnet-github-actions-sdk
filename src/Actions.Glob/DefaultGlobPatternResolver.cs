@@ -6,8 +6,8 @@ namespace Actions.Glob;
 /// <inheritdoc cref="IGlobPatternResolver" />
 internal sealed class DefaultGlobPatternResolver : IGlobPatternResolver
 {
-    private readonly IEnumerable<string> _includePatterns = Enumerable.Empty<string>();
-    private readonly IEnumerable<string> _excludePatterns = Enumerable.Empty<string>();
+    private readonly IEnumerable<string> _includePatterns = [];
+    private readonly IEnumerable<string> _excludePatterns = [];
 
     private DefaultGlobPatternResolver(
         IEnumerable<string> includePatterns,
@@ -24,13 +24,13 @@ internal sealed class DefaultGlobPatternResolver : IGlobPatternResolver
     IEnumerable<string> IGlobPatternResolver.GetGlobFiles(
         string? directory) =>
         directory.GetGlobFiles(
-            _includePatterns, 
+            _includePatterns,
             _excludePatterns);
 
     /// <inheritdoc />
     GlobResult IGlobPatternResolver.GetGlobResult(
         string? directory) =>
         directory.GetGlobResult(
-            _includePatterns, 
+            _includePatterns,
             _excludePatterns);
 }
