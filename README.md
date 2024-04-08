@@ -8,7 +8,7 @@
 [![code analysis](https://github.com/IEvangelist/dotnet-github-actions-sdk/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/IEvangelist/dotnet-github-actions-sdk/actions/workflows/codeql-analysis.yml)
 [![publish nuget](https://github.com/IEvangelist/dotnet-github-actions-sdk/actions/workflows/publish.yml/badge.svg)](https://github.com/IEvangelist/dotnet-github-actions-sdk/actions/workflows/publish.yml)
 [![NuGet](https://img.shields.io/nuget/v/GitHub.Actions.Core.svg?style=flat)](https://www.nuget.org/packages/GitHub.Actions.Core) <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 The .NET equivalent of the official GitHub [actions/toolkit](https://github.com/actions/toolkit) repository, and is currently a work in progress. While there isn't currently 100% feature complete compatibility between these two repositories, that is the eventual goal.
@@ -78,6 +78,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="http://www.chethusk.com"><img src="https://avatars.githubusercontent.com/u/573979?v=4?s=100" width="100px;" alt="Chet Husk"/><br /><sub><b>Chet Husk</b></sub></a><br /><a href="https://github.com/IEvangelist/dotnet-github-actions-sdk/commits?author=baronfel" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/js6pak"><img src="https://avatars.githubusercontent.com/u/35262707?v=4?s=100" width="100px;" alt="js6pak"/><br /><sub><b>js6pak</b></sub></a><br /><a href="https://github.com/IEvangelist/dotnet-github-actions-sdk/commits?author=js6pak" title="Code">💻</a> <a href="https://github.com/IEvangelist/dotnet-github-actions-sdk/commits?author=js6pak" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://david.gardiner.net.au"><img src="https://avatars.githubusercontent.com/u/384747?v=4?s=100" width="100px;" alt="David Gardiner"/><br /><sub><b>David Gardiner</b></sub></a><br /><a href="https://github.com/IEvangelist/dotnet-github-actions-sdk/commits?author=flcdrg" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
