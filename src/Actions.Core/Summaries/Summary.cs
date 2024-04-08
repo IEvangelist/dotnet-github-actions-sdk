@@ -24,7 +24,7 @@ public sealed class Summary
     public bool IsBufferEmpty => _buffer.Length is 0;
 
     /// <summary>
-    /// Returns true if GITHUB_STEP_SUMMARY environment variable is set (as is the case when running in a GitHub Actions workflow).
+    /// Returns <c>true</c> if <c>GITHUB_STEP_SUMMARY</c> environment variable is set (as is the case when running in a GitHub Actions workflow).
     /// </summary>
     public static bool IsAvailable => GetEnvironmentVariable(GITHUB_STEP_SUMMARY) is not null;
 
