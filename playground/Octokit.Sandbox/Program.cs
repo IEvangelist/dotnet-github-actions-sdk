@@ -1,111 +1,93 @@
 ﻿// Copyright (c) David Pine. All rights reserved.
 // Licensed under the MIT License.
 
-using GitHub.Models;
 using Actions.Octokit;
+using GitHub.Models;
 
 var token = Environment.GetEnvironmentVariable("GITHUB_TOKEN")
     ?? throw new InvalidOperationException("The GITHUB_TOKEN environment variable is required.");
 
 var client = GitHubClientFactory.Create(token);
-var owner = "dotnet";
-var repo = "docs";
 
-var labelName = "profane content 🤬";
-var name = Uri.EscapeDataString(labelName);
-var label = await GetLabelByNameAsync(name);
-if (label is not null)
+var sevenDaysAgo = DateTimeOffset.UtcNow.AddDays(-7);
+
+var user = "IEvangelist";
+
+var events = await GetEventsAsync(user).ToListAsync();
+
+// Select events, grouping on repo and ordering by creation dates
+var groupedEvents = events?.GroupBy(e => e?.Repo?.Name)
+    .Select(e => (e.Key, e.OrderBy(ed => ed?.CreatedAt).ToArray()));
+
+foreach (var (repo, eventArray) in groupedEvents ?? [])
 {
+    Console.WriteLine($"In {repo}");
 
+    for (var i = 0; i < eventArray.Length; i++)
+    {
+        var @event = eventArray[i];
+        if (@event is null or { Payload: null })
+        {
+            continue;
+        }
+
+        var line = GetEventBulletPointText(@event);
+
+        Console.WriteLine(line);
+    }
 }
 
-/// Tracking a bug:
-///   See https://github.com/microsoft/kiota-abstractions-dotnet/pull/205
-async Task<Label?> GetLabelByNameAsync(string labelName)
+async IAsyncEnumerable<Event?> GetEventsAsync(string user)
 {
-    // Actual:      https://api.github.com/repos/dotnet/docs/labels/profane%20content%20%EF%BF%BD%EF%BF%BD
-    // Expected:    https://api.github.com/repos/dotnet/docs/labels/profane%20content%20%F0%9F%A4%AC
-    // Test:        https://api.github.com/repos/dotnet/docs/labels/profane%20content%20%F0%9F%A4%AC
-    //                                                              profane%20content%20%F0%9F%A4%AC
+    var page = 1;
+    var done = false;
 
-    var request = client.Repos[owner][repo].Labels[Uri.EscapeDataString(labelName)].ToGetRequestInformation();
+    while (!done)
+    {
+        var events = await client.Users[user].Events.GetAsync(config =>
+        {
+            config.QueryParameters.PerPage = 100;
+            config.QueryParameters.Page = page;
+        });
 
-    return await client.Repos[owner][repo].Labels[labelName].WithUrl(
-        $"https://api.github.com/repos/{owner}/{repo}/labels/{labelName}"
-        )
-        .GetAsync();
+        if (events is null or { Count: 0 })
+        {
+            done = true;
+            yield break;
+        }
+
+        foreach (var @event in events)
+        {
+            if (@event is null)
+            {
+                continue;
+            }
+
+            if (@event.CreatedAt < sevenDaysAgo)
+            {
+                yield return @event;
+            }
+            else
+            {
+                done = true;
+            }
+        }
+
+        page++;
+    }
 }
 
+string GetEventBulletPointText(Event @event)
+{
+    if (@event is null or { Payload: null })
+    {
+        return "";
+    }
 
+    var payload = @event.Payload;
 
+    var url = payload.Comment?.HtmlUrl ?? payload.Issue?.HtmlUrl;
+    var details = "TODO: get the details";
 
-//var number = 24;
-
-//var pullRequest = await client.Repos[owner][repo].Pulls[number].GetAsync();
-//if (pullRequest is not null)
-//{
-//    var body = new GitHub.Repos.Item.Item.Pulls.Item.WithPull_numberPatchRequestBody
-//    {
-//        Title = pullRequest.Title,
-//        Body = "Test this __\\?\\$\\%\\&\\!\\#\\&__ thing out!",
-//    };
-
-//    await client.Repos[owner][repo].Pulls[number].PatchAsync(body);
-//}
-
-
-
-
-//var pullRequestNumber = 39864;
-//
-//var pullRequest = await client.Repos[owner][repo].Pulls[pullRequestNumber].GetAsync();
-//if (pullRequest is not null)
-//{
-//
-//}
-
-//var label = await GetLabelByNameAsync1();
-//if (label is not null)
-//{
-//
-//}
-//
-//async Task<Label?> GetLabelByNameAsync1(string labelName = "profane content 🤬")
-//{
-//    // Actual:      https://api.github.com/repos/dotnet/docs/labels/profane%20content%20%EF%BF%BD%EF%BF%BD
-//    // Expected:    https://api.github.com/repos/dotnet/docs/labels/profane%20content%20%F0%9F%A4%AC
-//    // Test:        https://api.github.com/repos/dotnet/docs/labels/profane%20content%20%F0%9F%A4%AC
-//
-//    var request = client.Repos[owner][repo].Labels[Uri.EscapeDataString(labelName)].ToGetRequestInformation();
-//
-//    return await client.Repos[owner][repo].Labels[labelName].GetAsync();
-//}
-//
-//async Task<Label?> GetLabelByNameAsync(string labelName = "profane content 🤬")
-//{
-//    Label? label = null;
-//
-//    const int PageCount = 100;
-//    var page = 1;
-//
-//    while (label is null)
-//    {
-//        var labels = await client.Repos[owner][repo].Labels.GetAsync(
-//            parameters =>
-//            {
-//                parameters.QueryParameters.Page = page;
-//                parameters.QueryParameters.PerPage = PageCount;
-//            });
-//
-//        if (labels is null or { Count: 0 })
-//        {
-//            break;
-//        }
-//
-//        label = labels?.FirstOrDefault(l => l.Name == labelName);
-//        page++;
-//    }
-//
-//    return label;
-//}
-//
+    return $"- [{@event.Type}: {payload.Action} {details}]({url})";
+}
