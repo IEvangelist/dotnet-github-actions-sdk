@@ -26,13 +26,7 @@ public sealed class Summary
     /// <summary>
     /// Returns true if GITHUB_STEP_SUMMARY environment variable is set (as is the case when running in a GitHub Actions workflow).
     /// </summary>
-    public static bool IsAvailable
-    {
-        get
-        {
-            return GetEnvironmentVariable(GITHUB_STEP_SUMMARY) != null;
-        }
-    }
+    public static bool IsAvailable => GetEnvironmentVariable(GITHUB_STEP_SUMMARY) is not null;
 
     /// <summary>Finds the summary file path from the environment, rejects if env var 
     /// is not found or file does not exist. Also checks r/w permissions.</summary>
