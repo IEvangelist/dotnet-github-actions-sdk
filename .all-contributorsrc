@@ -25,6 +25,15 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "flcdrg",
+      "name": "David Gardiner",
+      "avatar_url": "https://avatars.githubusercontent.com/u/384747?v=4",
+      "profile": "https://david.gardiner.net.au",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
