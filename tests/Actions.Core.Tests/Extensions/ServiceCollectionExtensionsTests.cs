@@ -10,7 +10,7 @@ public sealed class ServiceCollectionExtensionsTests
     {
         // Arrange / Act
         IServiceCollection services = new ServiceCollection();
-        _  = services.AddGitHubActionsCore();
+        _ = services.AddGitHubActionsCore();
 
         var serviceTypes =
             services.Select(s => s.ServiceType);

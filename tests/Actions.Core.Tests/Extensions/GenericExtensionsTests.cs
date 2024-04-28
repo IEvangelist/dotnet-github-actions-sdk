@@ -1,9 +1,6 @@
 ﻿// Copyright (c) David Pine. All rights reserved.
 // Licensed under the MIT License.
 
-using System.Text.Json.Serialization;
-using Actions.Core.Extensions;
-
 namespace Actions.Core.Tests.Extensions;
 
 public sealed class GenericExtensionsTests
@@ -33,7 +30,7 @@ public sealed class GenericExtensionsTests
         var typeInfo = SourceGenerationContexts.Default.SimpleObject;
 
         var commandValue = actual.ToCommandValue<SimpleObject>(typeInfo);
-        
+
         var expected = JsonSerializer.Deserialize<SimpleObject>(commandValue, typeInfo);
 
         Assert.Equivalent(expected, actual);

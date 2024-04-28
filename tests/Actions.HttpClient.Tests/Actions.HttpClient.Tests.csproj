@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFrameworks>$(DefaultTargetFrameworks)</TargetFrameworks>
+
+        <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\Actions.HttpClient\Actions.HttpClient.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="$(ProjectDir)parent\**" CopyToOutputDirectory="Always" />
+    </ItemGroup>
+</Project>

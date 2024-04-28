@@ -36,7 +36,7 @@ public interface ICoreService
     /// </summary>
     /// <param name="inputPath">The input path to prepend.</param>
     ValueTask AddPathAsync(string inputPath);
-    
+
     /// <summary>
     /// Gets the value of an input.
     /// When <see cref="InputOptions.TrimWhitespace"/> is <c>true</c>, the value is also trimmed.
