@@ -1,9 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFrameworks>$(DefaultTargetFrameworks)</TargetFrameworks>
     </PropertyGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\..\src\Actions.IO\Actions.IO.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Update="xunit.runner.visualstudio">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
     </ItemGroup>
 </Project>
