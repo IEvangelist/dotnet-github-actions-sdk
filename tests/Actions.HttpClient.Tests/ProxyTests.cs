@@ -3,6 +3,7 @@
 
 namespace Actions.HttpClient.Tests;
 
+[Trait("Category", "RequiresEnvVar")]
 public sealed class ProxyTests : IDisposable
 {
     public ProxyTests()

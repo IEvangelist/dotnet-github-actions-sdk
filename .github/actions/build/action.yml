@@ -1,4 +1,5 @@
 name: "Build"
+description: "A build GitHub Action composite shared workflow."
 
 inputs:
   upload-artifacts:
@@ -35,4 +36,4 @@ runs:
     - name: Test
       if: inputs.run-tests == 'true'
       shell: bash
-      run: dotnet test --configuration Release --no-restore
+      run: dotnet test --configuration Release --no-restore --filter "Category!=RequiresEnvVar"

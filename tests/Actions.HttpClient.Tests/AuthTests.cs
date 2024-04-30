@@ -3,6 +3,7 @@
 
 namespace Actions.HttpClient.Tests;
 
+[Trait("Category", "RequiresEnvVar")]
 public class AuthTests
 {
     public AuthTests()
