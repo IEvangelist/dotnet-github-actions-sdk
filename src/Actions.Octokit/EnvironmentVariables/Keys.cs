@@ -60,10 +60,6 @@ public static class Keys
     /// The environment variable key: <c>GITHUB_BASE_REF</c>.
     /// </summary>
     public const string GITHUB_BASE_REF = nameof(GITHUB_BASE_REF);
-    /// <summary>
-    /// The environment variable key: <c>GITHUB_ENV</c>.
-    /// </summary>
-    public const string GITHUB_ENV = nameof(GITHUB_ENV);
 
     /// <summary>
     /// The environment variable key: <c>GITHUB_EVENT_NAME</c>.
@@ -81,16 +77,6 @@ public static class Keys
     public const string GITHUB_HEAD_REF = nameof(GITHUB_HEAD_REF);
 
     /// <summary>
-    /// The environment variable key: <c>GITHUB_OUTPUT</c>.
-    /// </summary>
-    public const string GITHUB_OUTPUT = nameof(GITHUB_OUTPUT);
-
-    /// <summary>
-    /// The environment variable key: <c>GITHUB_PATH</c>.
-    /// </summary>
-    public const string GITHUB_PATH = nameof(GITHUB_PATH);
-
-    /// <summary>
     /// The environment variable key: <c>GITHUB_ACTION</c>.
     /// </summary>
     public const string GITHUB_REF = nameof(GITHUB_REF);
@@ -106,42 +92,7 @@ public static class Keys
     public const string GITHUB_SHA = nameof(GITHUB_SHA);
 
     /// <summary>
-    /// The environment variable key: <c>GITHUB_STATE</c>.
-    /// </summary>
-    public const string GITHUB_STATE = nameof(GITHUB_STATE);
-
-    /// <summary>
-    /// The environment variable key: <c>GITHUB_STEP_SUMMARY</c>.
-    /// </summary>
-    public const string GITHUB_STEP_SUMMARY = nameof(GITHUB_STEP_SUMMARY);
-
-    /// <summary>
-    /// The environment variable key: <c>GITHUB_TOKEN</c>.
-    /// </summary>
-    public const string GITHUB_TOKEN = nameof(GITHUB_TOKEN);
-
-    /// <summary>
     /// The environment variable key: <c>GITHUB_WORKFLOW</c>.
     /// </summary>
     public const string GITHUB_WORKFLOW = nameof(GITHUB_WORKFLOW);
-
-    /// <summary>
-    /// The environment variable key: <c>GITHUB_WORKSPACE</c>.
-    /// </summary>
-    public const string GITHUB_WORKSPACE = nameof(GITHUB_WORKSPACE);
-
-    /// <summary>
-    /// The environment variable key: <c>RUNNER_DEBUG</c>.
-    /// </summary>
-    public const string RUNNER_DEBUG = nameof(RUNNER_DEBUG);
-
-    /// <summary>
-    /// The environment variable key: <c>PATH</c>.
-    /// </summary>
-    public const string PATH = nameof(PATH);
-
-    /// <summary>
-    /// The environment variable key: <c>ACTIONS_STEP_DEBUG</c>.
-    /// </summary>
-    public const string ACTIONS_STEP_DEBUG = nameof(ACTIONS_STEP_DEBUG);
 }

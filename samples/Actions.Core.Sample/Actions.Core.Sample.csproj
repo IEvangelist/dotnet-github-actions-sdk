@@ -3,5 +3,6 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
 
         <ProjectReference Include="..\..\src\Actions.Core\Actions.Core.csproj" />
+        <ProjectReference Include="..\..\src\Actions.Octokit\Actions.Octokit.csproj" />
     </ItemGroup>
 </Project>
