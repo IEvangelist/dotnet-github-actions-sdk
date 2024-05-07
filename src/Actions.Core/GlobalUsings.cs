@@ -21,6 +21,6 @@ global using Microsoft.Extensions.DependencyInjection;
 global using static System.Environment;
 global using static System.IO.Path;
 
-global using static Actions.Octokit.EnvironmentVariables.Keys;
-global using static Actions.Octokit.EnvironmentVariables.Prefixes;
-global using static Actions.Octokit.EnvironmentVariables.Suffixes;
+global using static Actions.Core.EnvironmentVariables.Keys;
+global using static Actions.Core.EnvironmentVariables.Prefixes;
+global using static Actions.Core.EnvironmentVariables.Suffixes;

@@ -12,4 +12,4 @@ global using GitHub.Octokit.Authentication;
 global using GitHub.Octokit.Client;
 global using Microsoft.Extensions.DependencyInjection;
 global using static System.Environment;
-global using static Actions.Octokit.EnvironmentVariables.Keys;
+global using static Actions.Core.EnvironmentVariables.Keys;

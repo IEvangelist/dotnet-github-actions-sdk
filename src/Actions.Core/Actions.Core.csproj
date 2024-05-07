@@ -4,7 +4,11 @@
         <BasedOn>@actions/core</BasedOn>
     </PropertyGroup>
 
+    <PropertyGroup>
+        <DefineConstants>$(DefineConstants);ACTIONS_CORE_ENVIRONMENTVARIABLES_PUBLIC</DefineConstants>
+    </PropertyGroup>
+
     <ItemGroup>
-        <ProjectReference Include="..\Actions.Octokit\Actions.Octokit.csproj" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
     </ItemGroup>
 </Project>
