@@ -12,4 +12,10 @@
     <ItemGroup>
         <InternalsVisibleTo Include="Octokit.Sandbox" />
     </ItemGroup>
+
+    <ItemGroup>
+        <Compile Include="..\Actions.Core\EnvironmentVariables\*.cs">
+            <LinkBase>EnvironmentVariables</LinkBase>
+        </Compile>
+    </ItemGroup>
 </Project>

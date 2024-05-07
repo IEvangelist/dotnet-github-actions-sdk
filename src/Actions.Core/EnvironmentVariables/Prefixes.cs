@@ -10,7 +10,10 @@ namespace Actions.Core.EnvironmentVariables;
     "Naming",
     "CA1707:Identifiers should not contain underscores",
     Justification = "These values correspond to environment variables and I want them to match exactly.")]
-public static class Prefixes
+#if ACTIONS_CORE_ENVIRONMENTVARIABLES_PUBLIC
+public
+#endif
+static class Prefixes
 {
     /// <summary>
     /// The environment variable key prefix: <c>GITHUB_</c>.

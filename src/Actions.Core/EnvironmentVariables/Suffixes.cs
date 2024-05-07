@@ -6,7 +6,10 @@ namespace Actions.Core.EnvironmentVariables;
 /// <summary>
 /// A collection of environment variable suffixes, used with corresponding <see cref="Prefixes"/>.
 /// </summary>
-public static class Suffixes
+#if ACTIONS_CORE_ENVIRONMENTVARIABLES_PUBLIC
+public
+#endif
+static class Suffixes
 {
     /// <summary>
     /// The environment variable key suffix: <c>ENV</c>.
