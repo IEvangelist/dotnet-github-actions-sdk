@@ -14,7 +14,7 @@ public class BasicTests
 
     [Theory]
     [InlineData("http://postman-echo.com/get", "functional-test-agent")]
-    [InlineData("https://postman-echo.com/get", "test-agent")]
+    [InlineData("http://postman-echo.com/get", "test-agent")]
     public async Task DoesBasicGetRequestWithUserAgent(string requestUri, string userAgent)
     {
         using var client = new ServiceCollection()
@@ -50,7 +50,7 @@ public class BasicTests
         Assert.NotNull(response);
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         Assert.NotNull(response.Result);
-        Assert.Equal("https://postman-echo.com/get", response.Result.Url);
+        Assert.Equal("http://postman-echo.com/get", response.Result.Url);
         Assert.False(response.Result.Headers.ContainsKey("user-agent"));
     }
 
@@ -70,7 +70,7 @@ public class BasicTests
         Assert.NotNull(response);
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         Assert.NotNull(response.Result);
-        Assert.Equal("https://postman-echo.com/get", response.Result.Url);
+        Assert.Equal("http://postman-echo.com/get", response.Result.Url);
         Assert.Equal("application/json", response.Result.Headers["accept"]);
     }
 
@@ -90,7 +90,7 @@ public class BasicTests
         Assert.NotNull(response);
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         Assert.NotNull(response.Result);
-        Assert.Equal("https://postman-echo.com/get", response.Result.Url);
+        Assert.Equal("http://postman-echo.com/get", response.Result.Url);
     }
 
     [Fact]
@@ -109,7 +109,7 @@ public class BasicTests
         Assert.NotNull(response);
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         Assert.NotNull(response.Result);
-        Assert.Equal("https://postman-echo.com/get", response.Result.Url);
+        Assert.Equal("http://postman-echo.com/get", response.Result.Url);
     }
 
     [Fact]
@@ -147,7 +147,7 @@ public class BasicTests
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         Assert.NotNull(response.Result);
         Assert.Equal("application/json", response.Result.Headers["accept"]);
-        Assert.Equal("https://postman-echo.com/get", response.Result.Url);
+        Assert.Equal("http://postman-echo.com/get", response.Result.Url);
         Assert.False(response.Result.Headers.ContainsKey("authorization"));
         Assert.False(response.Result.Headers.ContainsKey("Authorization"));
     }

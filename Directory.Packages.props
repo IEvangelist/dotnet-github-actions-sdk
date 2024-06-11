@@ -6,16 +6,16 @@
   <ItemGroup>
     <GlobalPackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
     <GlobalPackageReference Include="MinVer" Version="5.0.0" PrivateAssets="all" IncludeAssets="runtime;build;native;contentfiles;analyzers" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
     <PackageVersion Include="System.Linq.Async" Version="6.0.1" />
-    <PackageVersion Include="xunit" Version="2.8.0" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.0" PrivateAssets="all" />
+    <PackageVersion Include="xunit" Version="2.8.1" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.1" PrivateAssets="all" />
     <PackageVersion Include="coverlet.collector" Version="6.0.2" PrivateAssets="all" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Http" Version="8.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="8.4.0" />
-    <PackageVersion Include="GitHub.Octokit.SDK" Version="0.0.14" />
-    <PackageVersion Include="Pathological.Globbing" Version="8.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="8.5.0" />
+    <PackageVersion Include="GitHub.Octokit.SDK" Version="0.0.16" />
+    <PackageVersion Include="Pathological.Globbing" Version="8.0.2" />
   </ItemGroup>
 </Project>
