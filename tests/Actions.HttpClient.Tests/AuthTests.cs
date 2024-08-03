@@ -32,7 +32,7 @@ public class AuthTests
         var auth = response.Result.Headers["authorization"];
         var creds = auth["Basic ".Length..].FromBase64();
         Assert.Equal("johndoe:password", creds);
-        Assert.Equal("http://postman-echo.com/get", response.Result.Url);
+        Assert.Equal("https://postman-echo.com/get", response.Result.Url);
     }
 
     [Fact]
@@ -55,7 +55,7 @@ public class AuthTests
         Assert.NotNull(response.Result);
         var auth = response.Result.Headers["authorization"];
         Assert.Equal($"Bearer {token}", auth);
-        Assert.Equal("http://postman-echo.com/get", response.Result.Url);
+        Assert.Equal("https://postman-echo.com/get", response.Result.Url);
     }
 
     [Fact]
@@ -79,6 +79,6 @@ public class AuthTests
         var auth = response.Result.Headers["authorization"];
         var creds = auth["Basic ".Length..].FromBase64();
         Assert.Equal($"PAT:{pat}", creds);
-        Assert.Equal("http://postman-echo.com/get", response.Result.Url);
+        Assert.Equal("https://postman-echo.com/get", response.Result.Url);
     }
 }
