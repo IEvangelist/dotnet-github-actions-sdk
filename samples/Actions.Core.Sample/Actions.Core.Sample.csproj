@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
 
         <ProjectReference Include="..\..\src\Actions.Core\Actions.Core.csproj" />
         <ProjectReference Include="..\..\src\Actions.Octokit\Actions.Octokit.csproj" />
