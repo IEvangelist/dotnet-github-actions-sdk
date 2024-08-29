@@ -15,7 +15,7 @@
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Http" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="8.8.0" />
-    <PackageVersion Include="GitHub.Octokit.SDK" Version="0.0.25" />
+    <PackageVersion Include="GitHub.Octokit.SDK" Version="0.0.26" />
     <PackageVersion Include="Pathological.Globbing" Version="8.0.4" />
   </ItemGroup>
 </Project>
