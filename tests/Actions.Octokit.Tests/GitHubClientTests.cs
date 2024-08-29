@@ -28,7 +28,7 @@ public class GitHubClientTests
         Assert.NotNull(firstPullRequest);
     }
 
-    [Fact]
+    [Fact(Skip = "Not an actual test...")]
     public async Task RawHttpClientRestTest()
     {
         var client = new HttpClient();
