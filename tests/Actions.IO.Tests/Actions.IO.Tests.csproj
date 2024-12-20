@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFrameworks>$(DefaultTargetFrameworks)</TargetFrameworks>
+        <NoWarn>$(NoWarn);IDE0005</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>

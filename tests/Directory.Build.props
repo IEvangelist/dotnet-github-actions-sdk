@@ -1,4 +1,8 @@
 <Project>
+    <PropertyGroup>
+        <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    </PropertyGroup>
+    
     <Import Project="$([MSBuild]::GetPathOfFileAbove(Directory.Build.props, $(MSBuildThisFileDirectory)..))" />
 
     <ItemGroup>

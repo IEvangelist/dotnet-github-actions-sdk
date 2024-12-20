@@ -16,6 +16,8 @@
         <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
         <ReportAnalyzer>true</ReportAnalyzer>
 
+        <NoWarn>@(NoWarn);NU1903</NoWarn>
+        
         <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
         <TreatWarningsAsErrors Condition="'$(ContinuousIntegrationBuild)' == 'true' or '$(Configuration)' == 'Release'">true</TreatWarningsAsErrors> 
 

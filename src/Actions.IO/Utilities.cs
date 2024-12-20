@@ -73,7 +73,10 @@ public static class Utilities
         }
 
         var dirPath = Path.GetDirectoryName(filePath);
-        if (dirPath is null) return string.Empty;
+        if (dirPath is null)
+        {
+            return string.Empty;
+        }
 
         var fileName = Path.GetFileNameWithoutExtension(filePath);
         foreach (var ext in extensions)
@@ -88,7 +91,9 @@ public static class Utilities
         return string.Empty;
     }
 
+#pragma warning disable IDE0051 // Remove unused private members
     private static bool IsUnixExecutable(FileInfo file)
+#pragma warning restore IDE0051 // Remove unused private members
     {
         return file.Exists && (file.Attributes & FileAttributes.Archive) is FileAttributes.Archive;
     }
