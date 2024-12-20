@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0-jammy AS build
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:9.0-noble AS build
 ARG TARGETARCH
 WORKDIR /source
 
@@ -14,7 +14,7 @@ RUN dotnet restore "samples/Actions.Glob.Sample/Actions.Glob.Sample.csproj" -a $
 COPY . .
 RUN dotnet publish "samples/Actions.Glob.Sample/Actions.Glob.Sample.csproj" -a $TARGETARCH --no-restore -o /app
 
-FROM mcr.microsoft.com/dotnet/runtime:8.0-jammy-chiseled
+FROM mcr.microsoft.com/dotnet/runtime:9.0-noble-chiseled
 WORKDIR /app
 COPY --from=build /app .
 USER root

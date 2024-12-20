@@ -127,5 +127,8 @@ public sealed class CoreSummaryTestFixture
         File.WriteAllText(TestFilePath, "");
     }
 
-    private void AfterEach() => File.Delete(TestFilePath);
+    private void AfterEach()
+    {
+        File.Delete(TestFilePath);
+    }
 }

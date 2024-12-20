@@ -16,9 +16,11 @@ internal static class ObjectExtensions
     /// <returns>A new dictionary, with a single key-value pair.</returns>
     internal static Dictionary<string, string> ToCommandProperties<T>(
         this T value,
-        [CallerArgumentExpression(nameof(value))] string? paramName = null) =>
-        new()
+        [CallerArgumentExpression(nameof(value))] string? paramName = null)
+    {
+        return new()
         {
             [paramName!] = value?.ToString() ?? string.Empty
         };
+    }
 }

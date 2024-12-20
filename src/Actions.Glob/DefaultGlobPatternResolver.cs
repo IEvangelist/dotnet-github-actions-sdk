@@ -17,20 +17,26 @@ internal sealed class DefaultGlobPatternResolver : IGlobPatternResolver
     /// <inheritdoc />
     internal static IGlobPatternResolver Factory(
         IEnumerable<string> includePatterns,
-        IEnumerable<string> excludePatterns) =>
-        new DefaultGlobPatternResolver(includePatterns, excludePatterns);
+        IEnumerable<string> excludePatterns)
+    {
+        return new DefaultGlobPatternResolver(includePatterns, excludePatterns);
+    }
 
     /// <inheritdoc />
     IEnumerable<string> IGlobPatternResolver.GetGlobFiles(
-        string? directory) =>
-        directory.GetGlobFiles(
+        string? directory)
+    {
+        return directory.GetGlobFiles(
             _includePatterns,
             _excludePatterns);
+    }
 
     /// <inheritdoc />
     GlobResult IGlobPatternResolver.GetGlobResult(
-        string? directory) =>
-        directory.GetGlobResult(
+        string? directory)
+    {
+        return directory.GetGlobResult(
             _includePatterns,
             _excludePatterns);
+    }
 }

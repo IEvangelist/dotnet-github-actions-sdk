@@ -56,8 +56,10 @@ public interface IOperations
     /// Make a directory. Creates the full path with folders in between.
     /// </summary>
     /// <param name="path">Path to create.</param>
-    void MakeDirectory(string path) =>
+    void MakeDirectory(string path)
+    {
         Directory.CreateDirectory(path);
+    }
 
     /// <summary>
     /// Returns path of a tool had the tool actually been invoked. Resolves via <c>PATH</c>.

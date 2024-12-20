@@ -6,8 +6,8 @@ namespace Actions.Glob;
 /// <inheritdoc cref="IGlobPatternResolverBuilder" />
 internal sealed class DefaultGlobPatternResolverBuilder : IGlobPatternResolverBuilder
 {
-    private readonly Lazy<List<string>> _includePatterns = new(() => new());
-    private readonly Lazy<List<string>> _excludePatterns = new(() => new());
+    private readonly Lazy<List<string>> _includePatterns = new(() => []);
+    private readonly Lazy<List<string>> _excludePatterns = new(() => []);
 
     /// <inheritdoc />
     public IGlobPatternResolver Build()

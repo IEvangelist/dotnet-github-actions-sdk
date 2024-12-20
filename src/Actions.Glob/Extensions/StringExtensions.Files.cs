@@ -20,9 +20,11 @@ public static partial class StringExtensions
     public static IEnumerable<string> GetGlobFiles(
         this string? directory,
         IEnumerable<string> includePatterns,
-        IEnumerable<string>? excludePatterns = null) =>
-        directory.GetGlobResult(
+        IEnumerable<string>? excludePatterns = null)
+    {
+        return directory.GetGlobResult(
             includePatterns, excludePatterns) is { HasMatches: true } result
             ? result.Files.Select(file => file.FullName)
             : [];
+    }
 }

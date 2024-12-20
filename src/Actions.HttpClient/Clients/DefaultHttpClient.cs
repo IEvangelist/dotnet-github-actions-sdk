@@ -1,7 +1,9 @@
 ﻿// Copyright (c) David Pine. All rights reserved.
 // Licensed under the MIT License.
 
+#pragma warning disable IDE0130 // Namespace does not match folder structure
 namespace Actions.HttpClient;
+#pragma warning restore IDE0130 // Namespace does not match folder structure
 
 internal sealed class DefaultHttpClient(NetClient client, IRequestHandler? requestHandler = null) : IHttpClient
 {
@@ -67,8 +69,10 @@ internal sealed class DefaultHttpClient(NetClient client, IRequestHandler? reque
         JsonTypeInfo<TData> dataJsonTypeInfo,
         JsonTypeInfo<TResult> resultJsonTypeInfo,
         Dictionary<string, IEnumerable<string>>? additionalHeaders,
-        CancellationToken cancellationToken) =>
-        RequestAsync(requestUri, HttpMethod.Patch, data, dataJsonTypeInfo, resultJsonTypeInfo, additionalHeaders, cancellationToken);
+        CancellationToken cancellationToken)
+    {
+        return RequestAsync(requestUri, HttpMethod.Patch, data, dataJsonTypeInfo, resultJsonTypeInfo, additionalHeaders, cancellationToken);
+    }
 
     ValueTask<TypedResponse<TResult>> IHttpClient.PostAsync<TData, TResult>(
         string requestUri,
@@ -76,8 +80,10 @@ internal sealed class DefaultHttpClient(NetClient client, IRequestHandler? reque
         JsonTypeInfo<TData> dataJsonTypeInfo,
         JsonTypeInfo<TResult> resultJsonTypeInfo,
         Dictionary<string, IEnumerable<string>>? additionalHeaders,
-        CancellationToken cancellationToken) =>
-        RequestAsync(requestUri, HttpMethod.Post, data, dataJsonTypeInfo, resultJsonTypeInfo, additionalHeaders, cancellationToken);
+        CancellationToken cancellationToken)
+    {
+        return RequestAsync(requestUri, HttpMethod.Post, data, dataJsonTypeInfo, resultJsonTypeInfo, additionalHeaders, cancellationToken);
+    }
 
     ValueTask<TypedResponse<TResult>> IHttpClient.PutAsync<TData, TResult>(
         string requestUri,
@@ -85,8 +91,10 @@ internal sealed class DefaultHttpClient(NetClient client, IRequestHandler? reque
         JsonTypeInfo<TData> dataJsonTypeInfo,
         JsonTypeInfo<TResult> resultJsonTypeInfo,
         Dictionary<string, IEnumerable<string>>? additionalHeaders,
-        CancellationToken cancellationToken) =>
-        RequestAsync(requestUri, HttpMethod.Put, data, dataJsonTypeInfo, resultJsonTypeInfo, additionalHeaders, cancellationToken);
+        CancellationToken cancellationToken)
+    {
+        return RequestAsync(requestUri, HttpMethod.Put, data, dataJsonTypeInfo, resultJsonTypeInfo, additionalHeaders, cancellationToken);
+    }
 
     async ValueTask<HttpResponseMessage> IHttpClient.HeadAsync(
         string requestUri,
@@ -150,5 +158,8 @@ internal sealed class DefaultHttpClient(NetClient client, IRequestHandler? reque
             mediaType: "application/json");
     }
 
-    void IDisposable.Dispose() => client?.Dispose();
+    void IDisposable.Dispose()
+    {
+        client?.Dispose();
+    }
 }

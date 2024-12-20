@@ -21,3 +21,9 @@ global using Microsoft.Extensions.DependencyInjection;
 global using Xunit;
 
 global using static Actions.Core.EnvironmentVariables.Keys;
+
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage(
+    "Performance",
+    "CA1859:Use concrete types when possible for improved performance",
+    Justification = "<Pending>")
+]

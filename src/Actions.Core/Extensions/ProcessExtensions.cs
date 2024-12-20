@@ -5,9 +5,11 @@ namespace Actions.Core.Extensions;
 
 internal static class ProcessExtensions
 {
-    internal static void GracefulOrForcedShutdown(this int pid) =>
+    internal static void GracefulOrForcedShutdown(this int pid)
+    {
         Process.GetProcessById(pid)
             ?.GracefulOrForcedShutdown();
+    }
 
     internal static void GracefulOrForcedShutdown(this Process process)
     {

@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-    <DefaultTargetFrameworks>net8.0</DefaultTargetFrameworks>
+    <DefaultTargetFrameworks>net9.0</DefaultTargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
     <GlobalPackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
@@ -15,7 +15,8 @@
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Http" Version="9.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="9.0.0" />
-    <PackageVersion Include="GitHub.Octokit.SDK" Version="0.0.30" />
-    <PackageVersion Include="Pathological.Globbing" Version="8.0.4" />
+    <PackageVersion Include="GitHub.Octokit.SDK" Version="0.0.31" />
+    <PackageVersion Include="Pathological.Globbing" Version="9.0.0" />
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 </Project>

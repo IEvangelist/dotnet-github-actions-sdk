@@ -23,8 +23,10 @@ public class Globber
     /// </summary>
     /// <param name="inclusions">Required inclusion patterns.</param>
     /// <returns>A new <see cref="Globber"/> instance.</returns>
-    public static Globber Create(params string[] inclusions) =>
-        new(inclusions);
+    public static Globber Create(params string[] inclusions)
+    {
+        return new(inclusions);
+    }
 
     /// <summary>
     /// Creates a new <see cref="Globber"/> instance.
@@ -34,13 +36,20 @@ public class Globber
     /// <returns>A new <see cref="Globber"/> instance.</returns>
     public static Globber Create(
         IEnumerable<string> inclusions,
-        IEnumerable<string>? exclusions = null) => new(inclusions, exclusions);
+        IEnumerable<string>? exclusions = null)
+    {
+        return new(inclusions, exclusions);
+    }
 
     /// <inheritdoc cref="IGlobPatternResolver.GetGlobResult(string?)" />
-    public GlobResult Glob(string? directory = null) =>
-        _glob.GetGlobResult(directory);
+    public GlobResult Glob(string? directory = null)
+    {
+        return _glob.GetGlobResult(directory);
+    }
 
     /// <inheritdoc cref="IGlobPatternResolver.GetGlobFiles(string?)" />
-    public IEnumerable<string> GlobFiles(string? directory = null) =>
-        _glob.GetGlobFiles(directory);
+    public IEnumerable<string> GlobFiles(string? directory = null)
+    {
+        return _glob.GetGlobFiles(directory);
+    }
 }

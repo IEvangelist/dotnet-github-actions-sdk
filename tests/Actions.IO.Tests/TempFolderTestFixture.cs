@@ -10,5 +10,8 @@ public sealed class TempFolderTestFixture : IDisposable
         )
         .FullName;
 
-    void IDisposable.Dispose() => Directory.Delete(TempFolder, true);
+    void IDisposable.Dispose()
+    {
+        Directory.Delete(TempFolder, true);
+    }
 }

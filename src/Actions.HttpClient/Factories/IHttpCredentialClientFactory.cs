@@ -1,7 +1,9 @@
 ﻿// Copyright (c) David Pine. All rights reserved.
 // Licensed under the MIT License.
 
+#pragma warning disable IDE0130 // Namespace does not match folder structure
 namespace Actions.HttpClient;
+#pragma warning restore IDE0130 // Namespace does not match folder structure
 
 /// <summary>
 /// Represents a factory for creating <see cref="IHttpClient"/> instances, given a set of credentials.

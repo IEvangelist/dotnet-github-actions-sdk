@@ -13,7 +13,9 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
     }
 
     [Fact]
-    public Task ThrowsIfSummaryEnvVarIsUndefined() => fixture.TestAsync(async () =>
+    public Task ThrowsIfSummaryEnvVarIsUndefined()
+    {
+        return fixture.TestAsync(async () =>
     {
         Environment.SetEnvironmentVariable(GITHUB_STEP_SUMMARY, null);
 
@@ -26,9 +28,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await Assert.ThrowsAsync<ArgumentException>(WriteAsync);
     });
+    }
 
     [Fact]
-    public Task ThrowsIfSummaryFileDoesNotExist() => fixture.TestAsync(async () =>
+    public Task ThrowsIfSummaryFileDoesNotExist()
+    {
+        return fixture.TestAsync(async () =>
     {
         File.Delete(fixture.TestFilePath);
 
@@ -41,9 +46,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await Assert.ThrowsAsync<FileNotFoundException>(WriteAsync);
     });
+    }
 
     [Fact]
-    public Task AppendsTextToSummaryFile() => fixture.TestAsync(async () =>
+    public Task AppendsTextToSummaryFile()
+    {
+        return fixture.TestAsync(async () =>
     {
         await File.WriteAllTextAsync(fixture.TestFilePath, "# ");
 
@@ -53,9 +61,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary($"# {Environment.NewLine}{Environment.NewLine}{fixture.TestCase.Text}");
     });
+    }
 
     [Fact]
-    public Task OverwritesTextToSummaryFile() => fixture.TestAsync(async () =>
+    public Task OverwritesTextToSummaryFile()
+    {
+        return fixture.TestAsync(async () =>
     {
         await File.WriteAllTextAsync(fixture.TestFilePath, "overwrite");
 
@@ -65,9 +76,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(fixture.TestCase.Text);
     });
+    }
 
     [Fact]
-    public Task AppendsTextWithEOLToSummaryFile() => fixture.TestAsync(async () =>
+    public Task AppendsTextWithEOLToSummaryFile()
+    {
+        return fixture.TestAsync(async () =>
     {
         await File.WriteAllTextAsync(fixture.TestFilePath, "# ");
 
@@ -77,9 +91,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary($"# {Environment.NewLine}{Environment.NewLine}{fixture.TestCase.Text}{Environment.NewLine}");
     });
+    }
 
     [Fact]
-    public Task ChainsAppendsTextToSummaryFile() => fixture.TestAsync(async () =>
+    public Task ChainsAppendsTextToSummaryFile()
+    {
+        return fixture.TestAsync(async () =>
     {
         await File.WriteAllTextAsync(fixture.TestFilePath, "");
 
@@ -93,9 +110,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(string.Join("", fixture.TestCase.Text, fixture.TestCase.Text, fixture.TestCase.Text));
     });
+    }
 
     [Fact]
-    public Task EmptiesBufferAfterWriteAsync() => fixture.TestAsync(async () =>
+    public Task EmptiesBufferAfterWriteAsync()
+    {
+        return fixture.TestAsync(async () =>
     {
         await File.WriteAllTextAsync(fixture.TestFilePath, "");
 
@@ -107,9 +127,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         Assert.True(sut.IsBufferEmpty);
     });
+    }
 
     [Fact]
-    public void ReturnsSummaryBufferAsString() => fixture.Test(() =>
+    public void ReturnsSummaryBufferAsString()
+    {
+        fixture.Test(() =>
     {
         var sut = new Summary();
 
@@ -117,9 +140,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         Assert.Equal(fixture.TestCase.Text, sut.Stringify());
     });
+    }
 
     [Fact]
-    public void ReturnsCorrectValuesForIsBufferEmpty() => fixture.Test(() =>
+    public void ReturnsCorrectValuesForIsBufferEmpty()
+    {
+        fixture.Test(() =>
     {
         var sut = new Summary();
 
@@ -131,9 +157,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         Assert.True(sut.IsBufferEmpty);
     });
+    }
 
     [Fact]
-    public Task ClearsABufferAndSummaryFile() => fixture.TestAsync(async () =>
+    public Task ClearsABufferAndSummaryFile()
+    {
+        return fixture.TestAsync(async () =>
     {
         await File.WriteAllTextAsync(fixture.TestFilePath, "content", Encoding.UTF8);
 
@@ -145,9 +174,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         Assert.True(sut.IsBufferEmpty);
     });
+    }
 
     [Fact]
-    public Task AddsEOL() => fixture.TestAsync(async () =>
+    public Task AddsEOL()
+    {
+        return fixture.TestAsync(async () =>
     {
         var sut = new Summary();
 
@@ -155,9 +187,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary($"{fixture.TestCase.Text}{Environment.NewLine}");
     });
+    }
 
     [Fact]
-    public Task AddsACodeBlockWithoutLanguage() => fixture.TestAsync(async () =>
+    public Task AddsACodeBlockWithoutLanguage()
+    {
+        return fixture.TestAsync(async () =>
     {
         var sut = new Summary();
 
@@ -173,9 +208,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(expected);
     });
+    }
 
     [Fact]
-    public Task AddsMarkdownCodeBlockWithoutLanguage() => fixture.TestAsync(async () =>
+    public Task AddsMarkdownCodeBlockWithoutLanguage()
+    {
+        return fixture.TestAsync(async () =>
     {
         var sut = new Summary();
 
@@ -193,9 +231,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(expected);
     });
+    }
 
     [Fact]
-    public Task AddsACodeBlockWithALanguage() => fixture.TestAsync(async () =>
+    public Task AddsACodeBlockWithALanguage()
+    {
+        return fixture.TestAsync(async () =>
     {
         var sut = new Summary();
 
@@ -211,9 +252,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(expected);
     });
+    }
 
     [Fact]
-    public Task AddsMarkdownCodeBlockWithALanguage() => fixture.TestAsync(async () =>
+    public Task AddsMarkdownCodeBlockWithALanguage()
+    {
+        return fixture.TestAsync(async () =>
     {
         var sut = new Summary();
 
@@ -231,9 +275,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(expected);
     });
+    }
 
     [Fact]
-    public Task AddsAnUnorderedList() => fixture.TestAsync(async () =>
+    public Task AddsAnUnorderedList()
+    {
+        return fixture.TestAsync(async () =>
     {
         var sut = new Summary();
 
@@ -243,9 +290,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(expected);
     });
+    }
 
     [Fact]
-    public Task AddsMarkdownUnorderedList() => fixture.TestAsync(async () =>
+    public Task AddsMarkdownUnorderedList()
+    {
+        return fixture.TestAsync(async () =>
     {
         var sut = new Summary();
 
@@ -255,9 +305,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(expected);
     });
+    }
 
     [Fact]
-    public Task AddsAnOrderedList() => fixture.TestAsync(async () =>
+    public Task AddsAnOrderedList()
+    {
+        return fixture.TestAsync(async () =>
     {
         var sut = new Summary();
 
@@ -267,9 +320,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(expected);
     });
+    }
 
     [Fact]
-    public Task AddsMarkdownOrderedList() => fixture.TestAsync(async () =>
+    public Task AddsMarkdownOrderedList()
+    {
+        return fixture.TestAsync(async () =>
     {
         var sut = new Summary();
 
@@ -279,9 +335,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(expected);
     });
+    }
 
     [Fact]
-    public Task AddsMarkdownTaskList() => fixture.TestAsync(async () =>
+    public Task AddsMarkdownTaskList()
+    {
+        return fixture.TestAsync(async () =>
     {
         var sut = new Summary();
 
@@ -291,9 +350,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(expected);
     });
+    }
 
     [Fact]
-    public Task AddsATable() => fixture.TestAsync(async () =>
+    public Task AddsATable()
+    {
+        return fixture.TestAsync(async () =>
     {
         var sut = new Summary();
 
@@ -303,9 +365,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(expected);
     });
+    }
 
     [Fact]
-    public Task AddsMarkdownTable() => fixture.TestAsync(async () =>
+    public Task AddsMarkdownTable()
+    {
+        return fixture.TestAsync(async () =>
     {
         var sut = new Summary();
 
@@ -315,9 +380,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(expected);
     });
+    }
 
     [Fact]
-    public Task AddsADetailsElement() => fixture.TestAsync(async () =>
+    public Task AddsADetailsElement()
+    {
+        return fixture.TestAsync(async () =>
     {
         var sut = new Summary();
 
@@ -329,9 +397,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(expected);
     });
+    }
 
     [Fact]
-    public Task AddsAnImageWithAltText() => fixture.TestAsync(async () =>
+    public Task AddsAnImageWithAltText()
+    {
+        return fixture.TestAsync(async () =>
     {
         var sut = new Summary();
 
@@ -341,9 +412,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(expected);
     });
+    }
 
     [Fact]
-    public Task AddsAnImageWithCustomDimensions() => fixture.TestAsync(async () =>
+    public Task AddsAnImageWithCustomDimensions()
+    {
+        return fixture.TestAsync(async () =>
     {
         var sut = new Summary();
 
@@ -355,9 +429,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(expected);
     });
+    }
 
     [Fact]
-    public Task AddsHeadingsH1ToH6() => fixture.TestAsync(async () =>
+    public Task AddsHeadingsH1ToH6()
+    {
+        return fixture.TestAsync(async () =>
     {
         var sut = new Summary();
         for (var i = 1; i <= 6; i++)
@@ -371,9 +448,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(expected);
     });
+    }
 
     [Fact]
-    public Task AddsMarkdownHeadingsH1ToH6() => fixture.TestAsync(async () =>
+    public Task AddsMarkdownHeadingsH1ToH6()
+    {
+        return fixture.TestAsync(async () =>
     {
         var sut = new Summary();
         for (var i = 1; i <= 6; i++)
@@ -387,9 +467,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(expected);
     });
+    }
 
     [Fact]
-    public Task AddsCorrectSpacingBetweenHtmlAndMarkdown() => fixture.TestAsync(async () =>
+    public Task AddsCorrectSpacingBetweenHtmlAndMarkdown()
+    {
+        return fixture.TestAsync(async () =>
     {
         var sut = new Summary();
 
@@ -405,9 +488,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(expected);
     });
+    }
 
     [Fact]
-    public Task AddsH1IfHeadingLevelNotSpecified() => fixture.TestAsync(async () =>
+    public Task AddsH1IfHeadingLevelNotSpecified()
+    {
+        return fixture.TestAsync(async () =>
     {
         var sut = new Summary();
 
@@ -417,9 +503,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(expected);
     });
+    }
 
     [Fact]
-    public Task AddsMarkdownH1IfHeadingLevelNotSpecified() => fixture.TestAsync(async () =>
+    public Task AddsMarkdownH1IfHeadingLevelNotSpecified()
+    {
+        return fixture.TestAsync(async () =>
     {
         var sut = new Summary();
 
@@ -429,9 +518,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(expected);
     });
+    }
 
     [Fact]
-    public Task UsesH1IfHeadingLevelIsGarbageOrOutOfRange() => fixture.TestAsync(async () =>
+    public Task UsesH1IfHeadingLevelIsGarbageOrOutOfRange()
+    {
+        return fixture.TestAsync(async () =>
     {
         var sut = new Summary();
 
@@ -443,9 +535,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(expected);
     });
+    }
 
     [Fact]
-    public Task UsesMarkdownH1IfHeadingLevelIsGarbageOrOutOfRange() => fixture.TestAsync(async () =>
+    public Task UsesMarkdownH1IfHeadingLevelIsGarbageOrOutOfRange()
+    {
+        return fixture.TestAsync(async () =>
     {
         var sut = new Summary();
 
@@ -457,9 +552,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(expected);
     });
+    }
 
     [Fact]
-    public Task AddsASeparator() => fixture.TestAsync(async () =>
+    public Task AddsASeparator()
+    {
+        return fixture.TestAsync(async () =>
     {
         var sut = new Summary();
 
@@ -469,9 +567,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(expected);
     });
+    }
 
     [Fact]
-    public Task AddsMarkdownSeparator() => fixture.TestAsync(async () =>
+    public Task AddsMarkdownSeparator()
+    {
+        return fixture.TestAsync(async () =>
     {
         var sut = new Summary();
 
@@ -481,9 +582,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(expected);
     });
+    }
 
     [Fact]
-    public Task AddsABreak() => fixture.TestAsync(async () =>
+    public Task AddsABreak()
+    {
+        return fixture.TestAsync(async () =>
     {
         var sut = new Summary();
 
@@ -493,9 +597,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(expected);
     });
+    }
 
     [Fact]
-    public Task AddsAQuote() => fixture.TestAsync(async () =>
+    public Task AddsAQuote()
+    {
+        return fixture.TestAsync(async () =>
     {
         var sut = new Summary();
 
@@ -505,9 +612,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(expected);
     });
+    }
 
     [Fact]
-    public Task AddsMarkdownQuote() => fixture.TestAsync(async () =>
+    public Task AddsMarkdownQuote()
+    {
+        return fixture.TestAsync(async () =>
     {
         var sut = new Summary();
 
@@ -517,9 +627,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(expected);
     });
+    }
 
     [Fact]
-    public Task AddsAQuoteWithCitation() => fixture.TestAsync(async () =>
+    public Task AddsAQuoteWithCitation()
+    {
+        return fixture.TestAsync(async () =>
     {
         var sut = new Summary();
 
@@ -529,9 +642,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(expected);
     });
+    }
 
     [Fact]
-    public Task AddsALinkWithHref() => fixture.TestAsync(async () =>
+    public Task AddsALinkWithHref()
+    {
+        return fixture.TestAsync(async () =>
     {
         var sut = new Summary();
 
@@ -541,9 +657,12 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(expected);
     });
+    }
 
     [Fact]
-    public Task AddsMarkdownLinkWithHref() => fixture.TestAsync(async () =>
+    public Task AddsMarkdownLinkWithHref()
+    {
+        return fixture.TestAsync(async () =>
     {
         var sut = new Summary();
 
@@ -553,4 +672,5 @@ public class CoreSummaryTests(CoreSummaryTestFixture fixture) : IClassFixture<Co
 
         await AssertSummary(expected);
     });
+    }
 }

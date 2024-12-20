@@ -1,8 +1,6 @@
 ﻿// Copyright (c) David Pine. All rights reserved.
 // Licensed under the MIT License.
 
-using System.Diagnostics;
-
 namespace Actions.Octokit.Tests;
 
 public class GitHubClientTests
@@ -90,6 +88,6 @@ public class GitHubClientTests
         catch (Exception ex)
         {
             Assert.Fail(ex.Message);
-        }        
+        }
     }
 }

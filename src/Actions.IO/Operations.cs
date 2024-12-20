@@ -7,10 +7,12 @@ namespace Actions.IO;
 internal sealed class Operations : IOperations
 {
     /// <inheritdoc cref="IOperations.Copy(string, string, CopyOptions?)" />
-    public void Copy(string sourcePath, string destinationPath, CopyOptions? options = default) =>
+    public void Copy(string sourcePath, string destinationPath, CopyOptions? options = default)
+    {
         CopyAll(sourcePath, destinationPath, options);
+    }
 
-    static void CopyAll(string sourcePath, string destinationPath, CopyOptions? options = default)
+    private static void CopyAll(string sourcePath, string destinationPath, CopyOptions? options = default)
     {
         var (recursive, force, copySourceDirectory) = (options ??= new(false));
 

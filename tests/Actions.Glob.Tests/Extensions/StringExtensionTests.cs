@@ -5,7 +5,7 @@ namespace Actions.Glob.Tests;
 
 public sealed class StringExtensionsTests
 {
-    public readonly static TheoryData<string, string[], string[], (bool, string[])> GetGlobResultTestInput =
+    public static readonly TheoryData<string, string[], string[], (bool, string[])> GetGlobResultTestInput =
     new()
     {
         {

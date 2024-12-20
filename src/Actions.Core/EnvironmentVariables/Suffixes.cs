@@ -8,6 +8,8 @@ namespace Actions.Core.EnvironmentVariables;
 /// </summary>
 #if ACTIONS_CORE_ENVIRONMENTVARIABLES_PUBLIC
 public
+#else
+internal
 #endif
 static class Suffixes
 {

@@ -6,18 +6,26 @@ namespace Actions.Octokit.Tests;
 public class GitHubClientFactoryTests
 {
     [Fact]
-    public void CreateThrowsOnNullToken() =>
+    public void CreateThrowsOnNullToken()
+    {
         Assert.Throws<ArgumentNullException>(() => GitHubClientFactory.Create(null!));
+    }
 
     [Fact]
-    public void CreateThrowsOnEmptyToken() =>
+    public void CreateThrowsOnEmptyToken()
+    {
         Assert.Throws<ArgumentException>(() => GitHubClientFactory.Create(string.Empty));
+    }
 
     [Fact]
-    public void CreateThrowsOnWhitespaceToken() =>
+    public void CreateThrowsOnWhitespaceToken()
+    {
         Assert.Throws<ArgumentException>(() => GitHubClientFactory.Create(" "));
+    }
 
     [Fact]
-    public void CreateReturnsClientOnFakeToken() =>
+    public void CreateReturnsClientOnFakeToken()
+    {
         Assert.NotNull(GitHubClientFactory.Create("token"));
+    }
 }

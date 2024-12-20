@@ -109,12 +109,17 @@ public sealed class Summary
 
     /// <summary>Clears the summary buffer and wipes the summary file</summary>
     /// <returns>The <c>Summary</c> instance</returns>
-    public Task<Summary> ClearAsync() =>
-        EmptyBuffer().WriteAsync(new(true));
+    public Task<Summary> ClearAsync()
+    {
+        return EmptyBuffer().WriteAsync(new(true));
+    }
 
     /// <summary>Returns the current summary buffer as a string</summary>
     /// <returns>A <c>string</c> representation of the summary buffer</returns>
-    public string Stringify() => _buffer.ToString();
+    public string Stringify()
+    {
+        return _buffer.ToString();
+    }
 
     /// <summary>Resets the summary buffer without writing to summary file</summary>
     /// <returns>The <c>Summary</c> instance</returns>

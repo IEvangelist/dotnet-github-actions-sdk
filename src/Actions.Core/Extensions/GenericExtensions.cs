@@ -3,7 +3,7 @@
 
 namespace Actions.Core.Extensions;
 
-static class GenericExtensions
+internal static class GenericExtensions
 {
     /// <summary>
     /// Converts the specified object as:
@@ -17,8 +17,9 @@ static class GenericExtensions
     /// <param name="value">The <paramref name="value"/> in context.</param>
     /// <param name="typeInfo">The JSON type info, used to serialize the type.</param>
     /// <returns>The string representation of the <paramref name="value"/>.</returns>
-    internal static string ToCommandValue<T>(this T? value, JsonTypeInfo<T>? typeInfo = null) =>
-        IsAnonymousType(typeof(T))
+    internal static string ToCommandValue<T>(this T? value, JsonTypeInfo<T>? typeInfo = null)
+    {
+        return IsAnonymousType(typeof(T))
             ? throw new ArgumentException("Generic type T, cannot be anonymous type!")
             : value switch
             {
@@ -28,6 +29,7 @@ static class GenericExtensions
                 _ when typeInfo is null => value?.ToString() ?? string.Empty,
                 _ => JsonSerializer.Serialize(value, typeInfo)
             };
+    }
 
     // From: https://stackoverflow.com/a/1650965/2410379
     internal static bool IsAnonymousType(this Type type)

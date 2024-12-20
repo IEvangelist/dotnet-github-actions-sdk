@@ -18,7 +18,7 @@ internal readonly record struct Command(
     string? Message = default,
     IReadOnlyDictionary<string, string>? CommandProperties = default)
 {
-    const string CMD_STRING = "::";
+    private const string CMD_STRING = "::";
 
     internal bool Conventional =>
         CommandNames.IsConventional(CommandName);
@@ -51,17 +51,21 @@ internal readonly record struct Command(
         return builder.ToString();
     }
 
-    static string EscapeProperty(string? value) =>
-        value.ToCommandValue()
+    private static string EscapeProperty(string? value)
+    {
+        return value.ToCommandValue()
             .Replace("%", "%25")
             .Replace("\r", "%0D")
             .Replace("\n", "%0A")
             .Replace(":", "%3A")
             .Replace(",", "%2C");
+    }
 
-    static string EscapeData(string? value) =>
-        value.ToCommandValue()
+    private static string EscapeData(string? value)
+    {
+        return value.ToCommandValue()
             .Replace("%", "%25")
             .Replace("\r", "%0D")
             .Replace("\n", "%0A");
+    }
 }

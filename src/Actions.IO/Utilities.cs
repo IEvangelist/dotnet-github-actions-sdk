@@ -35,12 +35,16 @@ public static class Utilities
     });
 
     ///<inheritdoc cref="File.Exists(string?)" />
-    public static bool Exists(string? path) =>
-        File.Exists(path);
+    public static bool Exists(string? path)
+    {
+        return File.Exists(path);
+    }
 
     ///<inheritdoc cref="Path.IsPathRooted(string?)" />
-    public static bool IsRooted(string? path) =>
-        Path.IsPathRooted(path);
+    public static bool IsRooted(string? path)
+    {
+        return Path.IsPathRooted(path);
+    }
 
     /// <summary>
     /// Indicates whether the given <paramref name="path"/> resolves as a directory.
@@ -49,8 +53,10 @@ public static class Utilities
     /// <returns><see langword="true"/> when <paramref name="path"/> refers to a
     /// directory, else <see langword="false"/>.</returns>
     public static bool IsDirectory(
-        [NotNullWhen(true)] string? path) =>
-        Directory.Exists(path) && (File.GetAttributes(path!) & FileAttributes.Directory) is FileAttributes.Directory;
+        [NotNullWhen(true)] string? path)
+    {
+        return Directory.Exists(path) && (File.GetAttributes(path!) & FileAttributes.Directory) is FileAttributes.Directory;
+    }
 
     /// <summary>
     /// Best effort attempt to determine whether a file exists and is executable.
@@ -82,6 +88,8 @@ public static class Utilities
         return string.Empty;
     }
 
-    private static bool IsUnixExecutable(FileInfo file) =>
-        file.Exists && (file.Attributes & FileAttributes.Archive) is FileAttributes.Archive;
+    private static bool IsUnixExecutable(FileInfo file)
+    {
+        return file.Exists && (file.Attributes & FileAttributes.Archive) is FileAttributes.Archive;
+    }
 }

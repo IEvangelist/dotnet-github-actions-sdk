@@ -34,19 +34,25 @@ internal sealed class DefaultCoreService(
     }
 
     /// <inheritdoc />
-    public void WriteDebug(string message) =>
+    public void WriteDebug(string message)
+    {
         commandIssuer.IssueCommand(
             CommandNames.Debug, message: message);
+    }
 
     /// <inheritdoc />
-    public void EndGroup() =>
+    public void EndGroup()
+    {
         commandIssuer.Issue(
             CommandNames.EndGroup, "");
+    }
 
     /// <inheritdoc />
-    public void WriteError(string message, AnnotationProperties? properties = default) =>
+    public void WriteError(string message, AnnotationProperties? properties = default)
+    {
         commandIssuer.IssueCommand(
             CommandNames.Error, properties?.ToCommandProperties(), message);
+    }
 
     /// <inheritdoc />
     public async ValueTask ExportVariableAsync(string name, string value)
@@ -109,8 +115,10 @@ internal sealed class DefaultCoreService(
     }
 
     /// <inheritdoc />
-    public string GetState(string name) =>
-        GetEnvironmentVariable($"{STATE_}{name}") ?? "";
+    public string GetState(string name)
+    {
+        return GetEnvironmentVariable($"{STATE_}{name}") ?? "";
+    }
 
     /// <inheritdoc />
     public async ValueTask<T> GroupAsync<T>(string name, Func<ValueTask<T>> task)
@@ -131,12 +139,17 @@ internal sealed class DefaultCoreService(
     }
 
     /// <inheritdoc />
-    public void WriteInfo(string message) => console.WriteLine(message);
+    public void WriteInfo(string message)
+    {
+        console.WriteLine(message);
+    }
 
     /// <inheritdoc />
-    public void WriteNotice(string message, AnnotationProperties? properties = default) =>
+    public void WriteNotice(string message, AnnotationProperties? properties = default)
+    {
         commandIssuer.IssueCommand(
             CommandNames.Notice, properties?.ToCommandProperties(), message);
+    }
 
     /// <inheritdoc />
     public async ValueTask SaveStateAsync<T>(string name, T value, JsonTypeInfo<T>? typeInfo)
@@ -158,9 +171,11 @@ internal sealed class DefaultCoreService(
     }
 
     /// <inheritdoc />
-    public void SetCommandEcho(bool enabled) =>
+    public void SetCommandEcho(bool enabled)
+    {
         commandIssuer.Issue(
             CommandNames.Echo, enabled ? "on" : "off");
+    }
 
     /// <inheritdoc />
     public void SetFailed(string message)
@@ -191,17 +206,23 @@ internal sealed class DefaultCoreService(
     }
 
     /// <inheritdoc />
-    public void SetSecret(string secret) =>
+    public void SetSecret(string secret)
+    {
         commandIssuer.IssueCommand(
             CommandNames.AddMask, null, secret);
+    }
 
     /// <inheritdoc />
-    public void StartGroup(string name) =>
+    public void StartGroup(string name)
+    {
         commandIssuer.Issue(
             CommandNames.Group, name);
+    }
 
     /// <inheritdoc />
-    public void WriteWarning(string message, AnnotationProperties? properties = default) =>
+    public void WriteWarning(string message, AnnotationProperties? properties = default)
+    {
         commandIssuer.IssueCommand(
             CommandNames.Warning, properties?.ToCommandProperties(), message);
+    }
 }

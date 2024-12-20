@@ -9,22 +9,32 @@ namespace Actions.Core.Output;
 public interface IConsole
 {
     /// <inheritdoc cref="Exit" />
-    void ExitWithCode(int exitCode = 0) =>
+    void ExitWithCode(int exitCode = 0)
+    {
         Exit(Environment.ExitCode = exitCode);
+    }
 
     /// <inheritdoc cref="Console.Write(string?)" />
-    void Write(string? message = null) =>
+    void Write(string? message = null)
+    {
         Console.Write(message);
+    }
 
     /// <inheritdoc cref="Console.WriteLine(string?)" />
-    void WriteLine(string? message = null) =>
+    void WriteLine(string? message = null)
+    {
         Console.WriteLine(message);
+    }
 
     /// <inheritdoc cref="TextWriter.Write(string?)" />
-    void WriteError(string message) =>
+    void WriteError(string message)
+    {
         Console.Error.Write(message);
+    }
 
     /// <inheritdoc cref="TextWriter.WriteLine(string?)" />
-    void WriteErrorLine(string message) =>
+    void WriteErrorLine(string message)
+    {
         Console.Error.WriteLine(message);
+    }
 }

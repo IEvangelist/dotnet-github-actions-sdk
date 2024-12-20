@@ -13,6 +13,8 @@ namespace Actions.Core.EnvironmentVariables;
     Justification = "These values correspond to environment variables and I want them to match exactly.")]
 #if ACTIONS_CORE_ENVIRONMENTVARIABLES_PUBLIC
 public
+#else
+internal
 #endif
 static class Keys
 {

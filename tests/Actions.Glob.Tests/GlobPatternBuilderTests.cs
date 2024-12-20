@@ -6,9 +6,11 @@ namespace Actions.Glob.Tests;
 public sealed class GlobPatternBuilderTests
 {
     [Fact]
-    public void GlobPatternBuilderThrowsWithoutIncludeOrExcludePatternsTest() =>
+    public void GlobPatternBuilderThrowsWithoutIncludeOrExcludePatternsTest()
+    {
         Assert.Throws<ArgumentException>(
             () => new DefaultGlobPatternResolverBuilder().Build());
+    }
 
     [Fact]
     public void GlobPatternBuilderYieldsWorkingResolver()

@@ -11,18 +11,28 @@ internal sealed class TestConsole : IConsole
     public int ExitCode { get; internal set; }
     public bool Exited { get; internal set; }
 
-    public void ExitWithCode(int exitCode = 0) =>
+    public void ExitWithCode(int exitCode = 0)
+    {
         (ExitCode, Exited) = (exitCode, true);
+    }
 
-    public void Write(string? message = null) =>
+    public void Write(string? message = null)
+    {
         Output.Append(message);
+    }
 
-    public void WriteLine(string? message = null) =>
+    public void WriteLine(string? message = null)
+    {
         Output.AppendLine(message);
+    }
 
-    public void WriteError(string message) =>
+    public void WriteError(string message)
+    {
         ErrorOutput.Append(message);
+    }
 
-    public void WriteErrorLine(string message) =>
+    public void WriteErrorLine(string message)
+    {
         ErrorOutput.AppendLine(message);
+    }
 }
