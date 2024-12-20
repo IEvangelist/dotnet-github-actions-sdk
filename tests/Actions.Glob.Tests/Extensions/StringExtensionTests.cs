@@ -14,8 +14,8 @@ public sealed class StringExtensionsTests
             "parent",
             new[] { "**/*" },
             Array.Empty<string>(),
-            (true, new string[]
-            {
+            (true,
+            [
                 "parent/file.md",
                 "parent/README.md",
                 "parent/child/file.MD",
@@ -27,28 +27,28 @@ public sealed class StringExtensionsTests
                 "parent/child/grandchild/file.md",
                 "parent/child/grandchild/style.css",
                 "parent/child/grandchild/sub.text"
-            })
+            ])
         },
         {
             "parent",
             new[] { "**/*child/*.md" },
             Array.Empty<string>(),
-            (true, new string[]
-            {
+            (true,
+            [
                 "parent/child/file.MD",
                 "parent/child/more.md",
                 "parent/child/grandchild/file.md"
-            })
+            ])
         },
         {
             "parent",
             new[] { "**/*/file.md" },
             Array.Empty<string>(),
-            (true, new string[]
-            {
+            (true,
+            [
                 "parent/child/file.MD",
                 "parent/child/grandchild/file.md"
-            })
+            ])
         }
     };
 

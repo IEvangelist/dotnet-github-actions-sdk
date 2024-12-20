@@ -19,7 +19,7 @@
         <NoWarn>@(NoWarn);NU1903</NoWarn>
         
         <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
-        <TreatWarningsAsErrors Condition="'$(ContinuousIntegrationBuild)' == 'true' or '$(Configuration)' == 'Release'">true</TreatWarningsAsErrors> 
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors> 
 
         <Authors>David Pine</Authors>
         <Copyright>© 2022-$([System.DateTime]::Now.ToString('yyyy')) David Pine</Copyright>
