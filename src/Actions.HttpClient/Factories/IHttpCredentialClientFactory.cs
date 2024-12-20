@@ -23,7 +23,7 @@ public interface IHttpCredentialClientFactory
     IHttpClient CreateBasicClient(string username, string password);
 
     /// <summary>
-    /// Creates a new <see cref="IHttpClient"/> instance using the provided <paramref name="token"/>.
+    /// Creates a new <see cref="IHttpClient"/> instance using the provided bearer <paramref name="token"/>.
     /// </summary>
     /// <param name="token">The bearer token used as the credentials.</param>
     /// <returns>A new <see cref="IHttpClient"/> instance with the configured HTTP <c>Authorization</c> header.</returns>
