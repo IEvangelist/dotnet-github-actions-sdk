@@ -19,7 +19,7 @@ var events = await GetEventsAsync(user).ToListAsync();
 var groupedEvents = events?.GroupBy(e => e?.Repo?.Name)
     .Select(e => (e.Key, e.OrderBy(ed => ed?.CreatedAt).ToArray()));
 
-foreach (var (repo, eventArray) in groupedEvents ?? [])
+foreach (var (repo, eventArray) in groupedEvents ?? Enumerable.Empty<(string?, Event?[])>())
 {
     Console.WriteLine($"In {repo}");
 
