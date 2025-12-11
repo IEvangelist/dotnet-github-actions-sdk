@@ -12,7 +12,7 @@ public class BasicTests
         Environment.SetEnvironmentVariable("https_proxy", null);
     }
 
-    [Theory]
+    [Theory(Skip = "postman-echo.com redirects HTTP to HTTPS")]
     [InlineData("http://postman-echo.com/get", "functional-test-agent")]
     [InlineData("http://postman-echo.com/get", "test-agent")]
     public async Task DoesBasicGetRequestWithUserAgent(string requestUri, string userAgent)
@@ -177,7 +177,7 @@ public class BasicTests
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
 
-    [Fact]
+    [Fact(Skip = "postman-echo.com redirects HTTP to HTTPS")]
     public async Task DoesBasicHttpPostRequest()
     {
         using var client = new ServiceCollection()
@@ -243,7 +243,7 @@ public class BasicTests
         Assert.Equal(data, response.Result!.Data);
     }
 
-    [Fact]
+    [Fact(Skip = "postman-echo.com redirects HTTP to HTTPS")]
     public async Task DoesBasicOptionsRequest()
     {
         using var client = new ServiceCollection()
